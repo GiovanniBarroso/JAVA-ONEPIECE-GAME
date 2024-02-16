@@ -76,7 +76,7 @@ public class Juego1 extends JPanel implements Runnable {
 		if (moving) {
 			player_action = ANDAR;
 		} else {
-			player_action = HERIDO;
+			player_action = QUIETO;
 		}
 	}
 

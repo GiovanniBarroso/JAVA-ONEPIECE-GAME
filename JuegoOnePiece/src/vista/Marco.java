@@ -35,7 +35,8 @@ public class Marco extends JFrame implements ActionListener{
 		inicio.setVisible(true);
 		panel1.setVisible(false);
 		inicio.juego1.addActionListener(this);
-		panel1.addKeyListener(new ManejoTeclas());
+		panel1.addKeyListener(new ManejoTeclas(panel1));
+
 
 	}
 
