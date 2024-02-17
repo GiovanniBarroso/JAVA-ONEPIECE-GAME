@@ -53,7 +53,7 @@ public class Juego1 extends JPanel implements Runnable {
 	}
 
 	private void importImg() {
-		InputStream is = getClass().getResourceAsStream("/imagenes/sprite.png");
+		InputStream is = getClass().getResourceAsStream("/imagenes/SPRITE LUFFY.png");
 		try {
 			imagen = ImageIO.read(is);
 		} catch (IOException e) {
