@@ -10,9 +10,9 @@ import javax.swing.JButton;
 
 public class ManejoMouse implements ActionListener, MouseMotionListener, MouseListener{
 
-	private Juego1 panel1=new Juego1();
+	private Juego_Luffy panel1=new Juego_Luffy();
 
-	public ManejoMouse(Juego1 juego1) {
+	public ManejoMouse(Juego_Luffy juego1) {
 		this.panel1=juego1;
 	}
 

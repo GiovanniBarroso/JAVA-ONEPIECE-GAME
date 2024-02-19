@@ -12,9 +12,9 @@ import javax.imageio.ImageIO;
 
 public class Player extends Entity{
 
-	public int aniTick = 1, aniIndex = 6, aniSpeed = 50	;
+	public int aniTick = 1, aniIndex = 6, aniSpeed = 50 ;
 	public int player_action = ANDAR;
-	public boolean moving = false,attacking=false;
+	public boolean moving = false,attacking=false,defending=false,correr=false;
 	private BufferedImage[][] animaciones;
 	private  boolean left,up,right,down;
 	private float velocidad=3f;
@@ -39,7 +39,7 @@ public class Player extends Entity{
 		updatePos();
 		updateAnimationTick();
 		setAnimation();
-		
+
 	}
 
 	public void render(Graphics g) {
@@ -55,14 +55,30 @@ public class Player extends Entity{
 		}
 		if(attacking) {
 			player_action=ATAQUE;
+		}else if(left) {
+			player_action=CORRERATRAS;
+		}else if(up) {
+			player_action=JUMPING;
+		}else if(down) {
+			player_action=AGACHARSE;
+		}else if(defending) {
+			player_action=DEFENDER;
+		}if(correr) {
+			player_action=CORRERALANTE;
 		}
 	}
 
 	public void setaAttackimg(boolean attacking) {
 		this.attacking=attacking;
 	}
+	public void setcorrer(boolean correr) {
+		this.correr=correr;
+	}
+	public void setDefending(boolean defending) {
+		this.defending=defending;
+	}
 	private void updatePos() {
-	
+
 		moving=false;
 		if(left&&!right) {
 			x-=velocidad;
@@ -71,15 +87,16 @@ public class Player extends Entity{
 			x+=velocidad;
 			moving=true;
 		}
-		
+
 		if(up&&!down) {
 			y-=velocidad;
 			moving=true;
-		}else if(down&&!up) {
-			y+=velocidad;
+		}
+		if(correr) {
+			x+=velocidad+1;
 			moving=true;
 		}
-		}
+	}
 
 	private void loadAnimations() {
 		InputStream is = getClass().getResourceAsStream("/imagenes/SPRITE LUFFY.png");
@@ -90,13 +107,13 @@ public class Player extends Entity{
 				for (int i = 0; i < animaciones[j].length; i++) {
 					animaciones[j][i] = imagen.getSubimage(i * 200, j * 200, 200, 200);
 				}
-			} 
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public void resetDirBoolean() {
 		left=false;
 		right=false;
@@ -135,6 +152,6 @@ public class Player extends Entity{
 	public void setDown(boolean down) {
 		this.down = down;
 	}
-	
+
 
 }

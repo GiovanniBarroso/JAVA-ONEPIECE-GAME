@@ -3,14 +3,14 @@ package controlador;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import vista.Juego1;
+import vista.Juego_Luffy;
 
 import static utilz.Constantes.Direction.*;
 
 public class ManejoTeclas implements KeyListener {
-	private Juego1 panel1;
+	private Juego_Luffy panel1;
 
-	public ManejoTeclas(Juego1 panel1) {
+	public ManejoTeclas(Juego_Luffy panel1) {
 		this.panel1 = panel1;
 	}
 
@@ -31,8 +31,16 @@ public class ManejoTeclas implements KeyListener {
 			panel1.getPlayer().setDown(true);
 			break;
 		case KeyEvent.VK_D:
-			panel1.getPlayer().setRight(true);
+			if (e.isShiftDown()) {
+				panel1.getPlayer().setcorrer(true);
+			} else {
+				panel1.getPlayer().setRight(true);}
 			break;
+		case KeyEvent.VK_C:
+			panel1.getPlayer().setDefending(true);
+			break;
+
+
 		}
 	}
 
@@ -50,6 +58,10 @@ public class ManejoTeclas implements KeyListener {
 			break;
 		case KeyEvent.VK_D:
 			panel1.getPlayer().setRight(false);
+			panel1.getPlayer().setcorrer(false);
+			break;
+		case KeyEvent.VK_C:
+			panel1.getPlayer().setDefending(false);
 			break;
 		}
 	}

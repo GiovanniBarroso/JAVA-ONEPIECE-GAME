@@ -7,19 +7,19 @@ import javax.swing.*;
 import entidades.Player;
 
 
-public class Juego1 extends JPanel implements Runnable {
+public class Juego_Luffy extends JPanel implements Runnable {
 
 	private final int FPS_SET=110;
 	private final int UPDATE=200;
 	private Player player;
-	public Juego1() {
+	public Juego_Luffy() {
 		initClases();
 		this.setFocusable(true);
 		this.requestFocus();
 		this.setLayout(null);
 		Dimension tamanioPantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(tamanioPantalla);
-		setBackground(Color.orange);
+		setBackground(Color.green);
 		
 		empezarBucle();
 	}
