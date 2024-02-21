@@ -10,6 +10,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import utilz.LoadSave;
+
 public class Player extends Entity{
 
 	public int aniTick = 1, aniIndex = 6, aniSpeed = 50 ;
@@ -99,19 +101,12 @@ public class Player extends Entity{
 	}
 
 	private void loadAnimations() {
-		InputStream is = getClass().getResourceAsStream("/imagenes/SPRITE LUFFY.png");
-		try {
-			BufferedImage imagen = ImageIO.read(is);
-			animaciones = new BufferedImage[11][11];
-			for (int j = 0; j < animaciones.length; j++) {
-				for (int i = 0; i < animaciones[j].length; i++) {
-					animaciones[j][i] = imagen.getSubimage(i * 200, j * 200, 200, 200);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
+		BufferedImage imagen = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+		animaciones = new BufferedImage[11][11];
+		for (int j = 0; j < animaciones.length; j++) 
+			for (int i = 0; i < animaciones[j].length; i++) 
+				animaciones[j][i] = imagen.getSubimage(i * 200, j * 200, 200, 200);
 	}
 
 	public void resetDirBoolean() {

@@ -22,6 +22,8 @@ public class PantallaInicial extends JPanel {
 	public JButton juego1=new JButton("Entrar en el juego");
 	public JButton juego2=new JButton("Entrar en el juego 2");
 	public JTextPane textPane = new JTextPane();
+	
+	
 	public PantallaInicial() {
 		this.setLayout(null);
 

@@ -11,7 +11,11 @@ import javax.swing.JFrame;
 import controlador.ManejoMouse;
 import controlador.ManejoTeclas;
 
+import static vista.Juego_Luffy.GAME_HEIGHT;
+import static vista.Juego_Luffy.GAME_WIDTH;
+
 public class Marco extends JFrame implements ActionListener {
+	
     public PantallaInicial inicio = new PantallaInicial();
     public JButton juego1 = new JButton("Entrar en el juego");
     public JButton juego2 = new JButton("Entrar en el juego 2");
@@ -20,7 +24,8 @@ public class Marco extends JFrame implements ActionListener {
 
     public Marco() {
         setLayout(null);
-        setSize(new Dimension(700, 700));
+        setSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        System.out.println("size : " + GAME_WIDTH + " : " + GAME_HEIGHT);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         setTitle("Juego One piece");
@@ -28,10 +33,10 @@ public class Marco extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(inicio);
         add(panel1);
-        add(panel2); // Agregamos panel2 al marco
+        add(panel2); 
         inicio.setVisible(true);
         panel1.setVisible(false);
-        panel2.setVisible(false); // Inicialmente ocultamos panel2
+        panel2.setVisible(false); 
         inicio.juego1.addActionListener(this);
         inicio.juego2.addActionListener(this);
         panel1.addKeyListener(new ManejoTeclas(panel1));

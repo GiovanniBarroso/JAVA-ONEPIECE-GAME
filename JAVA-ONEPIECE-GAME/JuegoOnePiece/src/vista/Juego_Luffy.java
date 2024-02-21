@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import entidades.Player;
+import levels.LevelManager;
 
 
 public class Juego_Luffy extends JPanel implements Runnable {
@@ -12,11 +13,24 @@ public class Juego_Luffy extends JPanel implements Runnable {
 	private final int FPS_SET=110;
 	private final int UPDATE=200;
 	private Player player;
+	private LevelManager levelManager;
+	
+	public final static int TILES_DEFAULT_SIZE = 200;
+	public final static float SCALE =1.0f;
+	public final static int TILES_IN_WIDTH =26;
+	public final static int TILES_IN_HEIGHT =26;
+	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
+	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+	
+	
 	public Juego_Luffy() {
 		initClases();
 		this.setFocusable(true);
 		this.requestFocus();
 		this.setLayout(null);
+		
+		
 		Dimension tamanioPantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(tamanioPantalla);
 		setBackground(Color.green);
@@ -26,13 +40,10 @@ public class Juego_Luffy extends JPanel implements Runnable {
 
 	private void initClases() {
 		player=new Player(299,299);
+		levelManager = new LevelManager(this);
 
 	}
 
-	private void render(Graphics g) {
-		player.render(g);
-
-	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		render(g);
@@ -48,8 +59,15 @@ public class Juego_Luffy extends JPanel implements Runnable {
 
 	private void update() {
 		player.update();
+		levelManager.update();
 
 	}
+	private void render(Graphics g) {
+		player.render(g);
+		levelManager.draw(g);
+
+	}
+	
 	@Override
 	public void run() {
 
