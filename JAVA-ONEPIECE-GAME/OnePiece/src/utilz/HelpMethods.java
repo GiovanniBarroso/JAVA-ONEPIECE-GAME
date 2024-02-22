@@ -60,7 +60,7 @@ public class HelpMethods {
 		if(airSpeed>0) {
 			//callendo o tocando suelo
 		
-		int tileYPos=currentTile*Game.TILES_SIZE+62;//mas 62 para que no se quede  flotando
+		int tileYPos=currentTile*Game.TILES_SIZE+63;//mas 63 para que no se quede  flotando
 			int yOffset=(int)(Game.TILES_SIZE-hitbox.height);
 			return tileYPos+yOffset;
 		}else {

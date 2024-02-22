@@ -24,14 +24,11 @@ public class Playing extends State implements Statemethods{
 
 	}
 
-
-
-
 	@Override
 	public void update() {
 		levelManager.update();
 		player.update();
-		
+
 	}
 
 
@@ -39,36 +36,41 @@ public class Playing extends State implements Statemethods{
 	public void draw(Graphics g) {
 		levelManager.draw(g);
 		player.render(g);
-		
+
 	}
 
 
 	@Override
 	public void mousseClicked(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1)
-			player.setAttacking(true);;
-		
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			player.setAttacking(true);
+		}
+
+
+
 	}
 
 
 	@Override
 	public void moussePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			player.setAttacking(true);
+		}
+
 	}
 
 
 	@Override
 	public void mousseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 	@Override
 	public void mousseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
@@ -94,8 +96,11 @@ public class Playing extends State implements Statemethods{
 			Gamestate.state=Gamestate.MENU;
 			player.resetDirBooleans();
 			break;
+		case KeyEvent.VK_C:
+			player.setAttacking(true);
+			break;
 		}
-		
+
 	}
 
 
@@ -112,12 +117,14 @@ public class Playing extends State implements Statemethods{
 			player.setDown(false);
 			break;
 		case KeyEvent.VK_D:
-		player.setRight(false);
+			player.setRight(false);
 			break;
 		case KeyEvent.VK_SPACE:
 			player.setJump(false);
+			break;
+
 		}
-		
+
 	}
 	public void windowFocusLost() {
 		player.resetDirBooleans();

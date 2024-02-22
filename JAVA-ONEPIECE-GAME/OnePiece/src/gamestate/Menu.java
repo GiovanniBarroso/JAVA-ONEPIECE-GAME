@@ -23,7 +23,7 @@ public class Menu extends State implements Statemethods{
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.drawString("MENU", Game.GAME_WIDTH/2, 200);
+		g.drawString("ENTRAR EN EL JUEGO", Game.GAME_WIDTH/2, 200);
 		
 	}
 
@@ -53,7 +53,7 @@ public class Menu extends State implements Statemethods{
 
 	@Override
 	public void KeyPressed(KeyEvent e) {
-		if(e.getKeyCode()== KeyEvent.VK_ENTER) {
+		if(e.getKeyCode()== KeyEvent.VK_ESCAPE) {
 			Gamestate.state= Gamestate.PLAYING;
 			
 		}
