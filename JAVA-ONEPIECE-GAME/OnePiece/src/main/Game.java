@@ -31,7 +31,7 @@ public class Game implements Runnable {
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
 		gamePanel.requestFocus();
-
+		
 		startGameLoop();
 	}
 
@@ -69,6 +69,9 @@ public class Game implements Runnable {
 		case PLAYING:
 			playing.draw(g);
 			break;
+		case OPTIONS:
+		case QUIT:
+			System.exit(0);
 		default:
 			break;
 		}

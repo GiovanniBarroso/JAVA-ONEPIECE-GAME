@@ -1,6 +1,4 @@
-/utilz/
-/imagenes/
-/main/
-/entities/
-/levels/
 /gamestate/
+/ui/
+/inputs/
+/main/
