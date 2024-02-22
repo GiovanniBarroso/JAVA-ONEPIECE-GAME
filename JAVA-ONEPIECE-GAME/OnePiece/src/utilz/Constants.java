@@ -9,6 +9,7 @@ public class Constants {
 		public static final int DOWN=3;
 
 	}
+	
 	public static class PlayerConstants {
 		public static final int QUIETO = 0;
 		public static final int ANDAR = 1;
@@ -18,7 +19,9 @@ public class Constants {
 		public static final int ESPECIAL = 5;
 		public static final int QUIETO_5S = 6;	
 		public static final int SALTO = 7;
-		//inversas
+		
+		//INVERSAS
+		
 		public static final int QUIETO1 = 8;
 		public static final int ANDAR1 = 9;
 		public static final int ATAQUE1 = 10;
