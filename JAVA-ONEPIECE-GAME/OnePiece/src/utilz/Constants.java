@@ -3,7 +3,7 @@ package utilz;
 import main.Game;
 
 public class Constants {
-	
+
 	public static class UI{
 		public static class Buttons{
 			public static final int B_WIDTH_DEFAULT= 140;
@@ -11,10 +11,24 @@ public class Constants {
 			public static final int B_WIDHT=(int) (B_WIDTH_DEFAULT*Game.SCALE);
 			public static final int B_HEIGHT=(int) (B_HEIGHT_DEFAULT*Game.SCALE);
 		}
-	public static class PauseButtons{
-		public static final int SOUND_SIZE_DEFAULT = 42;
-		public static final int SOUND_SIZE = (int) (SOUND_SIZE_DEFAULT * Game.SCALE);
-	}
+		public static class PauseButtons{
+			public static final int SOUND_SIZE_DEFAULT = 42;
+			public static final int SOUND_SIZE = (int) (SOUND_SIZE_DEFAULT * Game.SCALE);
+		}
+		public static class URMButtons {
+			public static final int URM_DEFAULT_SIZE=56;
+			public static final int URM_SIZE=(int) (URM_DEFAULT_SIZE*Game.SCALE);
+		}
+		public static class VolumeButtons{
+			public static final int VOLUMEN_DEFAULT_WIDHT=28;
+			public static final int VOLUMEN_DEFAULT_HEIHGT=44;
+			public static final int SLIDER_WIDHT_DEFAULT=215;
+			
+			public static final int VOLUMEN_WIDHT=(int) (VOLUMEN_DEFAULT_WIDHT*Game.SCALE);
+			public static final int VOLUMEN_HEIGHT=(int) (VOLUMEN_DEFAULT_HEIHGT*Game.SCALE);
+			public static final int SLIDER_WIDHT=(int) (SLIDER_WIDHT_DEFAULT*Game.SCALE);
+			
+		}
 	}
 
 	public static class Direction {
@@ -24,7 +38,7 @@ public class Constants {
 		public static final int DOWN=3;
 
 	}
-	
+
 	public static class PlayerConstants {
 		public static final int QUIETO = 0;
 		public static final int ANDAR = 1;
@@ -34,9 +48,9 @@ public class Constants {
 		public static final int ESPECIAL = 5;
 		public static final int QUIETO_5S = 6;	
 		public static final int SALTO = 7;
-		
+
 		//INVERSAS
-		
+
 		public static final int QUIETO1 = 8;
 		public static final int ANDAR1 = 9;
 		public static final int ATAQUE1 = 10;
