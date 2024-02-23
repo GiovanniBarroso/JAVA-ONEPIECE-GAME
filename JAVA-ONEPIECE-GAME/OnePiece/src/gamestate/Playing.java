@@ -7,10 +7,16 @@ import java.awt.event.MouseEvent;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
+import ui.PauseOverlay;
 
 public class Playing extends State implements Statemethods{
 	private Player player;
 	private LevelManager levelManager;
+	private PauseOverlay pauseOverlay;
+	private boolean paused = true;
+	
+	
+	
 	public Playing(Game game) {
 		super(game);
 		initClasses();
@@ -21,6 +27,7 @@ public class Playing extends State implements Statemethods{
 		levelManager = new LevelManager(game);
 		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
 		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
+		pauseOverlay = new PauseOverlay();
 
 	}
 
@@ -28,6 +35,8 @@ public class Playing extends State implements Statemethods{
 	public void update() {
 		levelManager.update();
 		player.update();
+		
+		pauseOverlay.update();
 
 	}
 
@@ -37,6 +46,7 @@ public class Playing extends State implements Statemethods{
 		levelManager.draw(g);
 		player.render(g);
 
+		pauseOverlay.draw(g);
 	}
 
 
@@ -53,6 +63,12 @@ public class Playing extends State implements Statemethods{
 
 	@Override
 	public void moussePressed(MouseEvent e) {
+		
+		if(paused)
+			pauseOverlay.mousePressed(e);
+		
+		
+		
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			player.setAttacking(true);
 		}
@@ -62,14 +78,16 @@ public class Playing extends State implements Statemethods{
 
 	@Override
 	public void mousseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(paused)
+			pauseOverlay.mouseReleased(e);
 
 	}
 
 
 	@Override
 	public void mousseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(paused)
+			pauseOverlay.mouseMoved(e);
 
 	}
 
@@ -122,10 +140,10 @@ public class Playing extends State implements Statemethods{
 		case KeyEvent.VK_SPACE:
 			player.setJump(false);
 			break;
-
 		}
-
 	}
+	
+	
 	public void windowFocusLost() {
 		player.resetDirBooleans();
 	}

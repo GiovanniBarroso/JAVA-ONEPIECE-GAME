@@ -12,8 +12,8 @@ import utilz.Constants.UI.Buttons.*;
 public class MenuButton {
 
 	private int xPos, yPos, rowIndex,index;
-	private Gamestate state;
 	private int xOffSetCenter= Constants.UI.Buttons.B_WIDHT/2;
+	private Gamestate state;
 	private BufferedImage[] imagenesBotones;
 	private boolean mouseOver=false, mousePressed=false;
 	private Rectangle bounds;
@@ -66,8 +66,6 @@ public class MenuButton {
 	public void setMousePressed(boolean mousePressed) {
 		this.mousePressed = mousePressed;
 	}
-
-	
 	
 	public Rectangle getBounds() {
 		return bounds;
@@ -75,13 +73,14 @@ public class MenuButton {
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
-	public void AplicarCambios() {
+	public void applyGamestate() {
 		Gamestate.state= state;	
 	}
 	public void resetBools() {
 		mouseOver=false;
 		mousePressed=false;
 	}
+	
 	//METODO POR SI QUEREMOS PONER BOTONES HORIZONTALES
 	public void setXPos(int xPos) {
 	    this.xPos = xPos;

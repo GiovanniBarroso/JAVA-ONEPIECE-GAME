@@ -24,9 +24,8 @@ public abstract class Entity {
 		g.drawRect((int)hitbox.x,(int)hitbox.y,(int)hitbox.width,(int)hitbox.height);
 		
 	}
-	public void initHitbox(float x,float y , float width,float heihgt) {
-	
-		hitbox = new Rectangle2D.Float((int)x,(int)y,width,height);	
+	public void initHitbox(float x,float y , int width,int heihgt) {
+		hitbox = new Rectangle2D.Float(x,y,width,height);	
 	}
 	
 //	protected void updateHitbox() {
