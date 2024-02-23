@@ -61,17 +61,13 @@ public class Playing extends State implements Statemethods{
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			player.setAttacking(true);
 		}
-
-
-
 	}
-
 
 	public void mousseDragged(MouseEvent e) {
-		
-		if(!paused)
+		if(paused)
 			pauseOverlay.mouseDragged(e);
 	}
+	
 	@Override
 	public void moussePressed(MouseEvent e) {
 		
@@ -81,9 +77,7 @@ public class Playing extends State implements Statemethods{
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			player.setAttacking(true);
 		}
-
 	}
-
 
 	@Override
 	public void mousseReleased(MouseEvent e) {
