@@ -4,9 +4,7 @@ import static utilz.Constants.PlayerConstants.*;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
+
 
 import main.Game;
 import utilz.LoadSave;
@@ -20,13 +18,13 @@ public class Player extends Entity {
 	private float playerSpeed = 1.0f * Game.SCALE;
 	private int [][] lvlData;
 	private float xDrawOffset=21*Game.SCALE;
-	private float yDrawOffset=-6*Game.SCALE;
+	private float yDrawOffset=4*Game.SCALE;
 
 
 	//jumping/gravity
 	private float airSpeed=0f;
 	private float gravity= 0.05f*Game.SCALE;
-	private float jumSpeed = -2.75f*Game.SCALE;
+	private float jumpSpeed = -2.75f*Game.SCALE;
 	private float fallSpeedAfterCollision= 0.5f*Game.SCALE;
 	private boolean inAir = false;
 
@@ -43,9 +41,9 @@ public class Player extends Entity {
 		setAnimation();
 	}
 
-	public void render(Graphics g) {
-		g.drawImage(animations[playerAction][aniIndex], (int)(hitbox.x-xDrawOffset),(int)(hitbox.y -yDrawOffset), width, height, null);
-		drawHitbox(g);
+	public void render(Graphics g, int lvlOffset) {
+		g.drawImage(animations[playerAction][aniIndex], (int)(hitbox.x-xDrawOffset) - lvlOffset,(int)(hitbox.y -yDrawOffset), width, height, null);
+		drawHitbox(g, lvlOffset);
 	}
 
 	private void updateAnimationTick() {
@@ -90,71 +88,66 @@ public class Player extends Entity {
 
 	private void updatePos() {
 		moving = false;
-		if(jump) {
+
+		if (jump)
 			jump();
-		}
-		if(!left&&!right&&!inAir) {
-			return;
-		}
-		float xSpeed=0;
-		if (left) {
+
+		if (!inAir)
+			if ((!left && !right) || (right && left))
+				return;
+
+		float xSpeed = 0;
+
+		if (left)
 			xSpeed -= playerSpeed;
+		if (right)
+			xSpeed += playerSpeed;
 
-		}
-		if (right) {
-			xSpeed += playerSpeed;	
-		}
-		if(!inAir) {
-			if(!IsEntityOnFloor(hitbox,lvlData)) {
-				inAir=true;
-			}
-		}
-		if(inAir) {
+		if (!inAir)
+			if (!IsEntityOnFloor(hitbox, lvlData))
+				inAir = true;
 
-			if(CanMoveHere(hitbox.x, hitbox.y+airSpeed, hitbox.width, hitbox.height, lvlData)) {
-				hitbox.y +=airSpeed;
-				airSpeed+=gravity;
+		if (inAir) {
+			if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
+				hitbox.y += airSpeed;
+				airSpeed += gravity;
 				updateXPos(xSpeed);
-			}else {
-				hitbox.y =GetEntityyPosUnderRoofOrAboveFloor(hitbox,airSpeed);
-				if(airSpeed>0) {
+			} else {
+				hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+				if (airSpeed > 0)
 					resetInAir();
-				}else {
-					airSpeed=fallSpeedAfterCollision;
-				}
+				else
+					airSpeed = fallSpeedAfterCollision;
 				updateXPos(xSpeed);
 			}
-		}else {
+
+		} else
 			updateXPos(xSpeed);
-		}
-
-		moving=true;
-
+		moving = true;
 	}
 
 	private void jump() {
-		if(inAir) {
+		if (inAir)
 			return;
-		}
-		inAir=true;
-		airSpeed=jumSpeed;
+		inAir = true;
+		airSpeed = jumpSpeed;
 
 	}
 
 	private void resetInAir() {
-		inAir=false;
-		airSpeed=0;
+		inAir = false;
+		airSpeed = 0;
+
 	}
 
 	private void updateXPos(float xSpeed) {
-		if(CanMoveHere(hitbox.x+xSpeed, hitbox.y,hitbox.width,hitbox.height, lvlData)) {
-			this.hitbox.x+=xSpeed;	
-		}else {
-			hitbox.x=GetEntityXPosNextToWall(hitbox,xSpeed);
+		if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
+			hitbox.x += xSpeed;
+		} else {
+			hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
 		}
 
 	}
-
 	private void loadAnimations() {
 
 		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
@@ -165,11 +158,11 @@ public class Player extends Entity {
 
 	}
 
-	public void loadLvlData(int [][]lvldata) {
-		this.lvlData=lvldata;
-		if(!IsEntityOnFloor(hitbox, lvldata)) {
-			inAir=true;
-		}
+	public void loadLvlData(int[][] lvlData) {
+		this.lvlData = lvlData;
+		if (!IsEntityOnFloor(hitbox, lvlData))
+			inAir = true;
+
 	}
 
 	public void resetDirBooleans() {
@@ -214,7 +207,9 @@ public class Player extends Entity {
 	public void setDown(boolean down) {
 		this.down = down;
 	}
+
 	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
+
 }

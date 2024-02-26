@@ -1,9 +1,9 @@
-/entities/
 /gamestate/
+/utilz/
+/entities/
 /imagenes/
+/main/
 /inputs/
 /levels/
-/main/
-/module-info.class
+/gamestates/
 /ui/
-/utilz/

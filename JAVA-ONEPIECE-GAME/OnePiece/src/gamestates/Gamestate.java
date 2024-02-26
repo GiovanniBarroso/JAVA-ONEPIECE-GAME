@@ -1,4 +1,4 @@
-package gamestate;
+package gamestates;
 
 public enum Gamestate {
 

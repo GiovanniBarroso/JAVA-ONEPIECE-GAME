@@ -5,8 +5,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import gamestate.Gamestate;
-import gamestate.Playing;
+import gamestates.Gamestate;
+import gamestates.Playing;
 import main.Game;
 import utilz.LoadSave;
 import static utilz.Constants.UI.PauseButtons.*;

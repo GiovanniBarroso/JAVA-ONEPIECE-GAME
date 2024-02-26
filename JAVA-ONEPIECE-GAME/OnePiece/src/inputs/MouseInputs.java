@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import gamestate.Gamestate;
+import gamestates.Gamestate;
 import main.GamePanel;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
@@ -32,10 +32,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
 		switch(Gamestate.state) {
 		case MENU:
-			gamePanel.getGame().getMenu().mousseMoved(e);
+			gamePanel.getGame().getMenu().mouseMoved(e);
 			break;
 		case PLAYING:
-			gamePanel.getGame().getPlaying().mousseMoved(e);
+			gamePanel.getGame().getPlaying().mouseMoved(e);
 			break;
 		default:
 			break;
@@ -48,7 +48,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	
 		switch(Gamestate.state) {
 		case PLAYING:
-			gamePanel.getGame().getPlaying().moussePressed(e);
+			gamePanel.getGame().getPlaying().mousePressed(e);
 			break;
 		default:
 			break;
@@ -61,10 +61,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	public void mousePressed(MouseEvent e) {
 		switch(Gamestate.state) {
 		case MENU:
-			gamePanel.getGame().getMenu().moussePressed(e);
+			gamePanel.getGame().getMenu().mousePressed(e);
 			break;
 		case PLAYING:
-			gamePanel.getGame().getPlaying().moussePressed(e);
+			gamePanel.getGame().getPlaying().mousePressed(e);
 			break;
 		default:
 			break;
@@ -78,10 +78,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	public void mouseReleased(MouseEvent e) {
 		switch(Gamestate.state) {
 		case MENU:
-			gamePanel.getGame().getMenu().mousseReleased(e);
+			gamePanel.getGame().getMenu().mouseReleased(e);
 			break;
 		case PLAYING:
-			gamePanel.getGame().getPlaying().mousseReleased(e);
+			gamePanel.getGame().getPlaying().mouseReleased(e);
 			break;
 		default:
 			break;

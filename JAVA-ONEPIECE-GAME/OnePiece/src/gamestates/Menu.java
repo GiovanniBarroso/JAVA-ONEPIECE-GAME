@@ -1,4 +1,4 @@
-package gamestate;
+package gamestates;
 
 import java.awt.Color;
 import ui.MenuButton.*;
@@ -14,16 +14,16 @@ import utilz.LoadSave;
 
 public class Menu extends State implements Statemethods{
 
-	private static final int BUTTON_MARGIN = 20; 
 	private MenuButton[] buttons = new MenuButton[3];
-	private BufferedImage backgroundImg;
+	private BufferedImage backgroundImg, backgroundImgOP;
 	private int menuX,menuY,menuWidth,menuHeight;
 
 	public Menu(Game game) {
 		super(game);
-
 		loadButtons();
 		loadBackground();
+		backgroundImgOP = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
+		
 	}
 
 	private void loadBackground() {
@@ -35,22 +35,12 @@ public class Menu extends State implements Statemethods{
 
 	}
 
-	//BOTONES VERTICALES
 	private void loadButtons() {
 		buttons[0]= new MenuButton(Game.GAME_WIDTH/2,(int)(150*Game.SCALE), 0, Gamestate.PLAYING);
 		buttons[1]= new MenuButton(Game.GAME_WIDTH/2,(int)(220*Game.SCALE), 1, Gamestate.OPTIONS);
 		buttons[2]= new MenuButton(Game.GAME_WIDTH/2,(int)(290*Game.SCALE), 2, Gamestate.QUIT);
 
 	}
-
-	//BOTONES HORIZONTALES
-	//		private void loadButtons() {
-	//		    // Coordenada X del primer botón
-	//		    int buttonXPos = Game.GAME_WIDTH / 2 - ((Constants.UI.Buttons.B_WIDTH_DEFAULT + BUTTON_MARGIN) * 2) / 2;
-	//		    buttons[0] = new MenuButton(buttonXPos, (int)(150*Game.SCALE), 0, Gamestate.PLAYING);
-	//		    buttons[1] = new MenuButton(buttonXPos + Constants.UI.Buttons.B_WIDTH_DEFAULT + BUTTON_MARGIN, (int)(220*Game.SCALE), 1, Gamestate.OPTIONS);
-	//		    buttons[2] = new MenuButton(buttonXPos + 2 * (Constants.UI.Buttons.B_WIDTH_DEFAULT + BUTTON_MARGIN), (int)(290*Game.SCALE), 2, Gamestate.QUIT);
-	//		}
 
 
 	@Override
@@ -63,6 +53,8 @@ public class Menu extends State implements Statemethods{
 
 	@Override
 	public void draw(Graphics g) {
+		
+		g.drawImage(backgroundImgOP, 0,0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		g.drawImage(backgroundImg, menuX, menuY, menuWidth, menuHeight, null);
 		for(MenuButton mb : buttons) {
 			mb.draw(g);
@@ -70,15 +62,15 @@ public class Menu extends State implements Statemethods{
 	}
 
 	@Override
-	public void mousseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void moussePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		for(MenuButton mb : buttons) {
-			if(IsIn(e, mb)) {
+			if(isIn(e, mb)) {
 				mb.setMousePressed(true);
 				break;
 			}
@@ -87,9 +79,9 @@ public class Menu extends State implements Statemethods{
 	}
 
 	@Override
-	public void mousseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) {
 		for(MenuButton mb : buttons) {
-			if(IsIn(e, mb)) {
+			if(isIn(e, mb)) {
 				if(mb.isMousePressed()) {
 					mb.applyGamestate();
 				}
@@ -108,12 +100,12 @@ public class Menu extends State implements Statemethods{
 	}
 
 	@Override
-	public void mousseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) {
 		for(MenuButton mb : buttons) {
 			mb.setMouseOver(false);
 		}
 		for(MenuButton mb : buttons) {
-			if(IsIn(e, mb)) {
+			if(isIn(e, mb)) {
 				mb.setMouseOver(true);
 				break;
 			}
@@ -121,7 +113,7 @@ public class Menu extends State implements Statemethods{
 	}
 
 	@Override
-	public void KeyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()== KeyEvent.VK_ESCAPE) {
 			Gamestate.state= Gamestate.PLAYING;
 
@@ -130,7 +122,7 @@ public class Menu extends State implements Statemethods{
 	}
 
 	@Override
-	public void KeyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}

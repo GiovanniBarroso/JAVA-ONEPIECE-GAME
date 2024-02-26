@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import gamestate.Gamestate;
+import gamestates.Gamestate;
 import utilz.LoadSave;
 import utilz.Constants;
 import utilz.Constants.UI.Buttons.*;
@@ -36,7 +36,7 @@ public class MenuButton {
 
 	private void loadimgs() {
 		imagenesBotones= new BufferedImage[3];
-		BufferedImage temp= LoadSave.GetSpriteAtlas(LoadSave.MENU_BUTTON);
+		BufferedImage temp= LoadSave.GetSpriteAtlas(LoadSave.MENU_BUTTONS);
 		for (int i = 0; i < imagenesBotones.length; i++) {
 			imagenesBotones[i]=temp.getSubimage(i * Constants.UI.Buttons.B_WIDTH_DEFAULT, rowIndex * Constants.UI.Buttons.B_HEIGHT_DEFAULT, Constants.UI.Buttons.B_WIDTH_DEFAULT, Constants.UI.Buttons.B_HEIGHT_DEFAULT);
 		}

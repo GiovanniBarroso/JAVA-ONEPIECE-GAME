@@ -4,9 +4,9 @@ import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import gamestate.Gamestate;
+import gamestates.Gamestate;
 import main.GamePanel;
-import static utilz.Constants.Direction.*;
+import static utilz.Constants.Directions.*;
 
 public class KeyboardInputs implements KeyListener {
 
@@ -25,10 +25,10 @@ public class KeyboardInputs implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch(Gamestate.state) {
 		case MENU:
-			gamePanel.getGame().getMenu().KeyReleased(e);
+			gamePanel.getGame().getMenu().keyReleased(e);
 			break;
 		case PLAYING:
-			gamePanel.getGame().getPlaying().KeyReleased(e);
+			gamePanel.getGame().getPlaying().keyReleased(e);
 			break;
 		default:
 			break;
@@ -40,10 +40,10 @@ public class KeyboardInputs implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch(Gamestate.state) {
 		case MENU:
-			gamePanel.getGame().getMenu().KeyPressed(e);
+			gamePanel.getGame().getMenu().keyPressed(e);
 			break;
 		case PLAYING:
-			gamePanel.getGame().getPlaying().KeyPressed(e);
+			gamePanel.getGame().getPlaying().keyPressed(e);
 			break;
 		default:
 			break;
