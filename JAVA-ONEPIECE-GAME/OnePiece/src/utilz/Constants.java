@@ -3,7 +3,7 @@ package utilz;
 import main.Game;
 
 public class Constants {
-	
+
 	public static class EnemyConstants {
 		public static final int CRABBY = 0;
 
@@ -43,6 +43,24 @@ public class Constants {
 			return 0;
 
 		}
+		public static int GetMaxHealth(int enemy_type) {
+			switch(enemy_type) {
+			case CRABBY:
+
+				return 20;
+			default:
+				return 1;
+			}
+		}
+		public static int GetEnemyDmg(int enemy_type) {
+			switch(enemy_type) {
+			case CRABBY:
+
+				return 25;
+			default:
+				return 0;
+			}
+		}
 
 	}
 	public static class Environment{
@@ -50,7 +68,7 @@ public class Constants {
 		public static final int BIG_CLOUD_HEIGHT_DEFAULT = 101;
 		public static final int SMALL_CLOUD_WIDTH_DEFAULT = 74;
 		public static final int SMALL_CLOUD_HEIGHT_DEFAULT = 24;
-		
+
 		public static final int BIG_CLOUD_WIDTH = (int) (BIG_CLOUD_WIDTH_DEFAULT * Game.SCALE);
 		public static final int BIG_CLOUD_HEIGHT = (int) (BIG_CLOUD_HEIGHT_DEFAULT * Game.SCALE);
 		public static final int SMALL_CLOUD_WIDTH = (int) (SMALL_CLOUD_WIDTH_DEFAULT * Game.SCALE);
@@ -76,11 +94,11 @@ public class Constants {
 			public static final int VOLUMEN_DEFAULT_WIDTH=28;
 			public static final int VOLUMEN_DEFAULT_HEIGHT=44;
 			public static final int SLIDER_WIDTH_DEFAULT=215;
-			
+
 			public static final int VOLUMEN_WIDTH=(int) (VOLUMEN_DEFAULT_WIDTH*Game.SCALE);
 			public static final int VOLUMEN_HEIGHT=(int) (VOLUMEN_DEFAULT_HEIGHT*Game.SCALE);
 			public static final int SLIDER_WIDHT=(int) (SLIDER_WIDTH_DEFAULT*Game.SCALE);
-			
+
 		}
 	}
 

@@ -8,14 +8,14 @@ import static utilz.Constants.UI.VolumeButtons.*;
 import utilz.LoadSave;
 
 public class VolumeButton extends PauseButton{
-	
+
 	private BufferedImage imgs[];
 	private BufferedImage slider;
 	private int index=0;
 
 	private boolean mouseOver,mousePressed;
 	private int buttonX,minX,maxX;
-	
+
 	public VolumeButton(int x, int y, int width, int height) {
 		super(x+width/2, y, VOLUMEN_WIDTH, height);
 		bounds.x -= VOLUMEN_WIDTH / 2;
@@ -32,11 +32,11 @@ public class VolumeButton extends PauseButton{
 		imgs= new BufferedImage[3];
 		for (int i = 0; i < imgs.length; i++) {
 			imgs[i]= temp.getSubimage(i*VOLUMEN_DEFAULT_WIDTH, 0, VOLUMEN_DEFAULT_WIDTH, VOLUMEN_DEFAULT_HEIGHT);
-	
-		slider=temp.getSubimage(3*VOLUMEN_DEFAULT_WIDTH, 0, SLIDER_WIDTH_DEFAULT, VOLUMEN_DEFAULT_HEIGHT);
-		
+
+			slider=temp.getSubimage(3*VOLUMEN_DEFAULT_WIDTH, 0, SLIDER_WIDTH_DEFAULT, VOLUMEN_DEFAULT_HEIGHT);
+
 		}
-		
+
 
 	}
 
@@ -50,7 +50,7 @@ public class VolumeButton extends PauseButton{
 	}
 
 	public void draw(Graphics g) {
-	
+
 		g.drawImage(slider, x,y,width,height, null);
 		g.drawImage(imgs[index], buttonX - VOLUMEN_WIDTH / 2, y,VOLUMEN_WIDTH,height, null);
 	}
@@ -62,11 +62,11 @@ public class VolumeButton extends PauseButton{
 			buttonX=maxX;
 		else
 			buttonX=i;
-		
+
 		bounds.x= buttonX - VOLUMEN_WIDTH / 2; 
 	}
-	
-	
+
+
 	public void resetBools() {
 		mouseOver = false;
 		mousePressed = false;
