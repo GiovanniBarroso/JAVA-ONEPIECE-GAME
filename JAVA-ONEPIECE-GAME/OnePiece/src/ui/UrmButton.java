@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 import utilz.LoadSave;
 import static utilz.Constants.UI.URMButtons.*;
 
-public class UrmButtons extends PauseButton {
+public class UrmButton extends PauseButton {
 	private BufferedImage[] imgs;
 	private int rowIndex, index;
 	private boolean mouseOver, mousePressed;
 
-	public UrmButtons(int x, int y, int width, int height, int rowIndex) {
+	public UrmButton(int x, int y, int width, int height, int rowIndex) {
 		super(x, y, width, height);
 		this.rowIndex = rowIndex;
 		loadImgs();

@@ -18,7 +18,7 @@ public class PauseOverlay {
 	private BufferedImage backgroundImg;
 	private int bgX,bgY,bgW,bgH;
 	private SoundButton musicButton, sfxButton;
-	private UrmButtons menuB,replayB,unpauseB;
+	private UrmButton menuB,replayB,unpauseB;
 	private VolumeButton volumeButton;
 
 	public PauseOverlay(Playing playing) {
@@ -42,9 +42,9 @@ public class PauseOverlay {
 		int unpauseX = (int) (462 * Game.SCALE);
 		int bY = (int) (325 * Game.SCALE);
 
-		menuB = new UrmButtons(menuX, bY, URM_SIZE, URM_SIZE, 2);
-		replayB = new UrmButtons(replayX, bY, URM_SIZE, URM_SIZE, 1);
-		unpauseB = new UrmButtons(unpauseX, bY, URM_SIZE, URM_SIZE, 0);
+		menuB = new UrmButton(menuX, bY, URM_SIZE, URM_SIZE, 2);
+		replayB = new UrmButton(replayX, bY, URM_SIZE, URM_SIZE, 1);
+		unpauseB = new UrmButton(unpauseX, bY, URM_SIZE, URM_SIZE, 0);
 
 	}
 
@@ -138,8 +138,10 @@ public class PauseOverlay {
 			playing.unpauseGame();
 		}
 		else if (isIn(e,replayB)) {
-			if (replayB.isMousePressed())
-				System.out.println("replay lvl!");		
+			if (replayB.isMousePressed()) {
+				playing.resetAll();
+				playing.unpauseGame();
+			}
 		}
 		else if (isIn(e,unpauseB)) {
 			if (unpauseB.isMousePressed())

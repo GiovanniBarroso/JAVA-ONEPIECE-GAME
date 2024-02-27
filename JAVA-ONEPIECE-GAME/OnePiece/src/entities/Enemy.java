@@ -106,10 +106,10 @@ public abstract class Enemy extends Entity {
 	}
 	
 	public void hurt(int amount) {
-		currentHealth-=amount;
-		if(currentHealth<=0) {
+		currentHealth -= amount;
+		if(currentHealth <= 0) {
 			newState(DEAD);
-		}else {
+		} else {
 			newState(HIT);
 		}
 	}
