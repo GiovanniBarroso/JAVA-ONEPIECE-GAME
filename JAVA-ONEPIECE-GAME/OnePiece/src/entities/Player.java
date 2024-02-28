@@ -47,6 +47,7 @@ public class Player extends Entity {
 	private boolean attackChecked;
 	private Playing playing;
 
+	private int tileY=0;
 	public Player(float x, float y, int width, int height, Playing playing) {
 		super(x, y, width, height);
 		this.playing = playing;
@@ -83,11 +84,19 @@ public class Player extends Entity {
 		updatePos();
 		if (moving)
 			checkPotionTouched();
+			checkSpikeTouched();
+			
+			tileY=(int) (hitbox.y/Game.TILES_SIZE);
 		if (attacking)
 			checkAttack();
 		
 		updateAnimationTick();
 		setAnimation();
+	}
+
+	private void checkSpikeTouched() {
+		
+		playing.checkSpikesTouched(this);
 	}
 
 	private void checkPotionTouched() {
@@ -116,10 +125,10 @@ public class Player extends Entity {
 	}
 
 	public void render(Graphics g, int lvlOffset) {
-		g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
-//		drawHitbox(g, lvlOffset);
-//		drawAttackBox(g, lvlOffset);
-		drawUI(g);
+	    g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
+	    drawAttackBox(g, lvlOffset, flipW == -1); // Pasamos true si flipW es -1 (está mirando hacia la izquierda)
+	//  drawHitbox(g, lvlOffset);
+	    drawUI(g);
 	}
 
 	private void drawUI(Graphics g) {
@@ -251,7 +260,11 @@ public class Player extends Entity {
 			currentHealth=maxHealth;
 		}
 	}
-	
+	public void kill() {
+		
+		currentHealth=0;
+	}
+
 	public void changePower(int value) {
 		System.out.println("Added power!");
 	}
@@ -317,5 +330,9 @@ public class Player extends Entity {
 		if (!IsEntityOnFloor(hitbox, lvlData))
 			inAir = true;
 	}
+	public int getTileY() {
+		return tileY;
+	}
+
 
 }
