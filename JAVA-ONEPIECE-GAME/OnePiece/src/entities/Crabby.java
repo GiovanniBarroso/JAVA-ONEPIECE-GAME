@@ -5,14 +5,12 @@ import static utilz.Constants.EnemyConstants.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Float;
 
 import static utilz.Constants.Directions.*;
 
 import main.Game;
 
 public class Crabby extends Enemy {
-
 
 	private int attackBoxOffsetX;
 
@@ -31,13 +29,11 @@ public class Crabby extends Enemy {
 		updateBehavior(lvlData, player);
 		updateAnimationTick();
 		updateAttackBox();
-
 	}
 
 	private void updateAttackBox() {
 		attackBox.x = hitbox.x - attackBoxOffsetX;
 		attackBox.y = hitbox.y;
-
 	}
 
 	private void updateBehavior(int[][] lvlData, Player player) {
@@ -57,26 +53,19 @@ public class Crabby extends Enemy {
 					if (isPlayerCloseForAttack(player))
 						newState(ATTACK);
 				}
+
 				move(lvlData);
 				break;
 			case ATTACK:
 				if (aniIndex == 0)
 					attackChecked = false;
-
-				// Changed the name for checkEnemyHit to checkPlayerHit
 				if (aniIndex == 3 && !attackChecked)
-					checkEnemyHit(player, attackBox);
-
+					checkPlayerHit(attackBox, player);
 				break;
 			case HIT:
 				break;
 			}
 		}
-	}
-
-	public void drawAttackBox(Graphics g, int xLvlOffset) {
-		g.setColor(Color.red);
-		g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
 	}
 
 	public int flipX() {
@@ -91,7 +80,5 @@ public class Crabby extends Enemy {
 			return -1;
 		else
 			return 1;
-
 	}
-
 }

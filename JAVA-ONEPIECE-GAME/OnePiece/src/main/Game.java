@@ -34,7 +34,6 @@ public class Game implements Runnable {
 		gamePanel.requestFocus();
 
 		startGameLoop();
-
 	}
 
 	private void initClasses() {

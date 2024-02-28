@@ -22,12 +22,12 @@ public class GameOverOverlay {
 
 		g.setColor(Color.white);
 		g.drawString("Game Over", Game.GAME_WIDTH / 2, 150);
-		g.drawString("Presiona alt para volver al menu principal!", Game.GAME_WIDTH / 2, 300);
+		g.drawString("Press esc to enter Main Menu!", Game.GAME_WIDTH / 2, 300);
 
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ALT) {
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			playing.resetAll();
 			Gamestate.state = Gamestate.MENU;
 		}

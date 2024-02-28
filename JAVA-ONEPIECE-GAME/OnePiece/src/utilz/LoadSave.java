@@ -24,7 +24,7 @@ public class LoadSave {
 	public static final String PAUSE_BACKGROUND = "pause_menu.png";
 	public static final String SOUND_BUTTONS = "sound_button.png";
 	public static final String URM_BUTTONS = "urm_buttons.png";
-	public static final String VOLUMEN_BUTTONS = "volume_buttons.png";
+	public static final String VOLUME_BUTTONS = "volume_buttons.png";
 	public static final String MENU_BACKGROUND_IMG = "background_menu.png";
 	public static final String PLAYING_BG_IMG = "playing_bg_img.png";
 	public static final String BIG_CLOUDS = "big_clouds.png";
@@ -32,7 +32,8 @@ public class LoadSave {
 	public static final String CRABBY_SPRITE = "crabby_sprite.png";
 	public static final String STATUS_BAR = "health_power_bar.png";
 	public static final String COMPLETED_IMG = "completed_sprite.png";
-	
+	public static final String POTION_ATLAS = "potions_sprites.png";
+	public static final String CONTAINER_ATLAS = "objects_sprites.png";
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;
