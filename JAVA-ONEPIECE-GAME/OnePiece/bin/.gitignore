@@ -1,10 +1,6 @@
-/entities/
 /gamestates/
+/ui/
+/main/
+/utilz/
 /imagenes/
 /inputs/
-/levels/
-/main/
-/module-info.class
-/objects/
-/ui/
-/utilz/
