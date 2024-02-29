@@ -41,6 +41,8 @@ public class Playing extends State implements Statemethods {
 	private boolean gameOver;
 	private boolean lvlCompleted;
 
+	private boolean playerDying;
+	
 	public Playing(Game game) {
 		super(game);
 		initClasses();
@@ -97,6 +99,8 @@ public class Playing extends State implements Statemethods {
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			checkCloseToBorder();
+		}if(gameOver) {
+			gameOverOverlay.update();
 		}
 	}
 
@@ -222,6 +226,7 @@ public class Playing extends State implements Statemethods {
 		if (!gameOver)
 			if (paused)
 				pauseOverlay.mouseDragged(e);
+		
 	}
 
 	@Override
@@ -232,6 +237,8 @@ public class Playing extends State implements Statemethods {
 
 			else if (lvlCompleted)
 				levelCompletedOverlay.mousePressed(e);
+		}else {
+			gameOverOverlay.mousePressed(e);
 		}
 
 
@@ -249,6 +256,8 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mouseReleased(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseReleased(e);
+		}else {
+			gameOverOverlay.mouseReleased(e);
 		}
 	}
 
@@ -259,6 +268,8 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mouseMoved(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseMoved(e);
+		}else {
+			gameOverOverlay.mouseMoved(e);
 		}
 	}
 
@@ -292,6 +303,11 @@ public class Playing extends State implements Statemethods {
 	
 	public LevelManager getLevelManager() {
 		return levelManager;
+	}
+
+	public void setPlayerDrying(boolean playerDying) {
+		this.playerDying=playerDying;
+		
 	}
 
 

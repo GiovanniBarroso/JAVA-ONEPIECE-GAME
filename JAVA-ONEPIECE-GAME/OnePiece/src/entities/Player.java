@@ -84,18 +84,18 @@ public class Player extends Entity {
 		updatePos();
 		if (moving)
 			checkPotionTouched();
-			checkSpikeTouched();
-			
-			tileY=(int) (hitbox.y/Game.TILES_SIZE);
+		checkSpikeTouched();
+
+		tileY=(int) (hitbox.y/Game.TILES_SIZE);
 		if (attacking)
 			checkAttack();
-		
+
 		updateAnimationTick();
 		setAnimation();
 	}
 
 	private void checkSpikeTouched() {
-		
+
 		playing.checkSpikesTouched(this);
 	}
 
@@ -125,10 +125,10 @@ public class Player extends Entity {
 	}
 
 	public void render(Graphics g, int lvlOffset) {
-	    g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
-	    drawAttackBox(g, lvlOffset, flipW == -1); // Pasamos true si flipW es -1 (está mirando hacia la izquierda)
-	//  drawHitbox(g, lvlOffset);
-	    drawUI(g);
+		g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
+		drawAttackBox(g, lvlOffset, flipW == -1); // Pasamos true si flipW es -1 (está mirando hacia la izquierda)
+		//  drawHitbox(g, lvlOffset);
+		drawUI(g);
 	}
 
 	private void drawUI(Graphics g) {
@@ -254,14 +254,14 @@ public class Player extends Entity {
 
 		if(currentHealth<=0) {
 			currentHealth=0;
-			
-			
+
+
 		}else if(currentHealth>=maxHealth) {
 			currentHealth=maxHealth;
 		}
 	}
 	public void kill() {
-		
+
 		currentHealth=0;
 	}
 
@@ -321,6 +321,7 @@ public class Player extends Entity {
 		inAir = false;
 		attacking = false;
 		moving = false;
+		jump=false;
 		state = ANDAR;
 		currentHealth = maxHealth;
 
