@@ -289,6 +289,7 @@ public class Player extends Entity {
 	public void resetDirBooleans() {
 		left = false;
 		right = false;
+		jump=false;
 	}
 
 	public void setAttacking(boolean attacking) {

@@ -1,26 +1,33 @@
 package main;
 
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-public class GameWindow {
-	private JFrame jframe;
+public class GameWindow extends JFrame{
+
 
 	public GameWindow(GamePanel gamePanel) {
 
-		jframe = new JFrame();
 
-		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jframe.add(gamePanel);
-		
-		jframe.setResizable(false);
-		jframe.pack();
-		jframe.setLocationRelativeTo(null);
-		jframe.setVisible(true);
-		jframe.addWindowFocusListener(new WindowFocusListener() {
 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		add(gamePanel);
+
+		setResizable(false);
+		pack();
+		setLocationRelativeTo(null);
+		setTitle("Grand Voyage: La Leyenda de los Mares");
+		setVisible(true);
+		ImageIcon icon = new ImageIcon(getClass().getResource("/imagenes/logo.jpg")); // Obtén la imagen del recurso
+		setIconImage(icon.getImage());
+       
+		addWindowFocusListener(new WindowFocusListener() {
+
+			
 			@Override
 			public void windowLostFocus(WindowEvent e) {
 				gamePanel.getGame().windowFocusLost();

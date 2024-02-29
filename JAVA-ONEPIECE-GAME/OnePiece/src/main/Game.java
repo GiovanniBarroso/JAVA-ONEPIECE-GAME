@@ -82,6 +82,7 @@ public class Game implements Runnable {
 			break;
 		case OPTIONS:
 			gameOptions.draw(g);
+		
 		default:
 			break;
 		}

@@ -17,10 +17,12 @@ public class MenuButton {
 	private BufferedImage[] imagenesBotones;
 	private boolean mouseOver=false, mousePressed=false;
 	private Rectangle bounds;
-
+	
+	
 	public MenuButton(int xPos, int yPos, int rowIndex, Gamestate state) {
 		this.xPos = xPos;
 		this.yPos= yPos;
+		
 		this.rowIndex= rowIndex;
 		this.state= state;
 		loadimgs();
@@ -86,5 +88,7 @@ public class MenuButton {
 	    this.xPos = xPos;
 	    bounds.x = xPos - xOffSetCenter;
 	}
+	
+
 
 }

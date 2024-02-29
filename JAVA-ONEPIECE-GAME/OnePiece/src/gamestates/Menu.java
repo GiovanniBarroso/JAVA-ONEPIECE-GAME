@@ -11,32 +11,37 @@ import utilz.LoadSave;
 
 public class Menu extends State implements Statemethods {
 
-	private MenuButton[] buttons = new MenuButton[3];
+	private MenuButton[] buttons = new MenuButton[4];
 	private BufferedImage backgroundImg, backgroundImgPink;
 	private int menuX, menuY, menuWidth, menuHeight;
 
-	public Menu(Game game) {
-		super(game);
-		loadButtons();
-		loadBackground();
-		backgroundImgPink = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
 
-	}
+
+    public Menu(Game game) {
+        super(game);
+       
+        loadButtons();
+        loadBackground();
+        backgroundImgPink = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
+    }
 
 	private void loadBackground() {
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND);
 		menuWidth = (int) (backgroundImg.getWidth() * Game.SCALE);
-		menuHeight = (int) (backgroundImg.getHeight() * Game.SCALE);
+		menuHeight = (int) (backgroundImg.getHeight() * 2.5);
 		menuX = Game.GAME_WIDTH / 2 - menuWidth / 2;
 		menuY = (int) (45 * Game.SCALE);
 
 	}
 
 	private void loadButtons() {
-		buttons[0] = new MenuButton(Game.GAME_WIDTH / 2, (int) (150 * Game.SCALE), 0, Gamestate.PLAYING);
-		buttons[1] = new MenuButton(Game.GAME_WIDTH / 2, (int) (220 * Game.SCALE), 1, Gamestate.OPTIONS);
-		buttons[2] = new MenuButton(Game.GAME_WIDTH / 2, (int) (290 * Game.SCALE), 2, Gamestate.QUIT);
-		
+		buttons[0] = new MenuButton(Game.GAME_WIDTH / 2, (int) (170 * Game.SCALE), 0, Gamestate.PLAYING);
+		buttons[1] = new MenuButton(Game.GAME_WIDTH / 2, (int) (230 * Game.SCALE), 1, Gamestate.OPTIONS);
+		buttons[2] = new MenuButton(Game.GAME_WIDTH / 2, (int) (300 * Game.SCALE), 2, Gamestate.QUIT);
+		buttons[3] = new MenuButton(Game.GAME_WIDTH / 2, (int) (370 * Game.SCALE), 0, Gamestate.PLAYING);
+
+
+
 	}
 
 	@Override
@@ -71,19 +76,22 @@ public class Menu extends State implements Statemethods {
 
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		for (MenuButton mb : buttons) {
-			if (isIn(e, mb)) {
-				if (mb.isMousePressed())
-					mb.applyGamestate();
-				break;
-			}
-		}
 
-		resetButtons();
+	 @Override
+	    public void mouseReleased(MouseEvent e) {
+	        for (MenuButton mb : buttons) {
+	            if (isIn(e, mb)) {
+	                if (mb.isMousePressed()) {
+	                    mb.applyGamestate();
+	                    
+	                }
+	                break;
+	            }
+	        }
+	        resetButtons();
+	    }
+	
 
-	}
 
 	private void resetButtons() {
 		for (MenuButton mb : buttons)
@@ -116,5 +124,8 @@ public class Menu extends State implements Statemethods {
 		// TODO Auto-generated method stub
 
 	}
+
+
+
 
 }
