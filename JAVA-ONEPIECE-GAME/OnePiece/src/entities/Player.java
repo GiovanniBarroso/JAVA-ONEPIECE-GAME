@@ -24,7 +24,7 @@ public class Player extends Entity {
 	private float yDrawOffset = 4 * Game.SCALE;
 
 	// Jumping / Gravity
-	private float jumpSpeed = -2.25f * Game.SCALE;
+	private float jumpSpeed = -2.5f * Game.SCALE;
 	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 
 	// StatusBarUI
@@ -54,7 +54,7 @@ public class Player extends Entity {
 		this.state = QUIETO;
 		this.maxHealth = 100;
 		this.currentHealth = 35;
-		this.walkSpeed = Game.SCALE * 1.0f;
+		this.walkSpeed = Game.SCALE * 1f;
 		loadAnimations();
 		initHitbox(20, 27);
 		initAttackBox();
