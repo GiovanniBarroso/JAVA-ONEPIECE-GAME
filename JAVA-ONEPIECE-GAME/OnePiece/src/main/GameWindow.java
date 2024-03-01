@@ -22,7 +22,7 @@ public class GameWindow extends JFrame{
 		setLocationRelativeTo(null);
 		setTitle("Grand Voyage: La Leyenda de los Mares");
 		setVisible(true);
-		ImageIcon icon = new ImageIcon(getClass().getResource("/imagenes/logo.jpg")); // Obtén la imagen del recurso
+		ImageIcon icon = new ImageIcon(getClass().getResource("/res/logo.jpg")); // Obtén la imagen del recurso
 		setIconImage(icon.getImage());
        
 		addWindowFocusListener(new WindowFocusListener() {

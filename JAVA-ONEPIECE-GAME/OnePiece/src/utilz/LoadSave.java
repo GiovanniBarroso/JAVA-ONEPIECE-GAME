@@ -41,7 +41,7 @@ public class LoadSave {
 public static final String OPTIONS_MENU = "options_background.png";
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;
-		InputStream is = LoadSave.class.getResourceAsStream("/imagenes/" + fileName);
+		InputStream is = LoadSave.class.getResourceAsStream("/res/" + fileName);
 		try {
 			img = ImageIO.read(is);
 

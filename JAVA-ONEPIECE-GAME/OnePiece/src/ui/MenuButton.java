@@ -89,6 +89,10 @@ public class MenuButton {
 	    bounds.x = xPos - xOffSetCenter;
 	}
 	
+	public Gamestate getState() {
+		return state;
+	}
+	
 
 
 }
