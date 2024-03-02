@@ -100,8 +100,7 @@ public abstract class Enemy extends Entity {
 		currentHealth -= amount;
 		if (currentHealth <= 0)
 			newState(DEAD);
-		else
-			newState(HIT);
+		
 	}
 
 	protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
@@ -120,7 +119,7 @@ public abstract class Enemy extends Entity {
 				aniIndex = 0;
 
 				switch (state) {
-				case ATTACK, HIT -> state = IDLE;
+				case ATTACK -> state = IDLE;
 				case DEAD -> active = false;
 				}
 			}

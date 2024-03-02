@@ -2,6 +2,7 @@ package gamestates;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -42,15 +43,15 @@ public class Playing extends State implements Statemethods {
 	private Gamestate state;
 	private boolean gameOver;
 	private boolean lvlCompleted;
-	
 
-	
 
-	
+
+
+
 	public Playing(Game game) {
 		super(game);
 		initClasses();
-		
+
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
 		bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
 		smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
@@ -81,7 +82,7 @@ public class Playing extends State implements Statemethods {
 		levelManager = new LevelManager(game);
 		enemyManager = new EnemyManager(this);
 		objectManager = new ObjectManager(this);
-		
+
 		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
 		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
@@ -159,7 +160,7 @@ public class Playing extends State implements Statemethods {
 		player.resetAll();
 		enemyManager.resetAllEnemies();
 		objectManager.resetAllObjects();
-		
+
 	}
 
 	public void setGameOver(boolean gameOver) {
@@ -179,15 +180,18 @@ public class Playing extends State implements Statemethods {
 	}
 
 	public void checkSpikesTouched(Player p) {
-		
+
 		objectManager.checkSpikesTouched(p);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (!gameOver)
+		if (!gameOver) {
 			if (e.getButton() == MouseEvent.BUTTON1)
 				player.setAttacking(true);
+			
+				
+		}
 	}
 
 	@Override
@@ -207,6 +211,9 @@ public class Playing extends State implements Statemethods {
 				break;
 			case KeyEvent.VK_ESCAPE:
 				paused = !paused;
+				break;
+			case KeyEvent.VK_X:
+				player.powerAttack();
 				break;
 			}
 	}
@@ -231,7 +238,7 @@ public class Playing extends State implements Statemethods {
 		if (!gameOver)
 			if (paused)
 				pauseOverlay.mouseDragged(e);
-		
+
 	}
 
 	@Override
@@ -239,13 +246,13 @@ public class Playing extends State implements Statemethods {
 		if(!gameOver) {
 			if(paused)
 				pauseOverlay.mousePressed(e);
-			
+
 			else if (lvlCompleted)
 				levelCompletedOverlay.mousePressed(e);
 		}else {
 			gameOverOverlay.mousePressed(e);
 		}
-		
+
 		//ATACAR
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			player.setAttacking(true);
@@ -306,13 +313,13 @@ public class Playing extends State implements Statemethods {
 	public ObjectManager getObjectManager() {
 		return objectManager;
 	}
-	
+
 	public LevelManager getLevelManager() {
 		return levelManager;
 	}
 
 
-	
-    
+
+
 
 }

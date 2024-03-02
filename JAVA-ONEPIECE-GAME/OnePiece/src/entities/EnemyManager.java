@@ -62,7 +62,7 @@ public class EnemyManager {
 	}
 
 	private void loadEnemyImgs() {
-		crabbyArr = new BufferedImage[5][9];
+		crabbyArr = new BufferedImage[3][6];
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE);
 		for (int j = 0; j < crabbyArr.length; j++)
 			for (int i = 0; i < crabbyArr[j].length; i++)
