@@ -51,7 +51,7 @@ public class Player extends Entity {
 	private int powerMaxValue = 200;
 	private int powerValue = powerMaxValue;
 	private int powerRecoveryTick = 0;
-	private int powerRecoveryInterval = 10;
+	private int powerRecoveryInterval = 20;
 
 	private int flipX = 0;
 	private int flipW = 1;
@@ -169,7 +169,7 @@ public class Player extends Entity {
 
 	public void render(Graphics g, int lvlOffset) {
 		g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
-		drawAttackBox(g, lvlOffset, flipW == -1); // Pasamos true si flipW es -1 (está mirando hacia la izquierda)
+//		drawAttackBox(g, lvlOffset, flipW == -1); 
 		//  drawHitbox(g, lvlOffset);
 		drawUI(g);
 	}
@@ -419,9 +419,9 @@ public class Player extends Entity {
 	public void powerAttack() {
 		if(powerAttackActive)
 			return;
-		if(powerValue>=20) {
+		if(powerValue>=60) {
 			powerAttackActive=true;
-			changePower(-30);
+			changePower(-60);
 		}
 
 	}
