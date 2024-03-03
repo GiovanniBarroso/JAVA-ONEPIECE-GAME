@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import entities.Crabby;
+import entities.Bucanero;
 import main.Game;
 import objects.Cannon;
 import objects.GameContainer;
@@ -22,7 +22,7 @@ public class Level {
 
 	private BufferedImage img;
 	private int[][] lvlData;
-	private ArrayList<Crabby> crabs;
+	private ArrayList<Bucanero> crabs;
 	private ArrayList<Potion> potions;
 	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainer> containers;
@@ -94,7 +94,7 @@ public class Level {
 		return maxLvlOffsetX;
 	}
 
-	public ArrayList<Crabby> getCrabs() {
+	public ArrayList<Bucanero> getCrabs() {
 		return crabs;
 	}
 

@@ -112,7 +112,7 @@ public abstract class Enemy extends Entity {
 
 	protected void updateAnimationTick() {
 		aniTick++;
-		if (aniTick >= ANI_SPEED) {
+		if (aniTick >= ANI_SPEED + 20) {
 			aniTick = 0;
 			aniIndex++;
 			if (aniIndex >= GetSpriteAmount(enemyType, state)) {

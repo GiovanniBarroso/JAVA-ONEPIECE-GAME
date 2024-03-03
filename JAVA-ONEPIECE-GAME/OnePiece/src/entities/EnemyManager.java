@@ -13,8 +13,8 @@ import static utilz.Constants.EnemyConstants.*;
 public class EnemyManager {
 
 	private Playing playing;
-	private BufferedImage[][] crabbyArr;
-	private ArrayList<Crabby> crabbies = new ArrayList<>();
+	private BufferedImage[][] bucaneroArr;
+	private ArrayList<Bucanero> bucaneros = new ArrayList<>();
 
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
@@ -22,12 +22,12 @@ public class EnemyManager {
 	}
 
 	public void loadEnemies(Level level) {
-		crabbies = level.getCrabs();
+		bucaneros = level.getCrabs();
 	}
 
 	public void update(int[][] lvlData, Player player) {
 		boolean isAnyActive = false;
-		for (Crabby c : crabbies)
+		for (Bucanero c : bucaneros)
 			if (c.isActive()) {
 				c.update(lvlData, player);
 				isAnyActive = true;
@@ -38,22 +38,22 @@ public class EnemyManager {
 	}
 
 	public void draw(Graphics g, int xLvlOffset) {
-		drawCrabs(g, xLvlOffset);
+		drawBucaneros(g, xLvlOffset);
 	}
 
-	private void drawCrabs(Graphics g, int xLvlOffset) {
-		for (Crabby c : crabbies)
+	private void drawBucaneros(Graphics g, int xLvlOffset) {
+		for (Bucanero c : bucaneros)
 			if (c.isActive()) {
-				g.drawImage(crabbyArr[c.getState()][c.getAniIndex()], (int) c.getHitbox().x - xLvlOffset - CRABBY_DRAWOFFSET_X + c.flipX(), (int) c.getHitbox().y - CRABBY_DRAWOFFSET_Y,
+				g.drawImage(bucaneroArr[c.getState()][c.getAniIndex()], (int) c.getHitbox().x - xLvlOffset - CRABBY_DRAWOFFSET_X + c.flipX(), (int) c.getHitbox().y - CRABBY_DRAWOFFSET_Y,
 						CRABBY_WIDTH * c.flipW(), CRABBY_HEIGHT, null);
-//				c.drawHitbox(g, xLvlOffset);
-//				c.drawAttackBox(g, xLvlOffset);
+				c.drawHitbox(g, xLvlOffset);
+				
 			}
 
 	}
 
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
-		for (Crabby c : crabbies)
+		for (Bucanero c : bucaneros)
 			if (c.isActive())
 				if (attackBox.intersects(c.getHitbox())) {
 					c.hurt(10);
@@ -62,15 +62,15 @@ public class EnemyManager {
 	}
 
 	private void loadEnemyImgs() {
-		crabbyArr = new BufferedImage[3][6];
-		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE);
-		for (int j = 0; j < crabbyArr.length; j++)
-			for (int i = 0; i < crabbyArr[j].length; i++)
-				crabbyArr[j][i] = temp.getSubimage(i * CRABBY_WIDTH_DEFAULT, j * CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+		bucaneroArr = new BufferedImage[3][6];
+		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.BUCANERO_SPRITE);
+		for (int j = 0; j < bucaneroArr.length; j++)
+			for (int i = 0; i < bucaneroArr[j].length; i++)
+				bucaneroArr[j][i] = temp.getSubimage(i * CRABBY_WIDTH_DEFAULT, j * CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
 	}
 
 	public void resetAllEnemies() {
-		for (Crabby c : crabbies)
+		for (Bucanero c : bucaneros)
 			c.resetEnemy();
 	}
 

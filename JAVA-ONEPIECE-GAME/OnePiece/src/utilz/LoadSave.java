@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import entities.Crabby;
+import entities.Bucanero;
 import static utilz.Constants.EnemyConstants.CRABBY;
 import main.Game;
 
@@ -29,7 +29,7 @@ public class LoadSave {
 	public static final String PLAYING_BG_IMG = "playing_bg_img.png";
 	public static final String BIG_CLOUDS = "big_clouds.png";
 	public static final String SMALL_CLOUDS = "small_clouds.png";
-	public static final String CRABBY_SPRITE = "SPRITE_BUCANERO.png";
+	public static final String BUCANERO_SPRITE = "SPRITE_BUCANERO.png";
 	public static final String STATUS_BAR = "health_power_bar.png";
 	public static final String COMPLETED_IMG = "completed_sprite.png";
 	public static final String POTION_ATLAS = "potions_sprites.png";
@@ -38,7 +38,9 @@ public class LoadSave {
 	public static final String CANNON_ATLAS = "cannon_atlas.png";
 	public static final String CANNON_BALL = "ball.png";
 	public static final String DEATH_SCREEN = "death_screen.png";
-public static final String OPTIONS_MENU = "options_background.png";
+	public static final String OPTIONS_MENU = "options_background.png";
+
+
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;
 		InputStream is = LoadSave.class.getResourceAsStream("/res/" + fileName);
@@ -56,7 +58,7 @@ public static final String OPTIONS_MENU = "options_background.png";
 		}
 		return img;
 	}
-	
+
 	public static BufferedImage[] GetAllLevels(){
 		URL url = LoadSave.class.getResource("/imagenes/lvls");
 		File file = null;
@@ -65,18 +67,18 @@ public static final String OPTIONS_MENU = "options_background.png";
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		
+
 		File[] files = file.listFiles();
 		File[] filesSorted = new File [files.length];
-		
+
 		for (int i = 0; i < filesSorted.length; i++)
 			for (int j = 0; j < files.length; j++) {
 				if (files[j].getName().equals((i + 1) + ".png"))
 					filesSorted[i] = files[j];
 			}	
-		
+
 		BufferedImage[] imgs = new BufferedImage [filesSorted.length];
-		
+
 		for (int i = 0; i < imgs.length; i++)
 			try {
 				imgs[i] = ImageIO.read(filesSorted[i]);
@@ -84,6 +86,6 @@ public static final String OPTIONS_MENU = "options_background.png";
 				e.printStackTrace();
 			}
 		return imgs;
-			
+
 	}
 }
