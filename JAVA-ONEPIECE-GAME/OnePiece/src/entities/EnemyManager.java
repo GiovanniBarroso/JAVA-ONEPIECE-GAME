@@ -13,9 +13,9 @@ import static utilz.Constants.EnemyConstants.*;
 public class EnemyManager {
 
 	private Playing playing;
-	private BufferedImage[][] bucaneroArr;
+	private BufferedImage[][] bucaneroArr,espadachinArr;
 	private ArrayList<Bucanero> bucaneros = new ArrayList<>();
-
+	private ArrayList<Espadachin> espadachines = new ArrayList<>();
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		loadEnemyImgs();
@@ -23,6 +23,7 @@ public class EnemyManager {
 
 	public void loadEnemies(Level level) {
 		bucaneros = level.getCrabs();
+		espadachines=level.getEspadachines();
 	}
 
 	public void update(int[][] lvlData, Player player) {
@@ -32,6 +33,12 @@ public class EnemyManager {
 				c.update(lvlData, player);
 				isAnyActive = true;
 			}
+		for (Espadachin e : espadachines)
+			if (e.isActive()) {
+				e.update(lvlData, player);
+				isAnyActive = true;
+			}
+		
 		if (!isAnyActive)
 			playing.setLevelCompleted(true);
 		
@@ -39,6 +46,18 @@ public class EnemyManager {
 
 	public void draw(Graphics g, int xLvlOffset) {
 		drawBucaneros(g, xLvlOffset);
+		drawEspadachines(g,xLvlOffset);
+	}
+
+	private void drawEspadachines(Graphics g, int xLvlOffset) {
+	
+		for (Espadachin e : espadachines)
+			if (e.isActive()) {
+				g.drawImage(espadachinArr[e.getState()][e.getAniIndex()], (int) e.getHitbox().x - xLvlOffset - ESPADACHIN_DRAWOFFSET_X + e.flipX(), (int) e.getHitbox().y - ESPADACHIN_DRAWOFFSET_Y,
+						ESPADACHIN_WIDTH * e.flipW(), ESPADACHIN_HEIGHT, null);
+				e.drawHitbox(g, xLvlOffset);
+				
+			}
 	}
 
 	private void drawBucaneros(Graphics g, int xLvlOffset) {
@@ -59,6 +78,13 @@ public class EnemyManager {
 					c.hurt(10);
 					return;
 				}
+		for (Espadachin e : espadachines)
+			if (e.isActive())
+				if (attackBox.intersects(e.getHitbox())) {
+					e.hurt(10);
+					return;
+				}
+				
 	}
 
 	private void loadEnemyImgs() {
@@ -67,11 +93,20 @@ public class EnemyManager {
 		for (int j = 0; j < bucaneroArr.length; j++)
 			for (int i = 0; i < bucaneroArr[j].length; i++)
 				bucaneroArr[j][i] = temp.getSubimage(i * BUCANERO_WIDTH_DEFAULT, j * BUCANERO_HEIGHT_DEFAULT, BUCANERO_WIDTH_DEFAULT, BUCANERO_HEIGHT_DEFAULT);
+		
+		espadachinArr = new BufferedImage[4][4];
+		BufferedImage temp2 = LoadSave.GetSpriteAtlas(LoadSave.ESPADACHIN_SPRITE);
+		for (int j = 0; j < espadachinArr.length; j++)
+			for (int i = 0; i < espadachinArr[j].length; i++)
+				espadachinArr[j][i] = temp2.getSubimage(i * ESPADACHIN_WIDTH_DEFAULT, j * ESPADACHIN__HEIGHT_DEFAULT, ESPADACHIN_WIDTH_DEFAULT, ESPADACHIN__HEIGHT_DEFAULT);
 	}
 
 	public void resetAllEnemies() {
 		for (Bucanero c : bucaneros)
 			c.resetEnemy();
+		for (Espadachin e : espadachines)
+			e.resetEnemy();
+		
 	}
 
 }

@@ -1,6 +1,6 @@
 package utilz;
 
-import static utilz.Constants.EnemyConstants.BUCANERO;
+import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.ObjectConstants.*;
 
 import java.awt.Color;
@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entities.Bucanero;
+import entities.Espadachin;
 import main.Game;
 import objects.Cannon;
 import objects.GameContainer;
@@ -165,7 +166,7 @@ public class HelpMethods {
 		return lvlData;
 	}
 
-	public static ArrayList<Bucanero> GetCrabs(BufferedImage img) {
+	public static ArrayList<Bucanero> GetBucaneros(BufferedImage img) {
 		ArrayList<Bucanero> list = new ArrayList<>();
 		for (int j = 0; j < img.getHeight(); j++)
 			for (int i = 0; i < img.getWidth(); i++) {
@@ -177,6 +178,17 @@ public class HelpMethods {
 		return list;
 	}
 
+	public static ArrayList<Espadachin> GetEspadachines(BufferedImage img) {
+		ArrayList<Espadachin> list = new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getGreen();
+				if (value == ESPADACHIN)
+					list.add(new Espadachin(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
+			}
+		return list;
+	}
 	public static Point GetPlayerSpawn(BufferedImage img) {
 		for (int j = 0; j < img.getHeight(); j++)
 			for (int i = 0; i < img.getWidth(); i++) {

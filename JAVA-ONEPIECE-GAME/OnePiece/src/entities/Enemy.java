@@ -96,36 +96,45 @@ public abstract class Enemy extends Entity {
 		aniIndex = 0;
 	}
 
+
 	public void hurt(int amount) {
-		currentHealth -= amount;
-		if (currentHealth <= 0)
-			newState(DEAD);
-		
-	}
-
-	protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
-		if (attackBox.intersects(player.hitbox))
-			player.changeHealth(-GetEnemyDmg(enemyType));
-		attackChecked = true;
-
+	    currentHealth -= amount;
+	   
+	    if (currentHealth <= 0) {
+	        newState( DEAD);
+	        
+	    }
 	}
 
 	protected void updateAnimationTick() {
-		aniTick++;
-		if (aniTick >= ANI_SPEED + 20) {
-			aniTick = 0;
-			aniIndex++;
-			if (aniIndex >= GetSpriteAmount(enemyType, state)) {
-				aniIndex = 0;
+	    aniTick++;
+	    if (aniTick >= ANI_SPEED + 20) {
+	        aniTick = 0;
+	        aniIndex++;
+	        if (aniIndex >= GetSpriteAmount(enemyType, state)) {
+	            aniIndex = 0;
 
-				switch (state) {
-				case ATTACK -> state = IDLE;
-				case DEAD -> active = false;
-				}
-			}
-		}
+	            switch (state) {
+	                case ATTACK -> state = IDLE;
+	                case DEAD,DEAD2 -> {
+	                    active = false; 
+	                }
+	            }
+	        }
+	    }
 	}
 
+	
+	protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
+		if (attackBox.intersects(player.hitbox)) {
+			player.changeHealth(-GetEnemyDmg(enemyType));
+	
+		}
+
+
+		attackChecked = true;
+
+	}
 	protected void changeWalkDir() {
 		if (walkDir == LEFT)
 			walkDir = RIGHT;

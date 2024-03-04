@@ -64,20 +64,29 @@ public class Constants {
 
 	public static class EnemyConstants {
 		public static final int BUCANERO = 0;
-
-		public static final int IDLE = 0;;
-		public static final int ATTACK = 1;
+		public static final int ESPADACHIN = 1;
 		
+		public static final int IDLE = 0;
+		public static final int ATTACK = 1;
+		public static final int HIT2 = 2;
 		public static final int DEAD = 2;
+		public static final int DEAD2=3;
+		
 
 		public static final int BUCANERO_WIDTH_DEFAULT = 72;
 		public static final int BUCANERO_HEIGHT_DEFAULT = 32;
+		public static final int ESPADACHIN_WIDTH_DEFAULT = 72;
+		public static final int ESPADACHIN__HEIGHT_DEFAULT = 32;
 
 		public static final int BUCANERO_WIDTH = (int) (BUCANERO_WIDTH_DEFAULT * Game.SCALE);
 		public static final int BUCANERO_HEIGHT = (int) (BUCANERO_HEIGHT_DEFAULT * Game.SCALE);
+		public static final int ESPADACHIN_WIDTH = (int) (BUCANERO_WIDTH_DEFAULT * Game.SCALE);
+		public static final int ESPADACHIN_HEIGHT = (int) (BUCANERO_HEIGHT_DEFAULT * Game.SCALE);
 
 		public static final int BUCANERO_DRAWOFFSET_X = (int) (26 * Game.SCALE);
-		public static final int BUCANERO_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
+		public static final int BUCANERO_DRAWOFFSET_Y = (int) (9 * Game.SCALE);	
+		public static final int ESPADACHIN_DRAWOFFSET_X = (int) (26 * Game.SCALE);
+		public static final int ESPADACHIN_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
 
 		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
 
@@ -91,6 +100,17 @@ public class Constants {
 				case DEAD:
 					return 4;
 				}
+			case ESPADACHIN:
+				switch (enemy_state) {
+				case IDLE:
+					return 4;
+				case ATTACK:
+					return 4;
+				case HIT2:
+					return 4;
+				case DEAD2:
+					return 4;
+				}
 			}
 
 			return 0;
@@ -101,6 +121,8 @@ public class Constants {
 			case BUCANERO:
 
 				return 10;
+			case ESPADACHIN:
+				return 20;
 			default:
 				return 1;
 			}
@@ -108,7 +130,8 @@ public class Constants {
 		public static int GetEnemyDmg(int enemy_type) {
 			switch(enemy_type) {
 			case BUCANERO:
-
+				return 20;
+			case ESPADACHIN:
 				return 20;
 			default:
 				return 0;

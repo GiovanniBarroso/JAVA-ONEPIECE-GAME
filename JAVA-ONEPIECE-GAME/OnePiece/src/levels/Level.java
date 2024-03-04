@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entities.Bucanero;
+import entities.Espadachin;
 import main.Game;
 import objects.Cannon;
 import objects.GameContainer;
@@ -15,14 +16,16 @@ import utilz.HelpMethods;
 
 
 import static utilz.HelpMethods.GetLevelData;
-import static utilz.HelpMethods.GetCrabs;
+import static utilz.HelpMethods.GetBucaneros;
 import static utilz.HelpMethods.GetPlayerSpawn;
+import static utilz.HelpMethods.*;
 
 public class Level {
 
 	private BufferedImage img;
 	private int[][] lvlData;
-	private ArrayList<Bucanero> crabs;
+	private ArrayList<Bucanero> bucanero;
+	private ArrayList<Espadachin> espadachin;
 	private ArrayList<Potion> potions;
 	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainer> containers;
@@ -75,8 +78,11 @@ public class Level {
 	}
 
 	private void createEnemies() {
-		crabs = GetCrabs(img);
+		bucanero = GetBucaneros(img);
+		espadachin=GetEspadachines(img);
 	}
+
+
 
 	private void createLevelData() {
 		lvlData = GetLevelData(img);
@@ -95,7 +101,10 @@ public class Level {
 	}
 
 	public ArrayList<Bucanero> getCrabs() {
-		return crabs;
+		return bucanero;
+	}
+	public ArrayList<Espadachin> getEspadachines() {
+		return espadachin;
 	}
 
 	public Point getPlayerSpawn() {

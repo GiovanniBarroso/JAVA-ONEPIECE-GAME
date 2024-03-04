@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import entities.Bucanero;
-import static utilz.Constants.EnemyConstants.BUCANERO;
-import main.Game;
+
+
+
 
 public class LoadSave {
 
@@ -30,6 +30,7 @@ public class LoadSave {
 	public static final String BIG_CLOUDS = "big_clouds.png";
 	public static final String SMALL_CLOUDS = "small_clouds.png";
 	public static final String BUCANERO_SPRITE = "SPRITE_BUCANERO.png";
+	public static final String ESPADACHIN_SPRITE = "SPRITE_ESPADACHIN.png";
 	public static final String STATUS_BAR = "health_power_bar.png";
 	public static final String COMPLETED_IMG = "completed_sprite.png";
 	public static final String POTION_ATLAS = "potions_sprites.png";
