@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import audio.AudioPlayer;
 import gamestates.Playing;
 import main.Game;
+import utilz.HelpMethods;
 import utilz.LoadSave;
 
 public class Player extends Entity {
@@ -50,8 +51,6 @@ public class Player extends Entity {
 	private int powerWidth = powerBarWidth;
 	private int powerMaxValue = 200;
 	private int powerValue = powerMaxValue;
-	private int powerRecoveryTick = 0;
-	private int powerRecoveryInterval = 20;
 
 	private int flipX = 0;
 	private int flipW = 1;
@@ -62,8 +61,9 @@ public class Player extends Entity {
 	private int tileY=0;
 	private boolean powerAttackActive;
 	private int powerAttackTick;
-	private int powerGrowSpeed;
-	private int powerGrowTick;
+	private int powerRecoveryTick = 0;
+	private int powerRecoveryInterval = 20;
+
 
 
 	public Player(float x, float y, int width, int height, Playing playing) {
@@ -101,15 +101,35 @@ public class Player extends Entity {
 		}
 
 		updateAttackBox();
-
 		updatePos();
+		 if (IsEntityInWater(hitbox, lvlData)) {
+		       
+		        currentHealth = 0; 
+		        if (currentHealth <= 0) {
+		            // Si la salud del jugador es menor o igual a cero, el jugador muere
+		            playing.setGameOver(true);
+		            playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
+		            playing.getGame().getAudioPlayer().stopSong();
+		            playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
+		            return;
+		        }
+		    }
+		 if (currentHealth <= 0) {
+	            // Si la salud del jugador es menor o igual a cero, el jugador muere
+	            playing.setGameOver(true);
+	            playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
+	            playing.getGame().getAudioPlayer().stopSong();
+	            playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
+	            return;
+	        }
 		if (moving) {
 			checkPotionTouched();
 			checkSpikeTouched();
-			tileY=(int) (hitbox.y/Game.TILES_SIZE);
+				tileY=(int) (hitbox.y/Game.TILES_SIZE);
 			if(powerAttackActive) {
 				powerAttackTick++;
 				if(powerAttackTick>=35) {
+					
 					powerAttackTick=0;
 					powerAttackActive=false;
 				}
@@ -122,7 +142,7 @@ public class Player extends Entity {
 		updateAnimationTick();
 		setAnimation();
 	}
-
+	
 	private void checkSpikeTouched() {
 
 		playing.checkSpikesTouched(this);
@@ -169,8 +189,8 @@ public class Player extends Entity {
 
 	public void render(Graphics g, int lvlOffset) {
 		g.drawImage(animations[state][aniIndex], (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - yDrawOffset), width * flipW, height, null);
-//		drawAttackBox(g, lvlOffset, flipW == -1); 
-		  drawHitbox(g, lvlOffset);
+		drawAttackBox(g, lvlOffset, flipW == -1); 
+//		  drawHitbox(g, lvlOffset);
 		drawUI(g);
 	}
 
@@ -366,6 +386,7 @@ public class Player extends Entity {
 
 	}
 
+
 	public void resetDirBooleans() {
 		left = false;
 		right = false;
@@ -405,7 +426,7 @@ public class Player extends Entity {
 		jump=false;
 		state = ANDAR;
 		currentHealth = maxHealth;
-
+		powerValue=powerMaxValue;
 		hitbox.x = x;
 		hitbox.y = y;
 
@@ -417,9 +438,13 @@ public class Player extends Entity {
 	}
 
 	public void powerAttack() {
-		if(powerAttackActive)
+		if(inAir==true&&powerAttackActive==true) {
+			powerAttackActive=false;
+			changePower(0);
+		}
+		else if(powerAttackActive)
 			return;
-		if(powerValue>=60) {
+		else if(powerValue>=60&&!inAir) {
 			powerAttackActive=true;
 			changePower(-60);
 		}

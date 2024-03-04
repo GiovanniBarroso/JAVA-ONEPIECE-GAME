@@ -1,6 +1,6 @@
 package utilz;
 
-import static utilz.Constants.EnemyConstants.CRABBY;
+import static utilz.Constants.EnemyConstants.BUCANERO;
 import static utilz.Constants.ObjectConstants.*;
 
 import java.awt.Color;
@@ -39,13 +39,33 @@ public class HelpMethods {
 
 		return IsTileSolid((int) xIndex, (int) yIndex, lvlData);
 	}
-	
+
 	public static boolean IsProjectleHittingLevel(Projectile p, int[][] lvlData) {
-		
-		return IsSolid(p.getHitbox().x +p.getHitbox().width/2, p.getHitbox().y+p.getHitbox().height/2, lvlData);
+
+		return IsSolid(p.getHitbox().x + p.getHitbox().width / 2, p.getHitbox().y + p.getHitbox().height / 2, lvlData);
+	}
+
+	
+	public static boolean IsEntityInWater(Rectangle2D.Float hitbox, int[][] lvlData) {
+	    // Obtener el índice del tile debajo del centro inferior del jugador
+	    int tileX = (int) Math.floor((hitbox.x + hitbox.width / 2) / Game.TILES_SIZE);
+	    int tileY = (int) Math.ceil((hitbox.y + hitbox.height) / Game.TILES_SIZE);
+
+	    // Verificar si el tile debajo del centro inferior del jugador es agua
+	    if (tileY >= 0 && tileY < lvlData.length && tileX >= 0 && tileX < lvlData[0].length) {
+	        if (lvlData[tileY][tileX] == 45) {
+	            return true; // Si el tile debajo del centro inferior del jugador es agua, retornamos verdadero
+	        }
+	    }
+
+	    return false; // Si no, retornamos falso
 	}
 
 
+
+
+	
+	
 	public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
 		int value = lvlData[yTile][xTile];
 
@@ -92,8 +112,9 @@ public class HelpMethods {
 		else
 			return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, lvlData);
 	}
-	
-	public static boolean CanCannonSeePlayer(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
+
+	public static boolean CanCannonSeePlayer(int[][] lvlData, Rectangle2D.Float firstHitbox,
+			Rectangle2D.Float secondHitbox, int yTile) {
 		int firstXTile = (int) (firstHitbox.x / Game.TILES_SIZE);
 		int secondXTile = (int) (secondHitbox.x / Game.TILES_SIZE);
 
@@ -102,7 +123,7 @@ public class HelpMethods {
 		else
 			return IsAllTilesClear(firstXTile, secondXTile, yTile, lvlData);
 	}
-	
+
 	public static boolean IsAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData) {
 		for (int i = 0; i < xEnd - xStart; i++)
 			if (IsTileSolid(xStart + i, y, lvlData))
@@ -120,7 +141,8 @@ public class HelpMethods {
 		return true;
 	}
 
-	public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
+	public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox,
+			int yTile) {
 		int firstXTile = (int) (firstHitbox.x / Game.TILES_SIZE);
 		int secondXTile = (int) (secondHitbox.x / Game.TILES_SIZE);
 
@@ -149,7 +171,7 @@ public class HelpMethods {
 			for (int i = 0; i < img.getWidth(); i++) {
 				Color color = new Color(img.getRGB(i, j));
 				int value = color.getGreen();
-				if (value == CRABBY)
+				if (value == BUCANERO)
 					list.add(new Bucanero(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
 			}
 		return list;

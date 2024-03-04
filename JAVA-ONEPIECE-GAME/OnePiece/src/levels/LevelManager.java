@@ -12,14 +12,25 @@ public class LevelManager {
 
 	private Game game;
 	private BufferedImage[] levelSprite;
+	private BufferedImage[] waterSprite;
 	private ArrayList<Level> levels;
-	private int lvlIndex = 0;
+	private int lvlIndex = 0,aniIndex,aniTick;
 
 	public LevelManager(Game game) {
 		this.game = game;
+		createWater();
 		importOutsideSprites();
 		levels = new ArrayList<>();
 		buildAllLevels();
+	}
+
+	private void createWater() {
+		waterSprite = new BufferedImage[5];
+		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.WATER_TOP);
+		for (int i = 0; i < 4; i++)
+			waterSprite[i] = img.getSubimage(i * 32, 0, 32, 32);
+		waterSprite[4] = LoadSave.GetSpriteAtlas(LoadSave.WATER_BOTTOM);
+		
 	}
 
 	public void loadNextLevel() {
@@ -57,12 +68,31 @@ public class LevelManager {
 		for (int j = 0; j < Game.TILES_IN_HEIGHT; j++)
 			for (int i = 0; i < levels.get(lvlIndex).getLevelData()[0].length; i++) {
 				int index = levels.get(lvlIndex).getSpriteIndex(i, j);
-				g.drawImage(levelSprite[index], Game.TILES_SIZE * i - lvlOffset, Game.TILES_SIZE * j, Game.TILES_SIZE, Game.TILES_SIZE, null);
+				int x = Game.TILES_SIZE * i - lvlOffset;
+				int y = Game.TILES_SIZE * j;
+				if (index == 45)					
+					g.drawImage(waterSprite[aniIndex], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+				else if (index == 46)
+					g.drawImage(waterSprite[4], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
+				else
+					g.drawImage(levelSprite[index], x, y, Game.TILES_SIZE, Game.TILES_SIZE, null);
 			}
-	}
+			}
+	
 
 	public void update() {
+		updateWaterAnimation();
+	}
 
+	private void updateWaterAnimation() {
+		aniTick++;
+		if (aniTick >= 40) {
+			aniTick = 0;
+			aniIndex++;
+
+			if (aniIndex >= 4)
+				aniIndex = 0;
+		}
 	}
 
 	public Level getCurrentLevel() {

@@ -27,7 +27,7 @@ public class Constants {
 		public static final int CANNON_RIGHT = 6;
 
 		public static final int RED_POTION_VALUE = 15;
-		public static final int BLUE_POTION_VALUE = 10;
+		public static final int BLUE_POTION_VALUE = 40;
 
 		public static final int CONTAINER_WIDTH_DEFAULT = 40;
 		public static final int CONTAINER_HEIGHT_DEFAULT = 30;
@@ -63,26 +63,26 @@ public class Constants {
 	}
 
 	public static class EnemyConstants {
-		public static final int CRABBY = 0;
+		public static final int BUCANERO = 0;
 
 		public static final int IDLE = 0;;
 		public static final int ATTACK = 1;
 		
 		public static final int DEAD = 2;
 
-		public static final int CRABBY_WIDTH_DEFAULT = 72;
-		public static final int CRABBY_HEIGHT_DEFAULT = 32;
+		public static final int BUCANERO_WIDTH_DEFAULT = 72;
+		public static final int BUCANERO_HEIGHT_DEFAULT = 32;
 
-		public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * Game.SCALE);
-		public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * Game.SCALE);
+		public static final int BUCANERO_WIDTH = (int) (BUCANERO_WIDTH_DEFAULT * Game.SCALE);
+		public static final int BUCANERO_HEIGHT = (int) (BUCANERO_HEIGHT_DEFAULT * Game.SCALE);
 
-		public static final int CRABBY_DRAWOFFSET_X = (int) (26 * Game.SCALE);
-		public static final int CRABBY_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
+		public static final int BUCANERO_DRAWOFFSET_X = (int) (26 * Game.SCALE);
+		public static final int BUCANERO_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
 
 		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
 
 			switch (enemy_type) {
-			case CRABBY:
+			case BUCANERO:
 				switch (enemy_state) {
 				case IDLE:
 					return 6;
@@ -98,16 +98,16 @@ public class Constants {
 		}
 		public static int GetMaxHealth(int enemy_type) {
 			switch(enemy_type) {
-			case CRABBY:
+			case BUCANERO:
 
-				return 15;
+				return 10;
 			default:
 				return 1;
 			}
 		}
 		public static int GetEnemyDmg(int enemy_type) {
 			switch(enemy_type) {
-			case CRABBY:
+			case BUCANERO:
 
 				return 20;
 			default:

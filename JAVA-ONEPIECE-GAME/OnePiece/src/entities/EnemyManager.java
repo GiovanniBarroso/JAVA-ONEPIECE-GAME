@@ -44,8 +44,8 @@ public class EnemyManager {
 	private void drawBucaneros(Graphics g, int xLvlOffset) {
 		for (Bucanero c : bucaneros)
 			if (c.isActive()) {
-				g.drawImage(bucaneroArr[c.getState()][c.getAniIndex()], (int) c.getHitbox().x - xLvlOffset - CRABBY_DRAWOFFSET_X + c.flipX(), (int) c.getHitbox().y - CRABBY_DRAWOFFSET_Y,
-						CRABBY_WIDTH * c.flipW(), CRABBY_HEIGHT, null);
+				g.drawImage(bucaneroArr[c.getState()][c.getAniIndex()], (int) c.getHitbox().x - xLvlOffset - BUCANERO_DRAWOFFSET_X + c.flipX(), (int) c.getHitbox().y - BUCANERO_DRAWOFFSET_Y,
+						BUCANERO_WIDTH * c.flipW(), BUCANERO_HEIGHT, null);
 				c.drawHitbox(g, xLvlOffset);
 				
 			}
@@ -66,7 +66,7 @@ public class EnemyManager {
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.BUCANERO_SPRITE);
 		for (int j = 0; j < bucaneroArr.length; j++)
 			for (int i = 0; i < bucaneroArr[j].length; i++)
-				bucaneroArr[j][i] = temp.getSubimage(i * CRABBY_WIDTH_DEFAULT, j * CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+				bucaneroArr[j][i] = temp.getSubimage(i * BUCANERO_WIDTH_DEFAULT, j * BUCANERO_HEIGHT_DEFAULT, BUCANERO_WIDTH_DEFAULT, BUCANERO_HEIGHT_DEFAULT);
 	}
 
 	public void resetAllEnemies() {

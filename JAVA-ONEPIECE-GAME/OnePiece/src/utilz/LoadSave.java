@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import entities.Bucanero;
-import static utilz.Constants.EnemyConstants.CRABBY;
+import static utilz.Constants.EnemyConstants.BUCANERO;
 import main.Game;
 
 public class LoadSave {
@@ -39,7 +39,9 @@ public class LoadSave {
 	public static final String CANNON_BALL = "ball.png";
 	public static final String DEATH_SCREEN = "death_screen.png";
 	public static final String OPTIONS_MENU = "options_background.png";
-
+	public static final String WATER_TOP = "water_atlas_animation.png";
+	public static final String WATER_BOTTOM = "water.png";
+	public static final String SHIP = "ship.png";
 
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;

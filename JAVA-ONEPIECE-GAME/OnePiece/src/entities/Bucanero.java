@@ -13,7 +13,7 @@ public class Bucanero extends Enemy {
 	private int attackBoxOffsetX;
 
 	public Bucanero(float x, float y) {
-		super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
+		super(x, y, BUCANERO_WIDTH, BUCANERO_HEIGHT, BUCANERO);
 		initHitbox(35, 19);
 		initAttackBox();
 	}

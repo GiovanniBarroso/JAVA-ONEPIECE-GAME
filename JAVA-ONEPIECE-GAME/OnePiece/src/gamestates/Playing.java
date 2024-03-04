@@ -36,7 +36,7 @@ public class Playing extends State implements Statemethods {
 	private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
 	private int maxLvlOffsetX;
 
-	private BufferedImage backgroundImg, bigCloud, smallCloud;
+	private BufferedImage backgroundImg, bigCloud, smallCloud, shipImgs[];
 	private int[] smallCloudsPos;
 	private Random rnd = new Random();
 
@@ -44,9 +44,9 @@ public class Playing extends State implements Statemethods {
 	private boolean gameOver;
 	private boolean lvlCompleted;
 
-
-
-
+	private boolean drawShip = true;
+	private int shipAni, shipTick, shipDir = 1;
+	private float shipHeightDelta, shipHeightChange = 0.05f * Game.SCALE;
 
 	public Playing(Game game) {
 		super(game);
@@ -58,7 +58,10 @@ public class Playing extends State implements Statemethods {
 		smallCloudsPos = new int[8];
 		for (int i = 0; i < smallCloudsPos.length; i++)
 			smallCloudsPos[i] = (int) (90 * Game.SCALE) + rnd.nextInt((int) (100 * Game.SCALE));
-
+		shipImgs = new BufferedImage[4];
+		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SHIP);
+		for (int i = 0; i < shipImgs.length; i++)
+			shipImgs[i] = temp.getSubimage(i * 78, 0, 78, 72);
 		calcLvlOffset();
 		loadStartLevel();
 	}
@@ -67,6 +70,7 @@ public class Playing extends State implements Statemethods {
 		resetAll();
 		levelManager.loadNextLevel();
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
+		drawShip = false;
 	}
 
 	private void loadStartLevel() {
@@ -104,11 +108,32 @@ public class Playing extends State implements Statemethods {
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			checkCloseToBorder();
-		}if(gameOver) {
+		}
+		if (gameOver) {
 			gameOverOverlay.update();
 		}
+		if (drawShip)
+			updateShipAni();
 	}
 
+	private void updateShipAni() {
+		shipTick++;
+		if (shipTick >= 35) {
+			shipTick = 0;
+			shipAni++;
+			if (shipAni >= 4)
+				shipAni = 0;
+		}
+
+		shipHeightDelta += shipHeightChange * shipDir;
+		shipHeightDelta = Math.max(Math.min(10 * Game.SCALE, shipHeightDelta), 0);
+
+		if (shipHeightDelta == 0)
+			shipDir = 1;
+		else if (shipHeightDelta == 10 * Game.SCALE)
+			shipDir = -1;
+
+	}
 	private void checkCloseToBorder() {
 		int playerX = (int) player.getHitbox().x;
 		int diff = playerX - xLvlOffset;
@@ -143,14 +168,18 @@ public class Playing extends State implements Statemethods {
 			gameOverOverlay.draw(g);
 		else if (lvlCompleted)
 			levelCompletedOverlay.draw(g);
+		if (drawShip)
+			g.drawImage(shipImgs[shipAni], (int) (100 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
 	}
 
 	private void drawClouds(Graphics g) {
 		for (int i = 0; i < 3; i++)
-			g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH - (int) (xLvlOffset * 0.3), (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
+			g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH - (int) (xLvlOffset * 0.3), (int) (204 * Game.SCALE),
+					BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
 
 		for (int i = 0; i < smallCloudsPos.length; i++)
-			g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLvlOffset * 0.7), smallCloudsPos[i], SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
+			g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLvlOffset * 0.7), smallCloudsPos[i],
+					SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
 	}
 
 	public void resetAll() {
@@ -189,8 +218,7 @@ public class Playing extends State implements Statemethods {
 		if (!gameOver) {
 			if (e.getButton() == MouseEvent.BUTTON1)
 				player.setAttacking(true);
-			
-				
+
 		}
 	}
 
@@ -220,7 +248,7 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(!gameOver)
+		if (!gameOver)
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_A:
 				player.setLeft(false);
@@ -243,17 +271,17 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(!gameOver) {
-			if(paused)
+		if (!gameOver) {
+			if (paused)
 				pauseOverlay.mousePressed(e);
 
 			else if (lvlCompleted)
 				levelCompletedOverlay.mousePressed(e);
-		}else {
+		} else {
 			gameOverOverlay.mousePressed(e);
 		}
 
-		//ATACAR
+		// ATACAR
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			player.setAttacking(true);
 		}
@@ -267,7 +295,7 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mouseReleased(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseReleased(e);
-		}else {
+		} else {
 			gameOverOverlay.mouseReleased(e);
 		}
 	}
@@ -279,14 +307,14 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mouseMoved(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseMoved(e);
-		}else {
+		} else {
 			gameOverOverlay.mouseMoved(e);
 		}
 	}
 
 	public void setLevelCompleted(boolean levelCompleted) {
 		this.lvlCompleted = levelCompleted;
-		if(levelCompleted)
+		if (levelCompleted)
 			game.getAudioPlayer().lvlCompleted();
 	}
 

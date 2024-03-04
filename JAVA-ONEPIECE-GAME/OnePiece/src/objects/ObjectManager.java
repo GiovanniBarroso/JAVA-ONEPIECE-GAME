@@ -123,7 +123,7 @@ public class ObjectManager {
 		for(Projectile p: projectiles) {
 			if(p.isActive()) {
 				p.updatePos();
-				//comprueba si esta en el bola y le hace 25 de danio
+				//comprueba si le da la bola y le hace 25 de daño
 			if(p.getHitbox().intersects(player.getHitbox())) {
 				player.changeHealth(-25);
 				p.setActive(false);
