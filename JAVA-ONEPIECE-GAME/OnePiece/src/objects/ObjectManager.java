@@ -178,11 +178,11 @@ public class ObjectManager {
 	                    if (isPlayerInfrontOfCannon(c, player))
 	                        if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
 	                            c.setAnimation(true);
-	                            shootCannon(c); // Llamar explícitamente a shootCannon cuando se activa la animación
 	                        }
 	        c.update();
+	        
 	        if (c.getAniIndex() == 4 && c.getAniTick() == 0)
-	            shootCannon(c); // También llamar a shootCannon cuando se alcanza el índice de animación adecuado
+	            shootCannon(c);
 	    }
 	}
 
@@ -194,7 +194,7 @@ public class ObjectManager {
 		if (c.getAniIndex() == 4 && c.getAniTick() == 0 && c.getShootTimer() >= c.getShootDelay()) {
 			c.setAnimation(true); 
 			c.resetShootTimer(); 
-			c.setAnimation(false);
+			
 			projectiles.add(new Projectile((int) c.getHitbox().x, (int) c.getHitbox().y, dir));
 		}
 

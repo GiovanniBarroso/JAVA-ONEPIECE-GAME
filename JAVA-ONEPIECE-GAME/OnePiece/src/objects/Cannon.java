@@ -1,7 +1,7 @@
 package objects;
 
 import main.Game;
-
+import static utilz.HelpMethods.CanCannonSeePlayer;
 public class Cannon extends GameObject {
 
 	private int tileY;
@@ -18,7 +18,7 @@ public class Cannon extends GameObject {
 	public void update() {
 	    if (doAnimation)
 	        updateAnimationTick();
-	    
+	  
 	    // Actualizar el temporizador de disparo
 	    shootTimer++;
 	}
