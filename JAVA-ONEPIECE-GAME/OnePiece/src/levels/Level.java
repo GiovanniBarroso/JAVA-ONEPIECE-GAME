@@ -39,14 +39,14 @@ public class Level {
 	private Point playerSpawn;
 	public Level(BufferedImage img) {
 	    this.img = img;
-	    bucanero = new ArrayList<>(); // Inicializa bucanero
-	    espadachin = new ArrayList<>(); // Inicializa espadachin
-	    potions = new ArrayList<>(); // Inicializa potions
-	    containers = new ArrayList<>(); // Inicializa containers
-	    spikes = new ArrayList<>(); // Inicializa spikes
+	    bucanero = new ArrayList<>(); 
+	    espadachin = new ArrayList<>(); 
+	    potions = new ArrayList<>(); 
+	    containers = new ArrayList<>(); 
+	    spikes = new ArrayList<>(); 
 	    cannons = new ArrayList<>(); 
-	    trees = new ArrayList<>(); // Inicializa trees
-	    grass = new ArrayList<>(); // Inicializa grass
+	    trees = new ArrayList<>(); 
+	    grass = new ArrayList<>(); 
 
 	    createLevelData();
 	    loadLevel();
@@ -113,14 +113,9 @@ public class Level {
 		maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
 	}
 
-	
-
 	private void calcPlayerSpawn() {
 		playerSpawn = GetPlayerSpawn(img);
 	}
-
-
-
 
 	private void createLevelData() {
 		lvlData = GetLevelData(img);

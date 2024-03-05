@@ -144,6 +144,7 @@ public class ObjectManager {
 			bt.update();
 	}
 
+
 	private void updateProjectiles(int[][] lvlData, Player player) {
 		for (Projectile p : projectiles)
 			if (p.isActive()) {
@@ -155,7 +156,6 @@ public class ObjectManager {
 					p.setActive(false);
 			}
 	}
-
 	private boolean isPlayerInRange(Cannon c, Player player) {
 		int absValue = (int) Math.abs(player.getHitbox().x - c.getHitbox().x);
 		return absValue <= Game.TILES_SIZE * 5;
@@ -170,16 +170,15 @@ public class ObjectManager {
 			return true;
 		return false;
 	}
-
 	private void updateCannons(int[][] lvlData, Player player) {
 		for (Cannon c : currentLevel.getCannons()) {
 			if (!c.doAnimation)
 				if (c.getTileY() == player.getTileY())
 					if (isPlayerInRange(c, player))
 						if (isPlayerInfrontOfCannon(c, player))
-							if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY()))
+							if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
 								c.setAnimation(true);
-
+							}
 			c.update();
 			if (c.getAniIndex() == 4 && c.getAniTick() == 0)
 				shootCannon(c);
@@ -190,8 +189,14 @@ public class ObjectManager {
 		int dir = 1;
 		if (c.getObjType() == CANNON_LEFT)
 			dir = -1;
+		if (c.getAniIndex() == 4 && c.getAniTick() == 0 && c.getShootTimer() >= c.getShootDelay()) {
+			c.setAnimation(true); 
+			c.resetShootTimer(); 
+			c.setAnimation(false);
+			projectiles.add(new Projectile((int) c.getHitbox().x, (int) c.getHitbox().y, dir));
+		}
 
-		projectiles.add(new Projectile((int) c.getHitbox().x, (int) c.getHitbox().y, dir));
+
 	}
 
 	public void draw(Graphics g, int xLvlOffset) {
