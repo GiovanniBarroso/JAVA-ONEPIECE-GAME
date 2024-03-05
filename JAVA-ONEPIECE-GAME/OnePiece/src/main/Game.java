@@ -1,6 +1,11 @@
 package main;
 
 import java.awt.Graphics;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import audio.AudioPlayer;
 import gamestates.GameOptions;
@@ -75,7 +80,26 @@ public class Game implements Runnable {
 
 		}
 	}
+	 public void showInGameMessage(String message, int duration) {
+	        JFrame frame = new JFrame("Mensaje");
+	        JLabel label = new JLabel(message);
+	       
+	        frame.add(label);
+	        frame.setSize(300, 100);
+	        frame.setLocationRelativeTo(null);
+	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        frame.setVisible(true);
 
+	        // Temporizador para cerrar la ventana después de la duración especificada
+	        Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run() {
+	                frame.dispose();
+	                timer.cancel();
+	            }
+	        }, duration);
+	    }
 	public void render(Graphics g) {
 		switch (Gamestate.state) {
 		case MENU:

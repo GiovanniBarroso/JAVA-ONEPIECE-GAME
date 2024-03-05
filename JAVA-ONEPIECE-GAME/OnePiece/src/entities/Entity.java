@@ -19,7 +19,7 @@ public abstract class Entity {
 	protected int currentHealth;
 	protected Rectangle2D.Float attackBox;
 	protected float walkSpeed;
-
+	 protected static final int RETREAT_DISTANCE = 120;
 	public Entity(float x, float y, int width, int height) {
 		this.x = x;
 		this.y = y;

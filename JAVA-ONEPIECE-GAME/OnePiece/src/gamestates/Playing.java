@@ -102,6 +102,7 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void update() {
+		
 		if (paused) {
 			pauseOverlay.update();
 		} else if (lvlCompleted) {

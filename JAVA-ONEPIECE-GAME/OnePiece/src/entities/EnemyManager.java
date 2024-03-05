@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import gamestates.Playing;
 import levels.Level;
+import levels.LevelManager;
+import main.Game;
 import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.PlayerConstants.*;
@@ -18,6 +20,7 @@ public class EnemyManager {
 	private ArrayList<Bucanero> bucaneros = new ArrayList<>();
 	private ArrayList<Espadachin> espadachines = new ArrayList<>();
 	private ArrayList<Kurohige> kurohiges = new ArrayList<>();
+	
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		loadEnemyImgs();
@@ -30,27 +33,33 @@ public class EnemyManager {
 	}
 
 	public void update(int[][] lvlData, Player player) {
-		boolean isAnyActive = false;
-		for (Bucanero c : bucaneros)
-			if (c.isActive()) {
-				c.update(lvlData, player);
-				isAnyActive = true;
-			}
-		for (Espadachin e : espadachines)
-			if (e.isActive()) {
-				e.update(lvlData, player);
-				isAnyActive = true;
-			}
-		for (Kurohige k : kurohiges)
-			if (k.isActive()) {
-				k.update(lvlData, player);
-				isAnyActive = true;
-			}
-		
-		if (!isAnyActive)
-			playing.setLevelCompleted(true);
-		
+	    boolean isAnyActive = false;
+	    for (Bucanero c : bucaneros)
+	        if (c.isActive()) {
+	        	
+	            c.update(lvlData, player);
+	            c.checkWaterCollision(lvlData); // Verificar colisión con agua
+	            isAnyActive = true;
+	            
+	        }
+	    for (Espadachin e : espadachines)
+	        if (e.isActive()) {
+	            e.update(lvlData, player);
+	            e.checkWaterCollision(lvlData); // Verificar colisión con agua
+	            isAnyActive = true;
+	        }
+	    for (Kurohige k : kurohiges)
+	        if (k.isActive()) {
+	            k.update(lvlData, player);
+	            k.checkWaterCollision(lvlData); // Verificar colisión con agua
+	            isAnyActive = true;
+	        }
+
+	    if (!isAnyActive)
+	        playing.setLevelCompleted(true);
 	}
+
+
 
 	public void draw(Graphics g, int xLvlOffset) {
 		drawBucaneros(g, xLvlOffset);
@@ -92,35 +101,47 @@ public class EnemyManager {
 	}
 
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
-		for (Bucanero c : bucaneros)
-			if (c.isActive())
-				if (attackBox.intersects(c.getHitbox())&&playing.getPlayer().state==ATAQUE) {
-					c.hurt(10);
-					return;
-				}else if(attackBox.intersects(c.getHitbox())&&playing.getPlayer().state==ESPECIAL) {
-					c.hurt(20);
-					return;
-				}
-		for (Espadachin e : espadachines)
-			if (e.isActive())
-				if (attackBox.intersects(e.getHitbox())&&playing.getPlayer().state==ATAQUE) {
-					e.hurt(10);
-					return;
-				}else if(attackBox.intersects(e.getHitbox())&&playing.getPlayer().state==ESPECIAL) {
-					e.hurt(20);
-					return;
-				}
-		for (Kurohige k : kurohiges)
-			if (k.isActive())
-				if (attackBox.intersects(k.getHitbox())&&playing.getPlayer().state==ATAQUE) {
-					k.hurt(10);
-					return;
-				}else if(attackBox.intersects(k.getHitbox())&&playing.getPlayer().state==ESPECIAL) {
-					k.hurt(20);
-					return;
-				}
-				
+	    // Verificar colisión con los Bucaneros
+	    for (Bucanero c : bucaneros)
+	        if (c.isActive())
+	            if (attackBox.intersects(c.getHitbox()) && playing.getPlayer().getState() == ATAQUE) {
+	                c.hurt(10);
+	                c.knockback(playing.getPlayer(),playing.getLevelManager().getCurrentLevel().getLevelData());
+	                return;
+	            } else if (attackBox.intersects(c.getHitbox()) && playing.getPlayer().getState() == ESPECIAL) {
+	                c.hurt(20);
+	                c.knockback(playing.getPlayer(),playing.getLevelManager().getCurrentLevel().getLevelData());
+	                return;
+	            }
+
+	    // Verificar colisión con los Espadachines
+	    for (Espadachin e : espadachines)
+	        if (e.isActive())
+	            if (attackBox.intersects(e.getHitbox()) && playing.getPlayer().getState() == ATAQUE) {
+	                e.hurt(10);
+	                e.knockback(playing.getPlayer(),playing.getLevelManager().getCurrentLevel().getLevelData());
+	                return;
+	            } else if (attackBox.intersects(e.getHitbox()) && playing.getPlayer().getState() == ESPECIAL) {
+	                e.hurt(20);
+	                e.knockback(playing.getPlayer(),playing.getLevelManager().getCurrentLevel().getLevelData());
+	                return;
+	            }
+
+	    // Verificar colisión con los Kurohiges
+	    for (Kurohige k : kurohiges)
+	        if (k.isActive())
+	            if (attackBox.intersects(k.getHitbox()) && playing.getPlayer().getState() == ATAQUE) {
+	                k.hurt(10);
+	                k.knockback(playing.getPlayer(),playing.getLevelManager().getCurrentLevel().getLevelData());
+	                return;
+	            } else if (attackBox.intersects(k.getHitbox()) && playing.getPlayer().getState() == ESPECIAL) {
+	                k.hurt(20);
+	                k.knockback(playing.getPlayer(),playing.getLevelManager().getCurrentLevel().getLevelData());
+	               
+	                return;
+	            }
 	}
+
 
 	private void loadEnemyImgs() {
 		bucaneroArr = new BufferedImage[3][6];

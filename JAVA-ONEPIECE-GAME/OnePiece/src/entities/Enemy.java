@@ -3,14 +3,31 @@ package entities;
 import static utilz.Constants.EnemyConstants.*;
 import static utilz.HelpMethods.*;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.geom.Rectangle2D;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import static utilz.Constants.Directions.*;
 import static utilz.Constants.*;
 
 import main.Game;
+import main.GamePanel;
+
 
 public abstract class Enemy extends Entity {
+	protected int retreatDistance = 100;
 	protected int enemyType;
 	protected boolean firstUpdate = true;
 	protected int walkDir = LEFT;
@@ -19,14 +36,71 @@ public abstract class Enemy extends Entity {
 	protected boolean active = true;
 	protected boolean attackChecked;
 
+
 	public Enemy(float x, float y, int width, int height, int enemyType) {
 		super(x, y, width, height);
 		this.enemyType = enemyType;
-
 		maxHealth = GetMaxHealth(enemyType);
 		currentHealth = maxHealth;
 		walkSpeed = Game.SCALE * 0.2f;
+
 	}
+
+    protected void knockback(Player player, int[][] lvlData) {
+        // Aplica el retroceso
+        if (player.hitbox.x < hitbox.x) {
+            hitbox.x += retreatDistance;
+        } else {
+            hitbox.x -= retreatDistance;
+        }
+
+        // Verifica si hay un bloque de suelo debajo del enemigo
+        boolean onGround = IsEntityOnFloor(hitbox, lvlData);
+        if (!onGround) {
+            while (!IsEntityOnFloor(hitbox, lvlData)) {
+                hitbox.y += GRAVITY;
+                if (IsEntityInWater(hitbox, lvlData)) {
+                    hurt(100);
+                  // Actualizar la animación mientras el enemigo está siendo golpeado por el agua
+                    break;
+                }
+               active=false;
+            }
+        }
+    }
+
+    protected void checkWaterCollision(int[][] lvlData) {
+        if (IsEntityInWater(hitbox, lvlData)) {
+            newState(DEAD); // Establecer el estado como muerto
+            currentHealth -= 20; // Establecer la salud en 0 después de la animación
+            aniIndex = 0; // Reiniciar el índice de la animación
+        }
+    }
+
+    protected void updateAnimationTick() {
+        aniTick++;
+        if (aniTick >= ANI_SPEED + 20) {
+            aniTick = 0;
+            aniIndex++;
+            if (aniIndex >= GetSpriteAmount(enemyType, state)) {
+                aniIndex = 0;
+
+                switch (state) {
+                    case ATTACK -> state = IDLE;
+                    case DEAD, DEAD2 -> {
+                        active = false;
+                        System.out.println("DMNFJDKF");
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
 
 	protected void firstUpdateCheck(int[][] lvlData) {
 		if (!IsEntityOnFloor(hitbox, lvlData))
@@ -44,6 +118,7 @@ public abstract class Enemy extends Entity {
 			tileY = (int) (hitbox.y / Game.TILES_SIZE);
 		}
 	}
+
 
 	protected void move(int[][] lvlData) {
 		float xSpeed = 0;
@@ -94,6 +169,7 @@ public abstract class Enemy extends Entity {
 		this.state = enemyState;
 		aniTick = 0;
 		aniIndex = 0;
+
 	}
 
 	public void hurt(int amount) {
@@ -102,25 +178,7 @@ public abstract class Enemy extends Entity {
 		if (currentHealth <= 0) {
 			newState(DEAD);
 		}else {
-			
-		}
-	}
 
-	protected void updateAnimationTick() {
-		aniTick++;
-		if (aniTick >= ANI_SPEED + 20) {
-			aniTick = 0;
-			aniIndex++;
-			if (aniIndex >= GetSpriteAmount(enemyType, state)) {
-				aniIndex = 0;
-
-				switch (state) {
-				case ATTACK -> state = IDLE;
-				case DEAD, DEAD2 -> {
-					active = false;
-				}
-				}
-			}
 		}
 	}
 

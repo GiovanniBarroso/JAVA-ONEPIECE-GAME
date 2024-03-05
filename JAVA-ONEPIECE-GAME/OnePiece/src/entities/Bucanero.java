@@ -9,7 +9,7 @@ import static utilz.Constants.Directions.*;
 import main.Game;
 
 public class Bucanero extends Enemy {
-
+	 
 	private int attackBoxOffsetX;
 
 	public Bucanero(float x, float y) {
