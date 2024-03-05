@@ -116,13 +116,13 @@ public class Playing extends State implements Statemethods {
 		if (gameOver) {
 			gameOverOverlay.update();
 		}
-		if (drawRain)
+		if (drawRain) {
 			rain.update(xLvlOffset);
-		levelManager.update();
-		objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
-		player.update();
-		enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
-
+			levelManager.update();
+//			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+//			player.update();
+//			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+		}
 		checkCloseToBorder();
 		if (drawShip)
 			updateShipAni();

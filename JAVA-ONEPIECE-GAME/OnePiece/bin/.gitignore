@@ -1,5 +1,6 @@
 /audio/
 /cargarAudio/
+/effects/
 /entities/
 /gamestates/
 /imagenes/
@@ -11,4 +12,3 @@
 /res/
 /ui/
 /utilz/
-/effects/

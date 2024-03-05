@@ -5,7 +5,7 @@ import main.Game;
 public class Constants {
 	
 	public static final float GRAVITY = 0.04f * Game.SCALE;
-	public static final int ANI_SPEED = 10;
+	public static final int ANI_SPEED = 0;
 	
 	public static class Projectiles{
 		public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
@@ -172,7 +172,6 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type) {
 			switch(enemy_type) {
 			case BUCANERO:
-
 				return 10;
 			case ESPADACHIN:
 				return 20;

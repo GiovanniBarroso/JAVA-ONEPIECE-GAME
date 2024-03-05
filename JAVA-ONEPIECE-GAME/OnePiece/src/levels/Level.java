@@ -37,23 +37,28 @@ public class Level {
 	private int maxTilesOffset;
 	private int maxLvlOffsetX;
 	private Point playerSpawn;
-
 	public Level(BufferedImage img) {
-		this.img = img;
-		createLevelData();
-		createEnemies();
-		createPotions();
-		createContainers();
-		createSpikes();
-		createCannons();
-		calcLvlOffsets();
-		calcPlayerSpawn();
-		loadLevel();
-		calcLvlOffsets();
+	    this.img = img;
+	    bucanero = new ArrayList<>(); // Inicializa bucanero
+	    espadachin = new ArrayList<>(); // Inicializa espadachin
+	    potions = new ArrayList<>(); // Inicializa potions
+	    containers = new ArrayList<>(); // Inicializa containers
+	    spikes = new ArrayList<>(); // Inicializa spikes
+	    cannons = new ArrayList<>(); 
+	    trees = new ArrayList<>(); // Inicializa trees
+	    grass = new ArrayList<>(); // Inicializa grass
 
+	    createLevelData();
+	    loadLevel();
+	    calcPlayerSpawn();
+	    calcLvlOffsets();
 	}
 
 	private void loadLevel() {
+
+		// Looping through the image colors just once. Instead of one per
+		// object/enemy/etc..
+		// Removed many methods in HelpMethods class.
 
 		for (int y = 0; y < img.getHeight(); y++)
 			for (int x = 0; x < img.getWidth(); x++) {
@@ -87,7 +92,7 @@ public class Level {
 		switch (greenValue) {
 		case BUCANERO -> bucanero.add(new Bucanero(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case ESPADACHIN -> espadachin.add(new Espadachin(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
-		//		case SHARK -> sharks.add(new Shark(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
+//		case SHARK -> sharks.add(new Shark(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case 100 -> playerSpawn = new Point(x * Game.TILES_SIZE, y * Game.TILES_SIZE);
 		}
 	}
@@ -108,33 +113,14 @@ public class Level {
 		maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
 	}
 
-	private void createCannons() {
-		cannons=HelpMethods.GetCannons(img);
-
-	}
-
-	private void createSpikes() {
-		spikes=HelpMethods.GetSpikes(img);
-
-	}
-
-	private void createContainers() {
-		containers = HelpMethods.GetContainers(img);
-	}
-
-	private void createPotions() {
-		potions = HelpMethods.GetPotions(img);
-	}
+	
 
 	private void calcPlayerSpawn() {
 		playerSpawn = GetPlayerSpawn(img);
 	}
 
 
-	private void createEnemies() {
-		bucanero = GetBucaneros(img);
-		espadachin=GetEspadachines(img);
-	}
+
 
 	private void createLevelData() {
 		lvlData = GetLevelData(img);
