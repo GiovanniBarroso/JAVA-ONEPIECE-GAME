@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import entities.Bucanero;
 import entities.Espadachin;
+import entities.Kurohige;
 import main.Game;
 import objects.BackgroundTree;
 import objects.Cannon;
@@ -26,6 +27,7 @@ public class Level {
 	private int[][] lvlData;
 	private ArrayList<Bucanero> bucanero;
 	private ArrayList<Espadachin> espadachin;
+	private ArrayList<Kurohige> kuro;
 	private ArrayList<Potion> potions;
 	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainer> containers;
@@ -41,6 +43,7 @@ public class Level {
 	    this.img = img;
 	    bucanero = new ArrayList<>(); 
 	    espadachin = new ArrayList<>(); 
+	    kuro= new ArrayList<>();
 	    potions = new ArrayList<>(); 
 	    containers = new ArrayList<>(); 
 	    spikes = new ArrayList<>(); 
@@ -92,7 +95,7 @@ public class Level {
 		switch (greenValue) {
 		case BUCANERO -> bucanero.add(new Bucanero(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case ESPADACHIN -> espadachin.add(new Espadachin(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
-//		case SHARK -> sharks.add(new Shark(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
+		case KUROHIGE -> kuro.add(new Kurohige(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case 100 -> playerSpawn = new Point(x * Game.TILES_SIZE, y * Game.TILES_SIZE);
 		}
 	}
@@ -139,7 +142,9 @@ public class Level {
 	public ArrayList<Espadachin> getEspadachines() {
 		return espadachin;
 	}
-
+	public ArrayList<Kurohige> getKurohiges() {
+		return kuro;
+	}
 	public Point getPlayerSpawn() {
 		return playerSpawn;
 	}

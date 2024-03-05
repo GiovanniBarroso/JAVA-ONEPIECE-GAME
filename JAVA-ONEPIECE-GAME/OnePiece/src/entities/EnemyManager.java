@@ -14,9 +14,10 @@ import static utilz.Constants.PlayerConstants.*;
 public class EnemyManager {
 
 	private Playing playing;
-	private BufferedImage[][] bucaneroArr,espadachinArr;
+	private BufferedImage[][] bucaneroArr,espadachinArr,kurohigeArr;
 	private ArrayList<Bucanero> bucaneros = new ArrayList<>();
 	private ArrayList<Espadachin> espadachines = new ArrayList<>();
+	private ArrayList<Kurohige> kurohiges = new ArrayList<>();
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		loadEnemyImgs();
@@ -25,6 +26,7 @@ public class EnemyManager {
 	public void loadEnemies(Level level) {
 		bucaneros = level.getCrabs();
 		espadachines=level.getEspadachines();
+		kurohiges= level.getKurohiges();
 	}
 
 	public void update(int[][] lvlData, Player player) {
@@ -39,6 +41,11 @@ public class EnemyManager {
 				e.update(lvlData, player);
 				isAnyActive = true;
 			}
+		for (Kurohige k : kurohiges)
+			if (k.isActive()) {
+				k.update(lvlData, player);
+				isAnyActive = true;
+			}
 		
 		if (!isAnyActive)
 			playing.setLevelCompleted(true);
@@ -48,6 +55,18 @@ public class EnemyManager {
 	public void draw(Graphics g, int xLvlOffset) {
 		drawBucaneros(g, xLvlOffset);
 		drawEspadachines(g,xLvlOffset);
+		drawKurohiges(g,xLvlOffset);
+	}
+
+	private void drawKurohiges(Graphics g, int xLvlOffset) {
+		for (Kurohige k : kurohiges)
+			if (k.isActive()) {
+				g.drawImage(kurohigeArr[k.getState()][k.getAniIndex()], (int) k.getHitbox().x - xLvlOffset - KUROHIGE_DRAWOFFSET_X + k.flipX(), (int) k.getHitbox().y - KUROHIGE_DRAWOFFSET_Y,
+						KUROHIGE_WIDTH * k.flipW(), KUROHIGE_HEIGHT, null);
+				k.drawHitbox(g, xLvlOffset);
+				
+			}
+		
 	}
 
 	private void drawEspadachines(Graphics g, int xLvlOffset) {
@@ -91,6 +110,15 @@ public class EnemyManager {
 					e.hurt(20);
 					return;
 				}
+		for (Kurohige k : kurohiges)
+			if (k.isActive())
+				if (attackBox.intersects(k.getHitbox())&&playing.getPlayer().state==ATAQUE) {
+					k.hurt(10);
+					return;
+				}else if(attackBox.intersects(k.getHitbox())&&playing.getPlayer().state==ESPECIAL) {
+					k.hurt(20);
+					return;
+				}
 				
 	}
 
@@ -106,6 +134,12 @@ public class EnemyManager {
 		for (int j = 0; j < espadachinArr.length; j++)
 			for (int i = 0; i < espadachinArr[j].length; i++)
 				espadachinArr[j][i] = temp2.getSubimage(i * ESPADACHIN_WIDTH_DEFAULT, j * ESPADACHIN__HEIGHT_DEFAULT, ESPADACHIN_WIDTH_DEFAULT, ESPADACHIN__HEIGHT_DEFAULT);
+		
+		kurohigeArr = new BufferedImage[3][12];
+		BufferedImage temp3 = LoadSave.GetSpriteAtlas(LoadSave.KUROHIGE_SPRITE);
+		for (int j = 0; j < kurohigeArr.length; j++)
+			for (int i = 0; i < kurohigeArr[j].length; i++)
+				kurohigeArr[j][i] = temp3.getSubimage(i * KUROHIGE_WIDTH_DEFAULT, j * KUROHIGE__HEIGHT_DEFAULT, KUROHIGE_WIDTH_DEFAULT, KUROHIGE__HEIGHT_DEFAULT);
 	}
 
 	public void resetAllEnemies() {
@@ -113,6 +147,8 @@ public class EnemyManager {
 			c.resetEnemy();
 		for (Espadachin e : espadachines)
 			e.resetEnemy();
+		for (Kurohige k : kurohiges)
+			k.resetEnemy();
 		
 	}
 

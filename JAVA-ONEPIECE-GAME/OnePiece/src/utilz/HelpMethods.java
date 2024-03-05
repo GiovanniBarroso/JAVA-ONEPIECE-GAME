@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import entities.Bucanero;
 import entities.Espadachin;
+import entities.Kurohige;
 import main.Game;
 import objects.BackgroundTree;
 import objects.Cannon;
@@ -181,6 +182,17 @@ public class HelpMethods {
 				int value = color.getGreen();
 				if (value == ESPADACHIN)
 					list.add(new Espadachin(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
+			}
+		return list;
+	}
+	public static ArrayList<Kurohige> GetKurohiges(BufferedImage img) {
+		ArrayList<Kurohige> list = new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getGreen();
+				if (value == KUROHIGE)
+					list.add(new Kurohige(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
 			}
 		return list;
 	}
