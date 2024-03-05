@@ -118,11 +118,12 @@ public class Constants {
 	public static class EnemyConstants {
 		public static final int BUCANERO = 0;
 		public static final int ESPADACHIN = 1;
+		public static final int KUROHIGE=2;
 		
 		public static final int IDLE = 0;
 		public static final int ATTACK = 1;
 		public static final int HIT2 = 2;
-		public static final int DEAD = 2;
+		public static final int DEAD = 2; 
 		public static final int DEAD2=3;
 		
 
