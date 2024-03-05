@@ -52,6 +52,7 @@ public class GameOverOverlay {
 
 		menu.draw(g);
 		play.draw(g);
+		playing.isDrawShip(false);
 	}
 
 	public void update() {

@@ -119,9 +119,9 @@ public class Playing extends State implements Statemethods {
 		if (drawRain) {
 			rain.update(xLvlOffset);
 			levelManager.update();
-//			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
-//			player.update();
-//			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+			//			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+			//			player.update();
+			//			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 		}
 		checkCloseToBorder();
 		if (drawShip)
@@ -205,6 +205,9 @@ public class Playing extends State implements Statemethods {
 		enemyManager.resetAllEnemies();
 		objectManager.resetAllObjects();
 		drawRain = false;
+		if(getLevelManager().getLlvlIndex()==0) {
+			drawShip=true;
+		}
 
 		setDrawRainBoolean();
 
@@ -262,7 +265,7 @@ public class Playing extends State implements Statemethods {
 				player.setJump(true);
 				break;
 			case KeyEvent.VK_ESCAPE:
-				paused = !paused;
+				paused = true;
 				break;
 			case KeyEvent.VK_X:
 				player.powerAttack();
@@ -351,7 +354,10 @@ public class Playing extends State implements Statemethods {
 
 	public void unpauseGame() {
 		paused = false;
-		isDrawShip(true);
+		if(getLevelManager().getLlvlIndex()==0) {
+			isDrawShip(true);
+		}
+
 	}
 
 	public void windowFocusLost() {
@@ -381,6 +387,6 @@ public class Playing extends State implements Statemethods {
 	public void setDrawShip(boolean drawShip) {
 		this.drawShip = drawShip;
 	}
-	
-	
+
+
 }
