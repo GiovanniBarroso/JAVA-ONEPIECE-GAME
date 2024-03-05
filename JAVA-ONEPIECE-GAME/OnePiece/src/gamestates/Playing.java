@@ -351,6 +351,7 @@ public class Playing extends State implements Statemethods {
 
 	public void unpauseGame() {
 		paused = false;
+		isDrawShip(true);
 	}
 
 	public void windowFocusLost() {
@@ -372,4 +373,14 @@ public class Playing extends State implements Statemethods {
 	public LevelManager getLevelManager() {
 		return levelManager;
 	}
+
+	public boolean isDrawShip(boolean b) {
+		return drawShip = b;
+	}
+
+	public void setDrawShip(boolean drawShip) {
+		this.drawShip = drawShip;
+	}
+	
+	
 }

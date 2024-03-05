@@ -67,14 +67,12 @@ public class PauseOverlay {
 		//Background
 		g.drawImage(backgroundImg, bgX, bgY, bgW, bgH, null);
 
-
-
 		//URMBUTTONS
 		menuB.draw(g);
 		replayB.draw(g);
 		unpauseB.draw(g);
-		
 		audioOptions.draw(g);
+		playing.isDrawShip(false);
 	}
 
 	public void mouseDragged (MouseEvent e) {
