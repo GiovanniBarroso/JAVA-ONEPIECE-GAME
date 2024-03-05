@@ -13,7 +13,7 @@ public class Constants {
 		
 		public static final int CANNON_BALL_WIDTH = (int)(Game.SCALE * CANNON_BALL_DEFAULT_WIDTH);
 		public static final int CANNON_BALL_HEIGHT = (int)(Game.SCALE * CANNON_BALL_DEFAULT_HEIGHT);
-		public static final float SPEED = 0.75f * Game.SCALE;
+		public static final float SPEED = 0.25f * Game.SCALE;
 	}
 	
 	public static class ObjectConstants {
@@ -172,7 +172,7 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type) {
 			switch(enemy_type) {
 			case BUCANERO:
-				return 10;
+				return 20;
 			case ESPADACHIN:
 				return 20;
 			default:

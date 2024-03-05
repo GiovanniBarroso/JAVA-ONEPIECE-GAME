@@ -39,6 +39,7 @@ public class Cannon extends GameObject {
 
 	public void resetShootTimer() {
 	    shootTimer = 0;
+	    
 	}
 
 

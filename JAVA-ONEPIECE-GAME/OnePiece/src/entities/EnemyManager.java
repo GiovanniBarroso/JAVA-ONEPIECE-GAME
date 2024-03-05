@@ -9,6 +9,7 @@ import gamestates.Playing;
 import levels.Level;
 import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.PlayerConstants.*;
 
 public class EnemyManager {
 
@@ -74,14 +75,20 @@ public class EnemyManager {
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
 		for (Bucanero c : bucaneros)
 			if (c.isActive())
-				if (attackBox.intersects(c.getHitbox())) {
+				if (attackBox.intersects(c.getHitbox())&&playing.getPlayer().state==ATAQUE) {
 					c.hurt(10);
+					return;
+				}else if(attackBox.intersects(c.getHitbox())&&playing.getPlayer().state==ESPECIAL) {
+					c.hurt(20);
 					return;
 				}
 		for (Espadachin e : espadachines)
 			if (e.isActive())
-				if (attackBox.intersects(e.getHitbox())) {
+				if (attackBox.intersects(e.getHitbox())&&playing.getPlayer().state==ATAQUE) {
 					e.hurt(10);
+					return;
+				}else if(attackBox.intersects(e.getHitbox())&&playing.getPlayer().state==ESPECIAL) {
+					e.hurt(20);
 					return;
 				}
 				

@@ -19,7 +19,7 @@ import utilz.LoadSave;
 public class Player extends Entity {
 
 	private BufferedImage[][] animations;
-	private boolean moving = false, attacking = false;
+	private boolean moving = false, attacking = false,attacking2=false;
 	private boolean left, right, jump;
 	private int[][] lvlData;
 	private float xDrawOffset = 21 * Game.SCALE;
@@ -136,7 +136,7 @@ public class Player extends Entity {
 					
 			}
 		}
-		if (attacking || powerAttackActive)
+		if (attacking || powerAttackActive||attacking2)
 			checkAttack();
 
 		updateAnimationTick();
@@ -214,6 +214,7 @@ public class Player extends Entity {
 			if (aniIndex >= getSpriteAmount(state)) {
 				aniIndex = 0;
 				attacking = false;
+				attacking2=false;
 				attackChecked=false;
 			}
 
@@ -236,7 +237,7 @@ public class Player extends Entity {
 				state = SALTO;
 		}
 		if(powerAttackActive) {
-			state=ESPECIAL;
+			state=CORRERALANTE;
 			aniIndex=1;
 			aniTick=0;
 			return;
@@ -244,6 +245,8 @@ public class Player extends Entity {
 		
 		if (attacking)
 			state = ATAQUE;
+		if(attacking2)
+			state=ESPECIAL;
 
 		if (startAni != state)
 			resetAniTick();
@@ -287,6 +290,7 @@ public class Player extends Entity {
 					xSpeed=walkSpeed;
 				}
 			}
+			
 			xSpeed*=3;
 		}
 		if (!inAir)
@@ -396,6 +400,10 @@ public class Player extends Entity {
 	public void setAttacking(boolean attacking) {
 		this.attacking = attacking;
 	}
+	
+	public void setAttacking2(boolean attacking2) {
+		this.attacking2 = attacking2;
+	}
 
 	public boolean isLeft() {
 		return left;
@@ -422,6 +430,7 @@ public class Player extends Entity {
 		resetDirBooleans();
 		inAir = false;
 		attacking = false;
+		attacking2=false;
 		moving = false;
 		jump=false;
 		state = ANDAR;
@@ -444,9 +453,9 @@ public class Player extends Entity {
 		}
 		else if(powerAttackActive)
 			return;
-		else if(powerValue>=60&&!inAir) {
+		else if(powerValue>=50&&!inAir) {
 			powerAttackActive=true;
-			changePower(-60);
+			changePower(-50);
 		}
 
 	}

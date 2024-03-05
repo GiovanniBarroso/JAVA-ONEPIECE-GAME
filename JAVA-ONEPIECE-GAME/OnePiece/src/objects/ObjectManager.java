@@ -171,19 +171,21 @@ public class ObjectManager {
 		return false;
 	}
 	private void updateCannons(int[][] lvlData, Player player) {
-		for (Cannon c : currentLevel.getCannons()) {
-			if (!c.doAnimation)
-				if (c.getTileY() == player.getTileY())
-					if (isPlayerInRange(c, player))
-						if (isPlayerInfrontOfCannon(c, player))
-							if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
-								c.setAnimation(true);
-							}
-			c.update();
-			if (c.getAniIndex() == 4 && c.getAniTick() == 0)
-				shootCannon(c);
-		}
+	    for (Cannon c : currentLevel.getCannons()) {
+	        if (!c.doAnimation)
+	            if (c.getTileY() == player.getTileY())
+	                if (isPlayerInRange(c, player))
+	                    if (isPlayerInfrontOfCannon(c, player))
+	                        if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
+	                            c.setAnimation(true);
+	                            shootCannon(c); // Llamar explícitamente a shootCannon cuando se activa la animación
+	                        }
+	        c.update();
+	        if (c.getAniIndex() == 4 && c.getAniTick() == 0)
+	            shootCannon(c); // También llamar a shootCannon cuando se alcanza el índice de animación adecuado
+	    }
 	}
+
 
 	private void shootCannon(Cannon c) {
 		int dir = 1;
