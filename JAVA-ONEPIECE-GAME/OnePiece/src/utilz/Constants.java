@@ -25,6 +25,9 @@ public class Constants {
 		public static final int SPIKE = 4;
 		public static final int CANNON_LEFT = 5;
 		public static final int CANNON_RIGHT = 6;
+		public static final int TREE_ONE = 7;
+		public static final int TREE_TWO = 8;
+		public static final int TREE_THREE = 9;
 
 		public static final int RED_POTION_VALUE = 15;
 		public static final int BLUE_POTION_VALUE = 40;
@@ -60,7 +63,57 @@ public class Constants {
 			}
 			return 1;
 		}
+		
+		public static int GetTreeOffsetX(int treeType) {
+			switch (treeType) {
+			case TREE_ONE:
+				return (Game.TILES_SIZE / 2) - (GetTreeWidth(treeType) / 2);
+			case TREE_TWO:
+				return (int) (Game.TILES_SIZE / 2.5f);
+			case TREE_THREE:
+				return (int) (Game.TILES_SIZE / 1.65f);
+			}
+
+			return 0;
+		}
+
+		public static int GetTreeOffsetY(int treeType) {
+
+			switch (treeType) {
+			case TREE_ONE:
+				return -GetTreeHeight(treeType) + Game.TILES_SIZE * 2;
+			case TREE_TWO, TREE_THREE:
+				return -GetTreeHeight(treeType) + (int) (Game.TILES_SIZE / 1.25f);
+			}
+			return 0;
+
+		}
+
+		public static int GetTreeWidth(int treeType) {
+			switch (treeType) {
+			case TREE_ONE:
+				return (int) (39 * Game.SCALE);
+			case TREE_TWO:
+				return (int) (62 * Game.SCALE);
+			case TREE_THREE:
+				return -(int) (62 * Game.SCALE);
+
+			}
+			return 0;
+		}
+
+		public static int GetTreeHeight(int treeType) {
+			switch (treeType) {
+			case TREE_ONE:
+				return (int) (int) (92 * Game.SCALE);
+			case TREE_TWO, TREE_THREE:
+				return (int) (54 * Game.SCALE);
+
+			}
+			return 0;
+		}
 	}
+	
 
 	public static class EnemyConstants {
 		public static final int BUCANERO = 0;

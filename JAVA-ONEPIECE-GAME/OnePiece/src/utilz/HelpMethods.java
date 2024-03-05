@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import entities.Bucanero;
 import entities.Espadachin;
 import main.Game;
+import objects.BackgroundTree;
 import objects.Cannon;
 import objects.GameContainer;
 import objects.Potion;
@@ -41,7 +42,7 @@ public class HelpMethods {
 		return IsTileSolid((int) xIndex, (int) yIndex, lvlData);
 	}
 
-	public static boolean IsProjectleHittingLevel(Projectile p, int[][] lvlData) {
+	public static boolean IsProjectileHittingLevel(Projectile p, int[][] lvlData) {
 
 		return IsSolid(p.getHitbox().x + p.getHitbox().width / 2, p.getHitbox().y + p.getHitbox().height / 2, lvlData);
 	}
@@ -58,14 +59,8 @@ public class HelpMethods {
 	            return true; // Si el tile debajo del centro inferior del jugador es agua, retornamos verdadero
 	        }
 	    }
-
 	    return false; // Si no, retornamos falso
 	}
-
-
-
-
-	
 	
 	public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
 		int value = lvlData[yTile][xTile];
@@ -253,5 +248,20 @@ public class HelpMethods {
 
 		return list;
 	}
+	
+	public static ArrayList<BackgroundTree> GetBackgroundTrees(BufferedImage img) {
+		ArrayList<BackgroundTree> list = new ArrayList<>();
+
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getBlue();
+				if (value == TREE_ONE || value == TREE_TWO || value == TREE_THREE)
+					list.add(new BackgroundTree(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+			}
+
+		return list;
+	}
+	
 
 }

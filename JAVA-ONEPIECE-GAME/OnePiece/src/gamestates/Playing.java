@@ -2,13 +2,13 @@ package gamestates;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import effects.Rain;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
@@ -16,7 +16,6 @@ import main.Game;
 import objects.ObjectManager;
 import ui.GameOverOverlay;
 import ui.LevelCompletedOverlay;
-import ui.MenuButton;
 import ui.PauseOverlay;
 import utilz.LoadSave;
 import static utilz.Constants.Environment.*;
@@ -30,6 +29,7 @@ public class Playing extends State implements Statemethods {
 	private GameOverOverlay gameOverOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
 	private boolean paused = false;
+	private Rain rain;
 
 	private int xLvlOffset;
 	private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
@@ -40,11 +40,11 @@ public class Playing extends State implements Statemethods {
 	private int[] smallCloudsPos;
 	private Random rnd = new Random();
 
-	private Gamestate state;
 	private boolean gameOver;
 	private boolean lvlCompleted;
-
+	private boolean drawRain;
 	private boolean drawShip = true;
+
 	private int shipAni, shipTick, shipDir = 1;
 	private float shipHeightDelta, shipHeightChange = 0.05f * Game.SCALE;
 
@@ -62,8 +62,10 @@ public class Playing extends State implements Statemethods {
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SHIP);
 		for (int i = 0; i < shipImgs.length; i++)
 			shipImgs[i] = temp.getSubimage(i * 78, 0, 78, 72);
+
 		calcLvlOffset();
 		loadStartLevel();
+		setDrawRainBoolean();
 	}
 
 	public void loadNextLevel() {
@@ -94,6 +96,8 @@ public class Playing extends State implements Statemethods {
 		pauseOverlay = new PauseOverlay(this);
 		gameOverOverlay = new GameOverOverlay(this);
 		levelCompletedOverlay = new LevelCompletedOverlay(this);
+
+		rain = new Rain();
 	}
 
 	@Override
@@ -112,6 +116,14 @@ public class Playing extends State implements Statemethods {
 		if (gameOver) {
 			gameOverOverlay.update();
 		}
+		if (drawRain)
+			rain.update(xLvlOffset);
+		levelManager.update();
+		objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+		player.update();
+		enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+
+		checkCloseToBorder();
 		if (drawShip)
 			updateShipAni();
 	}
@@ -154,11 +166,14 @@ public class Playing extends State implements Statemethods {
 		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 
 		drawClouds(g);
+		if (drawRain)
+			rain.draw(g, xLvlOffset);
 
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
 		enemyManager.draw(g, xLvlOffset);
 		objectManager.draw(g, xLvlOffset);
+		objectManager.drawBackgroundTrees(g, xLvlOffset);
 
 		if (paused) {
 			g.setColor(new Color(0, 0, 0, 150));
@@ -189,7 +204,16 @@ public class Playing extends State implements Statemethods {
 		player.resetAll();
 		enemyManager.resetAllEnemies();
 		objectManager.resetAllObjects();
+		drawRain = false;
 
+		setDrawRainBoolean();
+
+	}
+
+	private void setDrawRainBoolean() {
+		// This method makes it rain 20% of the time you load a level.
+		if (rnd.nextFloat() >= 0.8f)
+			drawRain = true;
 	}
 
 	public void setGameOver(boolean gameOver) {
