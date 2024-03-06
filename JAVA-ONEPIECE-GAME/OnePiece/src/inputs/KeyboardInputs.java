@@ -28,21 +28,14 @@ public class KeyboardInputs implements KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        switch(Gamestate.state) {
-            case MENU:
-                gamePanel.getGame().getMenu().keyReleased(e);
-                break;
-            case PLAYING:
-                gamePanel.getGame().getPlaying().keyReleased(e);
-                break;
-            case OPTIONS:
-                gamePanel.getGame().getGameOptions().keyReleased(e);
-                break;
-            default:
-                break;
-        }
-    }
+	public void keyReleased(KeyEvent e) {
+		switch (Gamestate.state) {
+		case MENU -> gamePanel.getGame().getMenu().keyReleased(e);
+		case PLAYING -> gamePanel.getGame().getPlaying().keyReleased(e);
+		case CREDITS -> gamePanel.getGame().getCredits().keyReleased(e);
+		default -> throw new IllegalArgumentException("Unexpected value: " + Gamestate.state);
+		}
+	}
 
     @Override
     public void keyPressed(KeyEvent e) {

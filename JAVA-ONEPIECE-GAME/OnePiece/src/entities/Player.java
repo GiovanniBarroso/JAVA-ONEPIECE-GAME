@@ -472,6 +472,8 @@ public class Player extends Entity {
         left = false;
         right = false;
         jump = false;
+        powerAttackActive=false;
+        attacking=false;
     }
 
     /**

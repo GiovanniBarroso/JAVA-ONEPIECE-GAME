@@ -49,7 +49,7 @@ public class State {
      */
     public void setGameState(Gamestate state) {
         switch(state) {
-            case MENU -> game.getAudioPlayer().playSong(AudioPlayer.MENU_1);
+            case MENU,CREDITS -> game.getAudioPlayer().playSong(AudioPlayer.MENU_1);
             case PLAYING -> game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLlvlIndex());
             default -> throw new IllegalArgumentException("Valor inesperado: " + state);
         }

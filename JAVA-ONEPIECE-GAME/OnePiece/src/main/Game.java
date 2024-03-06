@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import audio.AudioPlayer;
+import gamestates.Credits;
 import gamestates.GameOptions;
 import gamestates.Gamestate;
 import gamestates.Menu;
@@ -24,7 +25,7 @@ public class Game implements Runnable {
 
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
-
+    private Credits credits;
     private Playing playing;
     private Menu menu;
     private GameOptions gameOptions;
@@ -58,6 +59,7 @@ public class Game implements Runnable {
         audioPlayer = new AudioPlayer();
         menu = new Menu(this);
         playing = new Playing(this);
+    	credits = new Credits(this);
         gameOptions = new GameOptions(this);
     }
 
@@ -69,23 +71,15 @@ public class Game implements Runnable {
     /**
      * Actualiza el estado del juego en función del estado actual.
      */
-    public void update() {
-        switch (Gamestate.state) {
-            case MENU:
-                menu.update();
-                break;
-            case PLAYING:
-                playing.update();
-                break;
-            case OPTIONS:
-                gameOptions.update();
-                break;
-            case QUIT:
-            default:
-                System.exit(0);
-                break;
-        }
-    }
+	public void update() {
+		switch (Gamestate.state) {
+		case MENU -> menu.update();
+		case PLAYING -> playing.update();
+		case OPTIONS -> gameOptions.update();
+		case CREDITS -> credits.update();
+		case QUIT -> System.exit(0);
+		}
+	}
 
     /**
      * Muestra un mensaje en la ventana del juego durante un tiempo determinado.
@@ -119,21 +113,15 @@ public class Game implements Runnable {
      * 
      * @param g El objeto Graphics para renderizar.
      */
-    public void render(Graphics g) {
-        switch (Gamestate.state) {
-            case MENU:
-                menu.draw(g);
-                break;
-            case PLAYING:
-                playing.draw(g);
-                break;
-            case OPTIONS:
-                gameOptions.draw(g);
-                break;
-            default:
-                break;
-        }
-    }
+	public void render(Graphics g) {
+		switch (Gamestate.state) {
+		case MENU -> menu.draw(g);
+		case PLAYING -> playing.draw(g);
+		case OPTIONS -> gameOptions.draw(g);
+		case CREDITS -> credits.draw(g);
+		default -> throw new IllegalArgumentException("Unexpected value: " + Gamestate.state);
+		}
+	}
 
     @Override
     public void run() {
@@ -193,6 +181,9 @@ public class Game implements Runnable {
         return playing;
     }
 
+	public Credits getCredits() {
+		return credits;
+	}
     public GameOptions getGameOptions() {
         return gameOptions;
     }
