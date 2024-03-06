@@ -13,176 +13,195 @@ import gamestates.Gamestate;
 import gamestates.Menu;
 import gamestates.Playing;
 import ui.AudioOptions;
-import utilz.LoadSave;
 
+/**
+ * Clase principal del juego que gestiona la inicialización y el bucle principal del juego.
+ */
 public class Game implements Runnable {
 
-	private GameWindow gameWindow;
-	private GamePanel gamePanel;
-	private Thread gameThread;
+    private GamePanel gamePanel;
+    private Thread gameThread;
 
-	private final int FPS_SET = 120;
-	private final int UPS_SET = 200;
+    private final int FPS_SET = 120;
+    private final int UPS_SET = 200;
 
-	private Playing playing;
-	private Menu menu;
-	private GameOptions gameOptions;	
-	private AudioOptions audioOptions;
-	private AudioPlayer audioPlayer;
-	public final static int TILES_DEFAULT_SIZE = 32;
-	public final static float SCALE = 2f;
-	public final static int TILES_IN_WIDTH = 26;
-	public final static int TILES_IN_HEIGHT = 14;
-	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
-	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
-	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+    private Playing playing;
+    private Menu menu;
+    private GameOptions gameOptions;
+    private AudioOptions audioOptions;
+    private AudioPlayer audioPlayer;
 
-	public Game() {
-		initClasses();
+    public final static int TILES_DEFAULT_SIZE = 32;
+    public final static float SCALE = 2f;
+    public final static int TILES_IN_WIDTH = 26;
+    public final static int TILES_IN_HEIGHT = 14;
+    public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
+    public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+    public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
-		gamePanel = new GamePanel(this);
-		gameWindow = new GameWindow(gamePanel);
-		gamePanel.setFocusable(true);
-		gamePanel.requestFocus();
-		
-		startGameLoop();
-	}
+    /**
+     * Constructor que inicializa las clases y comienza el bucle principal del juego.
+     */
+    public Game() {
+        initClasses();
 
-	private void initClasses() {
-		audioOptions= new AudioOptions(this);
-		audioPlayer=new AudioPlayer();
-		menu = new Menu(this);
-		playing = new Playing(this);
-		gameOptions= new GameOptions(this);
-		
-	}
+        gamePanel = new GamePanel(this);
+        new GameWindow(gamePanel);
+        gamePanel.setFocusable(true);
+        gamePanel.requestFocus();
 
-	private void startGameLoop() {
-		gameThread = new Thread(this);
-		gameThread.start();
-	}
+        startGameLoop();
+    }
 
-	public void update() {
-		switch (Gamestate.state) {
-		case MENU:
-			menu.update();
-			break;
-		case PLAYING:
-			playing.update();
-			break;
-		case OPTIONS:
-			gameOptions.update();
-			break;
-		case QUIT:
-		default:
-			System.exit(0);
-			break;
+    private void initClasses() {
+        audioOptions = new AudioOptions(this);
+        audioPlayer = new AudioPlayer();
+        menu = new Menu(this);
+        playing = new Playing(this);
+        gameOptions = new GameOptions(this);
+    }
 
-		}
-	}
-	 public void showInGameMessage(String message, int duration) {
-	        JFrame frame = new JFrame("Mensaje");
-	        JLabel label = new JLabel(message);
-	       
-	        frame.add(label);
-	        frame.setSize(300, 100);
-	        frame.setLocationRelativeTo(null);
-	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        frame.setVisible(true);
+    private void startGameLoop() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
 
-	        // Temporizador para cerrar la ventana después de la duración especificada
-	        Timer timer = new Timer();
-	        timer.schedule(new TimerTask() {
-	            @Override
-	            public void run() {
-	                frame.dispose();
-	                timer.cancel();
-	            }
-	        }, duration);
-	    }
-	public void render(Graphics g) {
-		switch (Gamestate.state) {
-		case MENU:
-			menu.draw(g);
-			break;
-		case PLAYING:
-			playing.draw(g);
-			break;
-		case OPTIONS:
-			gameOptions.draw(g);
-		
-		default:
-			break;
-		}
-	}
+    /**
+     * Actualiza el estado del juego en función del estado actual.
+     */
+    public void update() {
+        switch (Gamestate.state) {
+            case MENU:
+                menu.update();
+                break;
+            case PLAYING:
+                playing.update();
+                break;
+            case OPTIONS:
+                gameOptions.update();
+                break;
+            case QUIT:
+            default:
+                System.exit(0);
+                break;
+        }
+    }
 
-	@Override
-	public void run() {
+    /**
+     * Muestra un mensaje en la ventana del juego durante un tiempo determinado.
+     * 
+     * @param message  El mensaje a mostrar.
+     * @param duration La duración del mensaje en milisegundos.
+     */
+    public void showInGameMessage(String message, int duration) {
+        JFrame frame = new JFrame("Mensaje");
+        JLabel label = new JLabel(message);
 
-		double timePerFrame = 1000000000.0 / FPS_SET;
-		double timePerUpdate = 1000000000.0 / UPS_SET;
+        frame.add(label);
+        frame.setSize(300, 100);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
 
-		long previousTime = System.nanoTime();
+        // Temporizador para cerrar la ventana después de la duración especificada
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                frame.dispose();
+                timer.cancel();
+            }
+        }, duration);
+    }
 
-		int frames = 0;
-		int updates = 0;
-		long lastCheck = System.currentTimeMillis();
+    /**
+     * Renderiza los gráficos del juego en función del estado actual.
+     * 
+     * @param g El objeto Graphics para renderizar.
+     */
+    public void render(Graphics g) {
+        switch (Gamestate.state) {
+            case MENU:
+                menu.draw(g);
+                break;
+            case PLAYING:
+                playing.draw(g);
+                break;
+            case OPTIONS:
+                gameOptions.draw(g);
+                break;
+            default:
+                break;
+        }
+    }
 
-		double deltaU = 0;
-		double deltaF = 0;
+    @Override
+    public void run() {
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
 
-		while (true) {
-			long currentTime = System.nanoTime();
+        long previousTime = System.nanoTime();
 
-			deltaU += (currentTime - previousTime) / timePerUpdate;
-			deltaF += (currentTime - previousTime) / timePerFrame;
-			previousTime = currentTime;
+        int frames = 0;
+        int updates = 0;
+        long lastCheck = System.currentTimeMillis();
 
-			if (deltaU >= 1) {
-				update();
-				updates++;
-				deltaU--;
-			}
+        double deltaU = 0;
+        double deltaF = 0;
 
-			if (deltaF >= 1) {
-				gamePanel.repaint();
-				frames++;
-				deltaF--;
-			}
+        while (true) {
+            long currentTime = System.nanoTime();
 
-			if (System.currentTimeMillis() - lastCheck >= 1000) {
-				lastCheck = System.currentTimeMillis();
-				System.out.println("FPS: " + frames + " | UPS: " + updates);
-				frames = 0;
-				updates = 0;
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
 
-			}
-		}
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
+            }
 
-	}
+            if (deltaF >= 1) {
+                gamePanel.repaint();
+                frames++;
+                deltaF--;
+            }
 
-	public void windowFocusLost() {
-		if (Gamestate.state == Gamestate.PLAYING)
-			playing.getPlayer().resetDirBooleans();
-	}
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                frames = 0;
+                updates = 0;
+            }
+        }
+    }
 
-	public Menu getMenu() {
-		return menu;
-	}
+    /**
+     * Maneja el evento de pérdida de foco de la ventana del juego.
+     */
+    public void windowFocusLost() {
+        if (Gamestate.state == Gamestate.PLAYING)
+            playing.getPlayer().resetDirBooleans();
+    }
 
-	public Playing getPlaying() {
-		return playing;
-	}
-	
-	public GameOptions getGameOptions() {
-		return gameOptions;
-	}
-	
-	public AudioOptions getAudioOptions() {
-		return audioOptions;
-	}
-	
-	public AudioPlayer getAudioPlayer() {
-		return audioPlayer;
-	}
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
+    }
+
+    public GameOptions getGameOptions() {
+        return gameOptions;
+    }
+
+    public AudioOptions getAudioOptions() {
+        return audioOptions;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
 }

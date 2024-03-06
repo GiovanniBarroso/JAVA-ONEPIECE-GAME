@@ -2,61 +2,72 @@ package objects;
 
 import java.util.Random;
 
+/**
+ * Representa un árbol de fondo en el juego.
+ */
 public class BackgroundTree {
 
-	private int x, y, type, aniIndex, aniTick;
+    private int x, y, type, aniIndex, aniTick;
 
-	public BackgroundTree(int x, int y, int type) {
-		this.x = x;
-		this.y = y;
-		this.type = type;
+    /**
+     * Crea un nuevo árbol de fondo.
+     * @param x la coordenada x del árbol
+     * @param y la coordenada y del árbol
+     * @param type el tipo de árbol
+     */
+    public BackgroundTree(int x, int y, int type) {
+        this.x = x;
+        this.y = y;
+        this.type = type;
 
-		// Sets the aniIndex to a random value, to get some variations for the trees so
-		// they all don't move in synch.
-		Random r = new Random();
-		aniIndex = r.nextInt(4);
+        // Establece el aniIndex a un valor aleatorio para obtener algunas variaciones en los árboles
+        // para que no todos se muevan sincrónicamente.
+        Random r = new Random();
+        aniIndex = r.nextInt(4);
+    }
 
-	}
+    /**
+     * Actualiza el árbol de fondo.
+     */
+    public void update() {
+        aniTick++;
+        if (aniTick >= 35) {
+            aniTick = 0;
+            aniIndex++;
+            if (aniIndex >= 4)
+                aniIndex = 0;
+        }
+    }
 
-	public void update() {
-		aniTick++;
-		if (aniTick >= 35) {
-			aniTick = 0;
-			aniIndex++;
-			if (aniIndex >= 4)
-				aniIndex = 0;
-		}
-	}
+    public int getAniIndex() {
+        return aniIndex;
+    }
 
-	public int getAniIndex() {
-		return aniIndex;
-	}
+    public void setAniIndex(int aniIndex) {
+        this.aniIndex = aniIndex;
+    }
 
-	public void setAniIndex(int aniIndex) {
-		this.aniIndex = aniIndex;
-	}
+    public int getX() {
+        return x;
+    }
 
-	public int getX() {
-		return x;
-	}
+    public void setX(int x) {
+        this.x = x;
+    }
 
-	public void setX(int x) {
-		this.x = x;
-	}
+    public int getY() {
+        return y;
+    }
 
-	public int getY() {
-		return y;
-	}
+    public void setY(int y) {
+        this.y = y;
+    }
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    public int getType() {
+        return type;
+    }
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
+    public void setType(int type) {
+        this.type = type;
+    }
 }

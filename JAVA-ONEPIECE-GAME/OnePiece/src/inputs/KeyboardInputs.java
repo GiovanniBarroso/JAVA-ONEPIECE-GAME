@@ -1,57 +1,63 @@
 package inputs;
 
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import gamestates.Gamestate;
 import main.GamePanel;
-import static utilz.Constants.Directions.*;
 
+/**
+ * Clase que maneja la entrada del teclado.
+ */
 public class KeyboardInputs implements KeyListener {
 
-	private GamePanel gamePanel;
+    private GamePanel gamePanel;
 
-	public KeyboardInputs(GamePanel gamePanel) {
-		this.gamePanel = gamePanel;
-	}
+    /**
+     * Constructor para inicializar los inputs del teclado.
+     * 
+     * @param gamePanel El panel principal del juego.
+     */
+    public KeyboardInputs(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // No se necesita implementar
+    }
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		switch(Gamestate.state) {
-		case MENU:
-			gamePanel.getGame().getMenu().keyReleased(e);
-			break;
-		case PLAYING:
-			gamePanel.getGame().getPlaying().keyReleased(e);
-			break;
-		case OPTIONS:
-			gamePanel.getGame().getGameOptions().keyReleased(e);
-		default:
-			break;
-		
-		}
-	}
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch(Gamestate.state) {
+            case MENU:
+                gamePanel.getGame().getMenu().keyReleased(e);
+                break;
+            case PLAYING:
+                gamePanel.getGame().getPlaying().keyReleased(e);
+                break;
+            case OPTIONS:
+                gamePanel.getGame().getGameOptions().keyReleased(e);
+                break;
+            default:
+                break;
+        }
+    }
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		switch(Gamestate.state) {
-		case MENU:
-			gamePanel.getGame().getMenu().keyPressed(e);
-			break;
-		case PLAYING:
-			gamePanel.getGame().getPlaying().keyPressed(e);
-			break;
-		case OPTIONS:
-			gamePanel.getGame().getGameOptions().keyPressed(e);
-		default:
-			break;
-		
-		}
-	}
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch(Gamestate.state) {
+            case MENU:
+                gamePanel.getGame().getMenu().keyPressed(e);
+                break;
+            case PLAYING:
+                gamePanel.getGame().getPlaying().keyPressed(e);
+                break;
+            case OPTIONS:
+                gamePanel.getGame().getGameOptions().keyPressed(e);
+                break;
+            default:
+                break;
+        }
+    }
 }
