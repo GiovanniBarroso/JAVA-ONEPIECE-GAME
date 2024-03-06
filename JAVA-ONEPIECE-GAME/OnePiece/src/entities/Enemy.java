@@ -41,28 +41,28 @@ public abstract class Enemy extends Entity {
 
     // Métodos protegidos
 
-    protected void knockback(Player player, int[][] lvlData) {
-        // Aplica el retroceso
-        if (player.hitbox.x < hitbox.x) {
-            hitbox.x += retreatDistance;
-        } else {
-            hitbox.x -= retreatDistance;
-        }
-
-        // Verifica si hay un bloque de suelo debajo del enemigo
-        boolean onGround = IsEntityOnFloor(hitbox, lvlData);
-        if (!onGround) {
-            while (!IsEntityOnFloor(hitbox, lvlData)) {
-                hitbox.y += GRAVITY;
-                if (IsEntityInWater(hitbox, lvlData)) {
-                    hurt(100);
-                    // Actualizar la animación mientras el enemigo está siendo golpeado por el agua
-                    break;
-                }
-                active = false;
-            }
-        }
-    }
+//    protected void knockback(Player player, int[][] lvlData) {
+//        // Aplica el retroceso
+//        if (player.hitbox.x < hitbox.x) {
+//            hitbox.x += retreatDistance;
+//        } else {
+//            hitbox.x -= retreatDistance;
+//        }
+//
+//        // Verifica si hay un bloque de suelo debajo del enemigo
+//        boolean onGround = IsEntityOnFloor(hitbox, lvlData);
+//        if (!onGround) {
+//            while (!IsEntityOnFloor(hitbox, lvlData)) {
+//                hitbox.y += GRAVITY;
+//                if (IsEntityInWater(hitbox, lvlData)) {
+//                    hurt(100);
+//                    // Actualizar la animación mientras el enemigo está siendo golpeado por el agua
+//                    break;
+//                }
+//                active = false;
+//            }
+//        }
+//    }
 
     protected void checkWaterCollision(int[][] lvlData) {
         if (IsEntityInWater(hitbox, lvlData)) {

@@ -165,11 +165,11 @@ public class EnemyManager {
             if (c.isActive())
                 if (attackBox.intersects(c.getHitbox()) && playing.getPlayer().getState() == ATAQUE) {
                     c.hurt(10);
-                    c.knockback(playing.getPlayer(), playing.getLevelManager().getCurrentLevel().getLevelData());
+                   
                     return;
                 } else if (attackBox.intersects(c.getHitbox()) && playing.getPlayer().getState() == ESPECIAL) {
                     c.hurt(20);
-                    c.knockback(playing.getPlayer(), playing.getLevelManager().getCurrentLevel().getLevelData());
+                   
                     return;
                 }
 
@@ -178,11 +178,11 @@ public class EnemyManager {
             if (e.isActive())
                 if (attackBox.intersects(e.getHitbox()) && playing.getPlayer().getState() == ATAQUE) {
                     e.hurt(10);
-                    e.knockback(playing.getPlayer(), playing.getLevelManager().getCurrentLevel().getLevelData());
+                   
                     return;
                 } else if (attackBox.intersects(e.getHitbox()) && playing.getPlayer().getState() == ESPECIAL) {
                     e.hurt(20);
-                    e.knockback(playing.getPlayer(), playing.getLevelManager().getCurrentLevel().getLevelData());
+                   
                     return;
                 }
 
@@ -191,11 +191,11 @@ public class EnemyManager {
             if (k.isActive())
                 if (attackBox.intersects(k.getHitbox()) && playing.getPlayer().getState() == ATAQUE) {
                     k.hurt(10);
-                    k.knockback(playing.getPlayer(), playing.getLevelManager().getCurrentLevel().getLevelData());
+//                   
                     return;
                 } else if (attackBox.intersects(k.getHitbox()) && playing.getPlayer().getState() == ESPECIAL) {
                     k.hurt(20);
-                    k.knockback(playing.getPlayer(), playing.getLevelManager().getCurrentLevel().getLevelData());
+                    
                     return;
                 }
     }

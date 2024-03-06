@@ -188,11 +188,11 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type) {
 			switch (enemy_type) {
 			case BUCANERO:
-				return 50;
+				return 1d0;
 			case ESPADACHIN:
-				return 50;
+				return 10;
 			case KUROHIGE:
-				return 50;
+				return 10;
 			default:
 				return 1;
 			}
