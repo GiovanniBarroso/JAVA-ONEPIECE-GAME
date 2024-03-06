@@ -15,6 +15,7 @@ import levels.LevelManager;
 import main.Game;
 import objects.ObjectManager;
 import ui.ControlesOverlay;
+import ui.GameCompletedOverlay;
 import ui.GameOverOverlay;
 import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
@@ -33,6 +34,7 @@ public class Playing extends State implements Statemethods {
 	private PauseOverlay pauseOverlay;
 	private ControlesOverlay controlesOverlay;
 	private GameOverOverlay gameOverOverlay;
+	private GameCompletedOverlay gameCompletedOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
 	private boolean paused = false;
 	private boolean controles = false;
@@ -49,6 +51,7 @@ public class Playing extends State implements Statemethods {
 
 	private boolean gameOver;
 	private boolean lvlCompleted;
+	private boolean gameCompleted;
 	private boolean drawRain;
 	private boolean drawShip = true;
 
@@ -74,7 +77,7 @@ public class Playing extends State implements Statemethods {
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SHIP);
 		for (int i = 0; i < shipImgs.length; i++)
 			shipImgs[i] = temp.getSubimage(i * 78, 0, 78, 72);
-		
+
 		calcLvlOffset();
 		loadStartLevel();
 		setDrawRainBoolean();
@@ -112,7 +115,7 @@ public class Playing extends State implements Statemethods {
 		controlesOverlay= new ControlesOverlay(this);
 		gameOverOverlay = new GameOverOverlay(this);
 		levelCompletedOverlay = new LevelCompletedOverlay(this);
-
+		gameCompletedOverlay = new GameCompletedOverlay(this);
 		rain = new Rain();
 	}
 
@@ -123,14 +126,19 @@ public class Playing extends State implements Statemethods {
 	public void update() {
 		if (paused) {
 			pauseOverlay.update();
-			controles=false;
+			return;
 		} 
 		if(controles) {
 			controlesOverlay.update();
 		}
-			else if (lvlCompleted) {
+		else if (gameCompleted)
+			gameCompletedOverlay.update();
+		else if (lvlCompleted) {
 			levelCompletedOverlay.update();
-		} else if (!gameOver) {
+			
+		} 
+		
+			else if (!gameOver) {
 			levelManager.update();
 			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			player.update();
@@ -216,6 +224,8 @@ public class Playing extends State implements Statemethods {
 			gameOverOverlay.draw(g);
 		else if (lvlCompleted)
 			levelCompletedOverlay.draw(g);
+		else if (gameCompleted)
+			gameCompletedOverlay.draw(g);
 		if (drawShip)
 			g.drawImage(shipImgs[shipAni], (int) (100 * Game.SCALE) - xLvlOffset,
 					(int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE),
@@ -341,6 +351,10 @@ public class Playing extends State implements Statemethods {
 				break;
 			case KeyEvent.VK_H:
 				controles=true;
+				break;
+			case KeyEvent.VK_K:
+				getEnemyManager().muerteGlobal();
+				break;
 			case KeyEvent.VK_X:
 				player.powerAttack();
 				break;
@@ -380,8 +394,8 @@ public class Playing extends State implements Statemethods {
 			if (controles)
 				controlesOverlay.mouseDragged(e);
 		}
-		
-		
+
+
 
 	}
 
@@ -397,9 +411,10 @@ public class Playing extends State implements Statemethods {
 				pauseOverlay.mousePressed(e);
 			if (controles)
 				controlesOverlay.mousePressed(e);
-
 			else if (lvlCompleted)
 				levelCompletedOverlay.mousePressed(e);
+			else if (gameCompleted)
+				gameCompletedOverlay.mousePressed(e);
 		} else {
 			gameOverOverlay.mousePressed(e);
 		}
@@ -428,6 +443,8 @@ public class Playing extends State implements Statemethods {
 				controlesOverlay.mouseReleased(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseReleased(e);
+			else if (gameCompleted)
+				gameCompletedOverlay.mouseReleased(e);
 		} else {
 			gameOverOverlay.mouseReleased(e);
 		}
@@ -447,6 +464,8 @@ public class Playing extends State implements Statemethods {
 				controlesOverlay.mouseMoved(e);
 			else if (lvlCompleted)
 				levelCompletedOverlay.mouseMoved(e);
+			else if (gameCompleted)
+				gameCompletedOverlay.mouseMoved(e);
 		} else {
 			gameOverOverlay.mouseMoved(e);
 		}
@@ -458,9 +477,16 @@ public class Playing extends State implements Statemethods {
 	 * @param levelCompleted El estado de nivel completado.
 	 */
 	public void setLevelCompleted(boolean levelCompleted) {
+		game.getAudioPlayer().lvlCompleted();
+		if (levelManager.getLlvlIndex() + 1 >= levelManager.getAmountOfLevels()) {
+			// No more levels
+			gameCompleted = true;
+			levelManager.setLevelIndex(0);
+			levelManager.loadNextLevel();
+			resetAll();
+			return;
+		}
 		this.lvlCompleted = levelCompleted;
-		if (levelCompleted)
-			game.getAudioPlayer().lvlCompleted();
 	}
 
 	/**
@@ -513,5 +539,13 @@ public class Playing extends State implements Statemethods {
 
 	public void setDrawShip(boolean drawShip) {
 		this.drawShip = drawShip;
+	}
+
+	public boolean isGameCompleted() {
+		return gameCompleted;
+	}
+
+	public void setGameCompleted(boolean gameCompleted) {
+		this.gameCompleted = gameCompleted;
 	}
 }

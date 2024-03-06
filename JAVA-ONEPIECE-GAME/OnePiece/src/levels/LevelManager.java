@@ -48,7 +48,7 @@ public class LevelManager {
         if (lvlIndex >= levels.size()) {
             lvlIndex = 0;
             System.out.println("¡No hay más niveles! ¡Juego completado!");
-            Gamestate.state = Gamestate.MENU;
+            
         }
 
         Level newLevel = levels.get(lvlIndex);
@@ -112,6 +112,13 @@ public class LevelManager {
                 aniIndex = 0;
         }
     }
+    public void resetToLevel1() {
+        // Asegúrate de que el índice del nivel esté establecido en 1
+        setLevelIndex(0); // Asume que el índice 0 corresponde al nivel 1
+        // Carga el nivel 1
+      
+    }
+    
 
     /**
      * Obtiene el nivel actual.
@@ -139,4 +146,8 @@ public class LevelManager {
     public int getLlvlIndex() {
         return lvlIndex;
     }
+
+	public void setLevelIndex(int lvlIndex) {
+		this.lvlIndex = lvlIndex;
+	}
 }

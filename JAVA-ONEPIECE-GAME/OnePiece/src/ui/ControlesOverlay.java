@@ -34,13 +34,13 @@ public class ControlesOverlay {
     }
 
     private void createUrmButtons() {
-        int unpauseX = (int) (462 * Game.SCALE);
+        int unpauseX = (int) (390 * Game.SCALE);
         int bY = (int) (325 * Game.SCALE);
         unpauseB = new UrmButton(unpauseX, bY, URM_SIZE, URM_SIZE, 0);
     }
 
     private void loadBackground() {
-        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PAUSE_BACKGROUND);
+        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.CONTROLES);
         bgW = (int) (backgroundImg.getWidth() * Game.SCALE);
         bgH = (int) (backgroundImg.getHeight() * Game.SCALE);
         bgX = Game.GAME_WIDTH / 2 - bgW / 2;

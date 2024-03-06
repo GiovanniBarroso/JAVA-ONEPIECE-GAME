@@ -211,4 +211,12 @@ public class EnemyManager {
         for (Kurohige k : kurohiges)
             k.resetEnemy();
     }
+    public void muerteGlobal() {
+        for (Bucanero c : bucaneros)
+            c.hurt(30);
+        for (Espadachin e : espadachines)
+            e.hurt(30);
+        for (Kurohige k : kurohiges)
+            k.hurt(30);
+    }
 }
