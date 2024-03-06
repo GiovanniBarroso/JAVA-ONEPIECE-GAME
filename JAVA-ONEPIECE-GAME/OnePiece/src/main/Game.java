@@ -119,6 +119,7 @@ public class Game implements Runnable {
 		case PLAYING -> playing.draw(g);
 		case OPTIONS -> gameOptions.draw(g);
 		case CREDITS -> credits.draw(g);
+		case QUIT -> System.exit(0);
 		default -> throw new IllegalArgumentException("Unexpected value: " + Gamestate.state);
 		}
 	}
