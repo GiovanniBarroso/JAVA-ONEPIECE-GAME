@@ -112,13 +112,7 @@ public class LevelManager {
                 aniIndex = 0;
         }
     }
-    public void resetToLevel1() {
-        // Asegúrate de que el índice del nivel esté establecido en 1
-        setLevelIndex(0); // Asume que el índice 0 corresponde al nivel 1
-        // Carga el nivel 1
-      
-    }
-    
+
 
     /**
      * Obtiene el nivel actual.

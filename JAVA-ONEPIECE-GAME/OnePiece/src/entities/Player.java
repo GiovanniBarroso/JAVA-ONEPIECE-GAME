@@ -95,7 +95,28 @@ public class Player extends Entity {
         hitbox.x = x;
         hitbox.y = y;
     }
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
+    // Métodos getter y setter para x
+    public int getX() {
+        return (int)x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    // Métodos getter y setter para y
+    public int getY() {
+        return (int)y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
     /**
      * Inicializa el cuadro de ataque del jugador.
      */
@@ -474,6 +495,7 @@ public class Player extends Entity {
         jump = false;
         powerAttackActive=false;
         attacking=false;
+        
     }
 
     /**
@@ -531,6 +553,8 @@ public class Player extends Entity {
     public void setJump(boolean jump) {
         this.jump = jump;
     }
+
+
 
     /**
      * Restablece todas las variables del jugador.

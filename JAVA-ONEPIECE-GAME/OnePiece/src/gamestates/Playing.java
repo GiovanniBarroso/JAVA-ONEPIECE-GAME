@@ -2,6 +2,7 @@ package gamestates;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -92,11 +93,29 @@ public class Playing extends State implements Statemethods {
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
 		drawShip = false;
 	}
+	public void loadStartLevel() {
+	    enemyManager.loadEnemies(levelManager.getCurrentLevel());
+	    objectManager.loadObjects(levelManager.getCurrentLevel());
 
-	private void loadStartLevel() {
-		enemyManager.loadEnemies(levelManager.getCurrentLevel());
-		objectManager.loadObjects(levelManager.getCurrentLevel());
+	    // Obtener las coordenadas del spawn del nivel actual
+	    Point spawnPoint = levelManager.getCurrentLevel().getPlayerSpawn();
+	    
+	    int spawnX = (int) spawnPoint.getX();
+	    int spawnY = (int) spawnPoint.getY();
+	    if(levelManager.getLlvlIndex()==0) {
+	    	spawnY = (int) spawnPoint.getY();
+	    }
+
+	    // Establecer la posición del jugador al spawn del nivel actual
+	    player.setX(spawnX);
+	    player.setY(spawnY);
+	    
+	 
+	   
 	}
+
+
+
 
 	private void calcLvlOffset() {
 		maxLvlOffsetX = levelManager.getCurrentLevel().getLvlOffset();
@@ -245,6 +264,8 @@ public class Playing extends State implements Statemethods {
 	/**
 	 * Reinicia todos los valores para comenzar un nuevo nivel.
 	 */
+	
+	
 	public void resetAll() {
 		gameOver = false;
 		paused = false;

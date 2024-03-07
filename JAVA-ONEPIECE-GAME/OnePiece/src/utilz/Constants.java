@@ -129,8 +129,8 @@ public class Constants {
 		public static final int BUCANERO_HEIGHT_DEFAULT = 32;
 		public static final int ESPADACHIN_WIDTH_DEFAULT = 72;
 		public static final int ESPADACHIN__HEIGHT_DEFAULT = 32;
-		public static final int KUROHIGE_WIDTH_DEFAULT = 72;
-		public static final int KUROHIGE__HEIGHT_DEFAULT = 32;
+		public static final int KUROHIGE_WIDTH_DEFAULT = 200;
+		public static final int KUROHIGE__HEIGHT_DEFAULT = 200;
 
 		public static final int BUCANERO_WIDTH = (int) (BUCANERO_WIDTH_DEFAULT * Game.SCALE);
 		public static final int BUCANERO_HEIGHT = (int) (BUCANERO_HEIGHT_DEFAULT * Game.SCALE);
@@ -144,7 +144,7 @@ public class Constants {
 		public static final int ESPADACHIN_DRAWOFFSET_X = (int) (26 * Game.SCALE);
 		public static final int ESPADACHIN_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
 		public static final int KUROHIGE_DRAWOFFSET_X = (int) (26 * Game.SCALE);
-		public static final int KUROHIGE_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
+		public static final int KUROHIGE_DRAWOFFSET_Y = (int) (34 * Game.SCALE);
 
 
 		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
@@ -192,7 +192,7 @@ public class Constants {
 			case ESPADACHIN:
 				return 10;
 			case KUROHIGE:
-				return 10;
+				return 100;
 			default:
 				return 1;
 			}

@@ -119,7 +119,7 @@ public class EnemyManager {
         for (Kurohige k : kurohiges)
             if (k.isActive()) {
                 g.drawImage(kurohigeArr[k.getState()][k.getAniIndex()], (int) k.getHitbox().x - xLvlOffset - KUROHIGE_DRAWOFFSET_X + k.flipX(), (int) k.getHitbox().y - KUROHIGE_DRAWOFFSET_Y,
-                        KUROHIGE_WIDTH * k.flipW(), KUROHIGE_HEIGHT, null);
+                        KUROHIGE_WIDTH * k.flipW(), KUROHIGE_HEIGHT*2, null);
                 k.drawHitbox(g, xLvlOffset);
             }
     }
@@ -216,7 +216,6 @@ public class EnemyManager {
             c.hurt(30);
         for (Espadachin e : espadachines)
             e.hurt(30);
-        for (Kurohige k : kurohiges)
-            k.hurt(30);
+        
     }
 }

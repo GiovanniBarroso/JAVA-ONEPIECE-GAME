@@ -73,13 +73,18 @@ public class GameCompletedOverlay {
 			}
 		} else if (isIn(credit, e))
 			if (credit.isMousePressed()) {
-				playing.resetAll();
+				
 				
 				
 				playing.setGameState(Gamestate.CREDITS);
+				playing.getLevelManager().setLevelIndex(0);
 				
+				playing.loadStartLevel();
+				playing.resetAll();
+				playing.getPlayer().resetAll();
 				playing.setGameCompleted(false);
-				playing.getLevelManager().resetToLevel1();
+				
+				
 				
 				
 			
