@@ -1,14 +1,10 @@
-/audio/
-/cargarAudio/
 /effects/
 /entities/
 /gamestates/
-/imagenes/
+/utilz/
 /inputs/
 /levels/
 /main/
-/module-info.class
 /objects/
-/res/
 /ui/
-/utilz/
+/imagenes/

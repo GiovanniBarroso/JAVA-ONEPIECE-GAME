@@ -195,7 +195,7 @@ public class Constants {
 			case ESPADACHIN:
 				return 20;
 			case KUROHIGE:
-				return 40;
+				return 140;
 			default:
 				return 1;
 			}
@@ -204,11 +204,11 @@ public class Constants {
 		public static int GetEnemyDmg(int enemy_type) {
 			switch (enemy_type) {
 			case BUCANERO:
-				return 20;
+				return 15;
 			case ESPADACHIN:
 				return 20;
 			case KUROHIGE:
-				return 20;
+				return 30;
 			default:
 				return 0;
 			}

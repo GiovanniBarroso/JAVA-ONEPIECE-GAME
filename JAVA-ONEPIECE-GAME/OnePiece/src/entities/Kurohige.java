@@ -23,7 +23,7 @@ public class Kurohige extends Enemy {
      */
     public Kurohige(float x, float y) {
         super(x, y, KUROHIGE_WIDTH, KUROHIGE_HEIGHT, KUROHIGE);
-        initHitbox(35, 19);
+        initHitbox(35, 27);
         initAttackBox();
     }
 

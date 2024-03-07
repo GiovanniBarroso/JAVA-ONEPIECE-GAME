@@ -46,12 +46,18 @@ public class State {
      * Establece el estado del juego.
      * 
      * @param state El estado del juego.
+     * @throws IllegalArgumentException Si el valor de estado es inesperado.
      */
     public void setGameState(Gamestate state) {
         switch(state) {
-            case MENU,CREDITS -> game.getAudioPlayer().playSong(AudioPlayer.MENU_1);
-            case PLAYING -> game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLlvlIndex());
-            default -> throw new IllegalArgumentException("Valor inesperado: " + state);
+            case MENU,CREDITS:
+                game.getAudioPlayer().playSong(AudioPlayer.MENU_1);
+                break;
+            case PLAYING:
+                game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLlvlIndex());
+                break;
+            default:
+                throw new IllegalArgumentException("Valor inesperado: " + state);
         }
         Gamestate.state = state;
     }

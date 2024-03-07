@@ -66,13 +66,15 @@ public class AudioPlayer {
 		updateEffectsVolume();
 
 	}
-
-	/**
-	 * Obtiene un Clip de audio a partir del nombre del archivo.
-	 *
-	 * @param name El nombre del archivo de audio.
-	 * @return Un objeto Clip que representa el archivo de audio.
-	 */
+    /**
+     * Obtiene un Clip de audio a partir del nombre del archivo.
+     *
+     * @param name El nombre del archivo de audio.
+     * @return Un objeto Clip que representa el archivo de audio.
+     * @throws UnsupportedAudioFileException Si el archivo de audio no es compatible.
+     * @throws IOException                   Si ocurre un error de entrada/salida al leer el archivo de audio.
+     * @throws LineUnavailableException      Si no se puede acceder a la línea de audio.
+     */
 	private Clip getClip(String name) {
 		URL url = getClass().getResource("/cargarAudio/" + name + ".wav");
 		AudioInputStream audio;

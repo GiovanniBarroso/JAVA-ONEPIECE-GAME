@@ -93,49 +93,58 @@ public class Playing extends State implements Statemethods {
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
 		drawShip = false;
 	}
+
+	/**
+	 * Carga el inicio del nivel actual. Carga los enemigos y objetos del nivel, y
+	 * posiciona al jugador en el punto de inicio del nivel.
+	 */
 	public void loadStartLevel() {
-	    enemyManager.loadEnemies(levelManager.getCurrentLevel());
-	    objectManager.loadObjects(levelManager.getCurrentLevel());
+		enemyManager.loadEnemies(levelManager.getCurrentLevel()); // Carga los enemigos del nivel actual
+		objectManager.loadObjects(levelManager.getCurrentLevel()); // Carga los objetos del nivel actual
 
-	    // Obtener las coordenadas del spawn del nivel actual
-	    Point spawnPoint = levelManager.getCurrentLevel().getPlayerSpawn();
-	    
-	    int spawnX = (int) spawnPoint.getX();
-	    int spawnY = (int) spawnPoint.getY();
-	    if(levelManager.getLlvlIndex()==0) {
-	    	spawnY = (int) spawnPoint.getY();
-	    }
+		// Obtener las coordenadas del spawn del nivel actual
+		Point spawnPoint = levelManager.getCurrentLevel().getPlayerSpawn();
 
-	    // Establecer la posición del jugador al spawn del nivel actual
-	    player.setX(spawnX);
-	    player.setY(spawnY);
-	    
-	 
-	   
+		int spawnX = (int) spawnPoint.getX();
+		int spawnY = (int) spawnPoint.getY();
+		if (levelManager.getLlvlIndex() == 0) {
+			spawnY = (int) spawnPoint.getY(); // Establece la posición Y del jugador al spawn del nivel actual
+		}
+
+		// Establecer la posición del jugador al spawn del nivel actual
+		player.setX(spawnX);
+		player.setY(spawnY);
 	}
 
-
-
-
+	/**
+	 * Calcula el desplazamiento máximo del nivel en el eje X.
+	 */
 	private void calcLvlOffset() {
 		maxLvlOffsetX = levelManager.getCurrentLevel().getLvlOffset();
 	}
 
+	/**
+	 * Inicializa las clases necesarias para el juego. Crea instancias de
+	 * LevelManager, EnemyManager, ObjectManager y Player, y carga los datos del
+	 * nivel actual.
+	 */
 	private void initClasses() {
-		levelManager = new LevelManager(game);
-		enemyManager = new EnemyManager(this);
-		objectManager = new ObjectManager(this);
+		levelManager = new LevelManager(game); // Crea una instancia de LevelManager
+		enemyManager = new EnemyManager(this); // Crea una instancia de EnemyManager
+		objectManager = new ObjectManager(this); // Crea una instancia de ObjectManager
 
-		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
-		player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
-		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
+		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this); // Crea una instancia de
+																								// Player
+		player.loadLvlData(levelManager.getCurrentLevel().getLevelData()); // Carga los datos del nivel actual en el
+																			// jugador
+		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn()); // Establece el punto de spawn del jugador
 
-		pauseOverlay = new PauseOverlay(this);
-		controlesOverlay= new ControlesOverlay(this);
-		gameOverOverlay = new GameOverOverlay(this);
-		levelCompletedOverlay = new LevelCompletedOverlay(this);
-		gameCompletedOverlay = new GameCompletedOverlay(this);
-		rain = new Rain();
+		pauseOverlay = new PauseOverlay(this); // Crea una instancia de PauseOverlay
+		controlesOverlay = new ControlesOverlay(this); // Crea una instancia de ControlesOverlay
+		gameOverOverlay = new GameOverOverlay(this); // Crea una instancia de GameOverOverlay
+		levelCompletedOverlay = new LevelCompletedOverlay(this); // Crea una instancia de LevelCompletedOverlay
+		gameCompletedOverlay = new GameCompletedOverlay(this); // Crea una instancia de GameCompletedOverlay
+		rain = new Rain(); // Crea una instancia de Rain
 	}
 
 	/**
@@ -146,18 +155,17 @@ public class Playing extends State implements Statemethods {
 		if (paused) {
 			pauseOverlay.update();
 			return;
-		} 
-		if(controles) {
-			controlesOverlay.update();
 		}
-		else if (gameCompleted)
+		if (controles) {
+			controlesOverlay.update();
+		} else if (gameCompleted)
 			gameCompletedOverlay.update();
 		else if (lvlCompleted) {
 			levelCompletedOverlay.update();
-			
-		} 
-		
-			else if (!gameOver) {
+
+		}
+
+		else if (!gameOver) {
 			levelManager.update();
 			objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			player.update();
@@ -232,14 +240,13 @@ public class Playing extends State implements Statemethods {
 			g.setColor(new Color(0, 0, 0, 150));
 			g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 			pauseOverlay.draw(g);
-		} 
+		}
 
 		if (controles) {
 			g.setColor(new Color(0, 0, 0, 150));
 			g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 			controlesOverlay.draw(g);
-		} 
-		else if (gameOver)
+		} else if (gameOver)
 			gameOverOverlay.draw(g);
 		else if (lvlCompleted)
 			levelCompletedOverlay.draw(g);
@@ -264,12 +271,11 @@ public class Playing extends State implements Statemethods {
 	/**
 	 * Reinicia todos los valores para comenzar un nuevo nivel.
 	 */
-	
-	
+
 	public void resetAll() {
 		gameOver = false;
 		paused = false;
-		controles= false;
+		controles = false;
 		lvlCompleted = false;
 		player.resetAll();
 		enemyManager.resetAllEnemies();
@@ -371,7 +377,7 @@ public class Playing extends State implements Statemethods {
 				paused = true;
 				break;
 			case KeyEvent.VK_H:
-				controles=true;
+				controles = true;
 				break;
 			case KeyEvent.VK_K:
 				getEnemyManager().muerteGlobal();
@@ -415,8 +421,6 @@ public class Playing extends State implements Statemethods {
 			if (controles)
 				controlesOverlay.mouseDragged(e);
 		}
-
-
 
 	}
 
@@ -524,7 +528,7 @@ public class Playing extends State implements Statemethods {
 	 */
 	public void unpauseGame() {
 		paused = false;
-		controles=false;
+		controles = false;
 		if (getLevelManager().getLlvlIndex() == 0) {
 			isDrawShip(true);
 		}

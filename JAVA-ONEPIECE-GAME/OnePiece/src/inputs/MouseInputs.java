@@ -23,6 +23,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         this.gamePanel = gamePanel;
     }
 
+    /**
+     * Maneja el evento de arrastre del ratón.
+     * 
+     * @param e El evento de arrastre del ratón.
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         switch(Gamestate.state) {
@@ -37,6 +42,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Maneja el evento de movimiento del ratón.
+     * 
+     * @param e El evento de movimiento del ratón.
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         switch(Gamestate.state) {
@@ -54,6 +64,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Maneja el evento de clic del ratón.
+     * 
+     * @param e El evento de clic del ratón.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         switch(Gamestate.state) {
@@ -65,6 +80,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Maneja el evento de presión del ratón.
+     * 
+     * @param e El evento de presión del ratón.
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         switch(Gamestate.state) {
@@ -82,6 +102,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Maneja el evento de liberación del ratón.
+     * 
+     * @param e El evento de liberación del ratón.
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         switch(Gamestate.state) {
@@ -99,11 +124,21 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Maneja el evento de entrada del ratón.
+     * 
+     * @param e El evento de entrada del ratón.
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         // No se necesita implementar
     }
 
+    /**
+     * Maneja el evento de salida del ratón.
+     * 
+     * @param e El evento de salida del ratón.
+     */
     @Override
     public void mouseExited(MouseEvent e) {
         // No se necesita implementar

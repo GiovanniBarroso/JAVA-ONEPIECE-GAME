@@ -65,6 +65,11 @@ public class Level {
         calcLvlOffsets();
     }
 
+    // Métodos privados
+
+    /**
+     * Carga el nivel a partir de una imagen.
+     */
     private void loadLevel() {
         for (int y = 0; y < img.getHeight(); y++)
             for (int x = 0; x < img.getWidth(); x++) {
@@ -79,6 +84,13 @@ public class Level {
             }
     }
 
+    /**
+     * Carga los datos del nivel.
+     * 
+     * @param redValue El valor rojo.
+     * @param x        La coordenada x.
+     * @param y        La coordenada y.
+     */
     private void loadLevelData(int redValue, int x, int y) {
         if (redValue >= 50)
             lvlData[y][x] = 0;
@@ -90,10 +102,23 @@ public class Level {
         }
     }
 
+    /**
+     * Obtiene el tipo de césped aleatorio en función de la posición x.
+     * 
+     * @param xPos La posición x.
+     * @return El tipo de césped.
+     */
     private int getRndGrassType(int xPos) {
         return xPos % 2;
     }
 
+    /**
+     * Carga las entidades del nivel.
+     * 
+     * @param greenValue El valor verde.
+     * @param x          La coordenada x.
+     * @param y          La coordenada y.
+     */
     private void loadEntities(int greenValue, int x, int y) {
         switch (greenValue) {
             case BUCANERO -> bucanero.add(new Bucanero(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
@@ -103,6 +128,13 @@ public class Level {
         }
     }
 
+    /**
+     * Carga los objetos del nivel.
+     * 
+     * @param blueValue El valor azul.
+     * @param x         La coordenada x.
+     * @param y         La coordenada y.
+     */
     private void loadObjects(int blueValue, int x, int y) {
         switch (blueValue) {
             case RED_POTION, BLUE_POTION -> potions.add(new Potion(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
@@ -112,20 +144,31 @@ public class Level {
             case TREE_ONE, TREE_TWO, TREE_THREE -> trees.add(new BackgroundTree(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
         }
     }
-  
+
+    /**
+     * Calcula los desplazamientos del nivel.
+     */
     private void calcLvlOffsets() {
         lvlTilesWide = img.getWidth();
         maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
         maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
     }
 
+    /**
+     * Calcula la posición de aparición del jugador.
+     */
     private void calcPlayerSpawn() {
         playerSpawn = GetPlayerSpawn(img);
     }
 
+    /**
+     * Crea los datos del nivel.
+     */
     private void createLevelData() {
         lvlData = GetLevelData(img);
     }
+
+    // Métodos públicos
 
     /**
      * Obtiene el índice del sprite en una posición específica del nivel.
