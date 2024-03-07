@@ -48,7 +48,7 @@ public class EnemyManager {
             for (int i = 0; i < espadachinArr[j].length; i++)
                 espadachinArr[j][i] = temp2.getSubimage(i * ESPADACHIN_WIDTH_DEFAULT, j * ESPADACHIN__HEIGHT_DEFAULT, ESPADACHIN_WIDTH_DEFAULT, ESPADACHIN__HEIGHT_DEFAULT);
 
-        kurohigeArr = new BufferedImage[3][12];
+        kurohigeArr = new BufferedImage[5][12];
         BufferedImage temp3 = LoadSave.GetSpriteAtlas(LoadSave.KUROHIGE_SPRITE);
         for (int j = 0; j < kurohigeArr.length; j++)
             for (int i = 0; i < kurohigeArr[j].length; i++)
@@ -216,6 +216,7 @@ public class EnemyManager {
             c.hurt(30);
         for (Espadachin e : espadachines)
             e.hurt(30);
-        
+        for (Kurohige k : kurohiges)
+            k.hurt(20);
     }
 }

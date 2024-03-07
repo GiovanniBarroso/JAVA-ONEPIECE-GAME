@@ -81,33 +81,7 @@ public class Game implements Runnable {
 		}
 	}
 
-    /**
-     * Muestra un mensaje en la ventana del juego durante un tiempo determinado.
-     * 
-     * @param message  El mensaje a mostrar.
-     * @param duration La duración del mensaje en milisegundos.
-     */
-    public void showInGameMessage(String message, int duration) {
-        JFrame frame = new JFrame("Mensaje");
-        JLabel label = new JLabel(message);
-
-        frame.add(label);
-        frame.setSize(300, 100);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
-
-        // Temporizador para cerrar la ventana después de la duración especificada
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                frame.dispose();
-                timer.cancel();
-            }
-        }, duration);
-    }
-
+ 
     /**
      * Renderiza los gráficos del juego en función del estado actual.
      * 

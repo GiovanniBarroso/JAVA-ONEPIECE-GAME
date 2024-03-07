@@ -4,6 +4,7 @@ import static utilz.Constants.EnemyConstants.*;
 
 import java.awt.geom.Rectangle2D;
 
+import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.Directions.*;
 
 import main.Game;
@@ -41,10 +42,27 @@ public class Kurohige extends Enemy {
      */
     public void update(int[][] lvlData, Player player) {
         updateBehavior(lvlData, player);
-        updateAnimationTick();
+        UP();
         updateAttackBox();
     }
 
+    protected void UP() {
+		aniTick++;
+		if (aniTick >= ANI_SPEED + 5) {
+			aniTick = 0;
+			aniIndex++;
+			if (aniIndex >= GetSpriteAmount(enemyType, state)) {
+				aniIndex = 0;
+
+				switch (state) {
+				case ATTACK -> state = IDLE;
+				case DEAD, DEAD2,DEAD3 -> {
+					active = false;
+				}
+				}
+			}
+		}
+	}
     /**
      * Actualiza la posición del cuadro de ataque.
      */
@@ -80,6 +98,11 @@ public class Kurohige extends Enemy {
                         attackChecked = false;
                     if (aniIndex == 3 && !attackChecked)
                         checkPlayerHit(attackBox, player);
+                    break;
+                case HIT2:
+                    if (aniIndex >= GetSpriteAmount(KUROHIGE, HIT2) - 1) {
+                        newState(IDLE);
+                    }
                     break;
             }
         }

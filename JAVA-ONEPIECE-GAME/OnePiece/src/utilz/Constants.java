@@ -13,7 +13,7 @@ public class Constants {
 
 		public static final int CANNON_BALL_WIDTH = (int) (Game.SCALE * CANNON_BALL_DEFAULT_WIDTH);
 		public static final int CANNON_BALL_HEIGHT = (int) (Game.SCALE * CANNON_BALL_DEFAULT_HEIGHT);
-		public static final float SPEED = 0.55f * Game.SCALE;
+		public static final float SPEED = 1f * Game.SCALE;
 	}
 
 	public static class ObjectConstants {
@@ -124,6 +124,7 @@ public class Constants {
 		public static final int HIT2 = 2;
 		public static final int DEAD = 2;
 		public static final int DEAD2 = 3;
+		public static final int DEAD3 = 4;
 
 		public static final int BUCANERO_WIDTH_DEFAULT = 72;
 		public static final int BUCANERO_HEIGHT_DEFAULT = 32;
@@ -176,7 +177,9 @@ public class Constants {
 					return 8;
 				case ATTACK:
 					return 12;
-				case DEAD:
+				case DEAD3:
+					return 9;
+				case HIT2:
 					return 9;
 				}
 			}
@@ -188,11 +191,11 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type) {
 			switch (enemy_type) {
 			case BUCANERO:
-				return 10;
+				return 20;
 			case ESPADACHIN:
-				return 10;
+				return 20;
 			case KUROHIGE:
-				return 100;
+				return 40;
 			default:
 				return 1;
 			}
