@@ -13,7 +13,7 @@ public class Credits extends State implements Statemethods {
 	private BufferedImage backgroundImg, creditsImg;
 	private int bgX, bgY, bgW, bgH;
 	private float bgYFloat;
-
+	  private int elapsedTimeSeconds = 0;
 	private ArrayList<ShowEntity> entitiesList;
 
 	public Credits(Game game) {
@@ -45,6 +45,11 @@ public class Credits extends State implements Statemethods {
 		bgYFloat -= 0.2f;
 		for (ShowEntity se : entitiesList)
 			se.update();
+		
+		elapsedTimeSeconds++;
+		if (elapsedTimeSeconds >= 6300) {
+            System.exit(0); 
+        }
 	}
 
 	@Override
@@ -58,10 +63,7 @@ public class Credits extends State implements Statemethods {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			bgYFloat = 0;
-			setGameState(Gamestate.MENU);
-		}
+		
 	}
 
 	@Override
@@ -111,6 +113,7 @@ public class Credits extends State implements Statemethods {
 				aniIndex++;
 				if (aniIndex >= idleAnimation.length)
 					aniIndex = 0;
+			
 			}
 
 		}
